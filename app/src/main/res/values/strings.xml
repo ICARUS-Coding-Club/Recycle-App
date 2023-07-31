@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Recycle_App</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">홈 화면</string>
+    <string name="title_info">쓰레기 안내</string>
+    <string name="title_search">쓰레기 검색</string>
+    <string name="title_current_situation">쓰레기 현황</string>
+    <string name="title_setting">앱 설정</string>
 </resources>

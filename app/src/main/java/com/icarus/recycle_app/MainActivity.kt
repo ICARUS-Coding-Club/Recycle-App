@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
                 R.id.navigation_home, R.id.navigation_info,R.id.navigation_current_situation,R.id.navigation_setting
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 

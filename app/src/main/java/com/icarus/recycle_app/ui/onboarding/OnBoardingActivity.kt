@@ -3,10 +3,11 @@ package com.icarus.recycle_app.ui.onboarding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.ViewPager2Adapter
-import com.icarus.recycle_app.databinding.ActivityMainBinding
 import com.icarus.recycle_app.databinding.ActivityOnboardingBinding
+import com.icarus.recycle_app.ui.onboarding.onboardings.OnBoardingFirstFragment
+import com.icarus.recycle_app.ui.onboarding.onboardings.OnBoardingSecondFragment
+import com.icarus.recycle_app.ui.onboarding.onboardings.OnBoardingThirdFragment
 
 class OnBoardingActivity : AppCompatActivity() {
 

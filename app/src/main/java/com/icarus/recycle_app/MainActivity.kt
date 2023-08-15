@@ -1,5 +1,6 @@
 package com.icarus.recycle_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -9,6 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.icarus.recycle_app.databinding.ActivityMainBinding
+import com.icarus.recycle_app.ui.onboarding.OnBoardingActivity
+import com.icarus.recycle_app.ui.search.SearchActivity
 
 class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListener {
 
@@ -42,14 +45,6 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
 
     }
 
-
-
-
-
-
-    /**
-     * 임시 리스너 설정
-     */
     private fun initListener() {
         binding.fab.setOnClickListener {
             val bottomSheetDialog = MainBottomSheetDialog()
@@ -63,5 +58,19 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         // 이 메서드는 MainBottomSheetDialog 내부에서 호출될 것입니다.
         // 예시로 로그 출력을 해보겠습니다.
         Log.d("MainActivity", "Button clicked with text: $text")
+
+        when (text) {
+            "button1" -> {
+                val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra("type_click", 0)
+                startActivity(intent)
+            }
+            "button2" -> {
+                val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra("type_click", 1)
+                startActivity(intent)
+            }
+        }
+
     }
 }

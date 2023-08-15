@@ -1,4 +1,4 @@
-package com.icarus.recycle_app.ui.onboarding
+package com.icarus.recycle_app.ui.onboarding.onboardings
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,14 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.icarus.recycle_app.MainActivity
-import com.icarus.recycle_app.R
-import com.icarus.recycle_app.adapters.ViewPager2Adapter
-import com.icarus.recycle_app.databinding.FragmentHomeBinding
-import com.icarus.recycle_app.databinding.FragmentOnboardingFirstBinding
-import com.icarus.recycle_app.databinding.FragmentOnboardingSecondBinding
 import com.icarus.recycle_app.databinding.FragmentOnboardingThirdBinding
 
 class OnBoardingThirdFragment : Fragment() {

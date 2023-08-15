@@ -19,11 +19,11 @@ class MainBottomSheetDialog : BottomSheetDialogFragment() {
         val button1 = v.findViewById<Button>(R.id.button1)
         val button2 = v.findViewById<Button>(R.id.button2)
         button1.setOnClickListener { v1: View? ->
-            mListener!!.onButtonClicked("Button 1 clicked")
+            mListener!!.onButtonClicked("button1")
             dismiss()
         }
         button2.setOnClickListener { v12: View? ->
-            mListener!!.onButtonClicked("Button 2 clicked")
+            mListener!!.onButtonClicked("button2")
             dismiss()
         }
         return v

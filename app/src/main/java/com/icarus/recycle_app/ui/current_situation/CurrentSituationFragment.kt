@@ -1,32 +1,62 @@
 package com.icarus.recycle_app.ui.current_situation
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.ui.current_situation.placeholder.PlaceholderContent
 
+/**
+ * A fragment representing a list of Items.
+ */
 class CurrentSituationFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = CurrentSituationFragment()
-    }
+    private var columnCount = 1
 
-    private lateinit var viewModel: CurrentSituationViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            columnCount = it.getInt(ARG_COLUMN_COUNT)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_current_situation, container, false)
+        val view = inflater.inflate(R.layout.fragment_current_situation, container, false)
+
+        // Set the adapter
+        if (view is RecyclerView) {
+            with(view) {
+                layoutManager = when {
+                    columnCount <= 1 -> LinearLayoutManager(context)
+                    else -> GridLayoutManager(context, columnCount)
+                }
+                adapter = CurrentSituationAdapter(PlaceholderContent.ITEMS)
+            }
+        }
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CurrentSituationViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    companion object {
 
+        // TODO: Customize parameter argument names
+        const val ARG_COLUMN_COUNT = "column-count"
+
+        // TODO: Customize parameter initialization
+        @JvmStatic
+        fun newInstance(columnCount: Int) =
+            CurrentSituationFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_COLUMN_COUNT, columnCount)
+                }
+            }
+    }
 }

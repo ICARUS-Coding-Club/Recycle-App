@@ -17,6 +17,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // supportActionBar?.hide()
 
         val fragmentList = arrayListOf<Fragment>(
             OnBoardingFirstFragment(),

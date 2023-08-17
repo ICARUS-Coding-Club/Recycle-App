@@ -2,6 +2,11 @@ package com.icarus.recycle_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.GridView
+import android.widget.Toast
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity

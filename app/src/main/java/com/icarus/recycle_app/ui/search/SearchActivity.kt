@@ -3,6 +3,7 @@ package com.icarus.recycle_app.ui.search
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentSearchBarcodeBinding
 import com.icarus.recycle_app.ui.search.barcode.SearchBarcodeFragment
@@ -13,22 +14,18 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SearchImageFragment.newInstance())
-                .commitNow()
-        }
+
 
         val intent = intent
-        val typeClickValue = intent.getIntExtra("type_click", -1)
+        val typeClickValue = intent.getIntExtra("click_btn", -1)
 
         when (typeClickValue) {
-            0 -> {
+            0, 1 -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, SearchImageFragment.newInstance())
+                    .replace(R.id.container, SearchImageFragment.newInstance(typeClickValue))
                     .commitNow()
             }
-            1 -> {
+            2 -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, SearchBarcodeFragment.newInstance())
                     .commitNow()

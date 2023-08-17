@@ -57,17 +57,22 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         // 버튼이 클릭되었을 때의 동작을 구현합니다.
         // 이 메서드는 MainBottomSheetDialog 내부에서 호출될 것입니다.
         // 예시로 로그 출력을 해보겠습니다.
-        Log.d("MainActivity", "Button clicked with text: $text")
+        Log.d("MyArg", "Button clicked with text: $text")
 
         when (text) {
-            "button1" -> {
+            "click_btn_camera" -> {
                 val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra("type_click", 0)
+                intent.putExtra("click_btn", 0)
                 startActivity(intent)
             }
-            "button2" -> {
+            "click_btn_gallery" -> {
                 val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra("type_click", 1)
+                intent.putExtra("click_btn", 1)
+                startActivity(intent)
+            }
+            "click_btn_barcode" -> {
+                val intent = Intent(this, SearchActivity::class.java)
+                intent.putExtra("click_btn", 2)
                 startActivity(intent)
             }
         }

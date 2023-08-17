@@ -77,10 +77,9 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
-        app:layout_constraintTop_toBottomOf="@id/custom_toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:orientation="vertical"
@@ -89,6 +88,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl1"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#D3F1E8">
@@ -96,7 +96,7 @@
                 <TextView
                     android:id="@+id/tvClFirstAppInfo1"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/svCl1"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="리사이클러 앱"
@@ -106,6 +106,7 @@
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/svCl1"
                     app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1"
+                    app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
                     android:layout_marginVertical="15dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_width="match_parent"
@@ -114,35 +115,29 @@
                 <TextView
                     android:id="@+id/tvClFirstAppInfo2"
                     app:layout_constraintTop_toBottomOf="@id/svCl1"
-                    app:layout_constraintStart_toStartOf="@id/svCl1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="30sp"
                     android:text="어떻게 버릴까"
                     android:layout_marginVertical="20dp" />
 
-                <TextView
-                    android:id="@+id/tvClFirstAppInfo3"
-                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo2"
-                    app:layout_constraintStart_toStartOf="@id/svCl1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="기타 잡다한 설명등등"
-                    android:layout_marginVertical="20dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 색깔은 임시로 넣어 둔 것 -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="10dp"
                 android:id="@+id/cl2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#E8C8C8"
-                android:paddingBottom="200dp" >
+                android:background="#E8C8C8">
 
                 <TextView
-                    android:layout_margin="20dp"
+                    android:padding="10dp"
+                    android:id="@+id/tv_title"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
@@ -150,56 +145,202 @@
                     android:textSize="20sp"
                     android:text="카테고리별 쓰레기" />
                 <GridLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/gl1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:columnCount="5"
                     android:rowCount="2">
-
-                    <Button
-                        android:text="Button 1"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_row="0"
-                        android:layout_column="0" />
+                        android:layout_column="0"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:text="가구/인테리어"/>
+                    </LinearLayout>
 
-                    <Button
-                        android:text="Button 2"
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_row="0"
-                        android:layout_column="1" />
-
-                    <Button
-                        android:text="Button 2"
+                        android:layout_column="1"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가전제품"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_row="0"
-                        android:layout_column="2" />
-
-                    <Button
-                        android:text="Button 2"
+                        android:layout_column="2"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="생활용퓸"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_row="0"
-                        android:layout_column="3" />
-
-                    <Button
-                        android:text="Button 3"
+                        android:layout_column="3"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="욕실용품"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_row="0"
-                        android:layout_column="4" />
+                        android:layout_column="4"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="도서/문구"/>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="화장품"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="1"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주방용품"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="2"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="식품"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="3"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:text="용기/포장재"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="4"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_error"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="패션/잡화"/>
+                    </LinearLayout>
                 </GridLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:id="@+id/cl3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#BDCAEC"
-                android:paddingBottom="100dp" >
+                android:paddingBottom="150dp">
 
-                <TextView
-                    android:layout_margin="20dp"
+                <GridView
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="기타 등등" />
+                    android:numColumns="3"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

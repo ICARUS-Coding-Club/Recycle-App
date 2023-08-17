@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.databinding.FragmentHomeBinding
+import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
 import com.icarus.recycle_app.utils.CameraHelper
 import java.io.File
 import java.io.IOException
@@ -29,11 +31,16 @@ import java.util.Locale
 
 class SearchImageFragment : Fragment() {
 
-    private lateinit var capturedImageView: ImageView
 
+    private var _binding: FragmentSearchImageBinding? = null
     private val REQUEST_IMAGE_CAPTURE = 1
     private val REQUEST_GALLERY_IMAGE = 2 // 갤러리 요청 코드 추가
     private var photoUri: Uri? = null
+
+
+    private val binding get() = _binding!!
+
+
     companion object {
 
         private const val ARG_TYPE = "click_btn"
@@ -59,6 +66,8 @@ class SearchImageFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchImageViewModel::class.java)
 
+
+
         cameraHelper = CameraHelper(requireActivity())
 
         ActivityCompat.requestPermissions(requireActivity(),
@@ -72,10 +81,17 @@ class SearchImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_search_image, container, false)
-        capturedImageView = view.findViewById(R.id.ivCameraResult)  // 참조 얻기
+        _binding = FragmentSearchImageBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        return view
+
+        binding.fabBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+
+
+        return root
     }
 
 
@@ -91,6 +107,9 @@ class SearchImageFragment : Fragment() {
                 // 다른 클래스나 메서드 사용 등의 다른 동작 수행
             }
         }
+
+
+
     }
     private fun takePhotoFromCamera() {
         val intent = cameraHelper.dispatchTakePictureIntent()
@@ -109,10 +128,10 @@ class SearchImageFragment : Fragment() {
 
         if (requestCode == cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val photoUri = cameraHelper.getPhotoUri()
-            Glide.with(requireActivity()).load(photoUri).into(capturedImageView)
+            Glide.with(requireActivity()).load(photoUri).into(binding.ivCameraResult)
         } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
             val selectedImage = data?.data
-            Glide.with(requireActivity()).load(selectedImage).into(capturedImageView)
+            Glide.with(requireActivity()).load(selectedImage).into(binding.ivCameraResult)
         }
     }
 

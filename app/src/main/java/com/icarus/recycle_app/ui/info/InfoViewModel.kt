@@ -1,10 +1,10 @@
-package com.icarus.recycle_app.ui.dashboard
+package com.icarus.recycle_app.ui.info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class InfoViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

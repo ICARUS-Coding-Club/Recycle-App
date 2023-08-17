@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.icarus.recycle_app.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_info"
+        android:name="com.icarus.recycle_app.ui.info.InfoFragment"
+        android:label="@string/title_info"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.icarus.recycle_app.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_current_situation"
+        android:name="com.icarus.recycle_app.ui.current_situation.CurrentSituationFragment"
+        android:label="@string/title_current_situation"
+        tools:layout="@layout/fragment_current_situation" />
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.icarus.recycle_app.ui.setting.SettingFragment"
+        android:label="@string/title_setting"
+        tools:layout="@layout/fragment_setting" />
+
 </navigation>

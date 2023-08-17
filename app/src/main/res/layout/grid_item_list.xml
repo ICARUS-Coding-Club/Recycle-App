@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/search"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:background="#ffffff"
-        android:src="@drawable/search">
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:background="#ffffff"
+            android:src="@drawable/search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
-    </ImageButton>
+        </ImageButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -59,8 +70,8 @@
                 <ImageView
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:id="@+id/paper2"
-                    android:src="@drawable/paper"
+                    android:id="@+id/vinyl"
+                    android:src="@drawable/vinyl"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,10 +80,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/name_text_view2"
-                    app:layout_constraintTop_toBottomOf="@id/paper2"
+                    app:layout_constraintTop_toBottomOf="@id/vinyl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="종이"
+                    android:text="비닐"
                     android:textStyle="bold"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,10 +105,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/paper3"
+                android:id="@+id/can"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/paper"
+                android:src="@drawable/can"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -106,11 +117,11 @@
                 android:id="@+id/name_text_view3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종이"
+                android:text="캔"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/paper3" />
+                app:layout_constraintTop_toBottomOf="@id/can" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,10 +134,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/paper4"
+                android:id="@+id/styrofoam"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/paper"
+                android:src="@drawable/styrofoam"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -135,11 +146,11 @@
                 android:id="@+id/name_text_view4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종이"
+                android:text="스티로폼"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/paper4" />
+                app:layout_constraintTop_toBottomOf="@id/styrofoam" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -159,10 +170,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/paper5"
+                android:id="@+id/glass"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/paper"
+                android:src="@drawable/glass"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -171,11 +182,11 @@
                 android:id="@+id/name_text_view5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종이"
+                android:text="유리"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/paper5" />
+                app:layout_constraintTop_toBottomOf="@id/glass" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -188,10 +199,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/paper6"
+                android:id="@+id/plastic"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:src="@drawable/paper"
+                android:src="@drawable/plastic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -200,11 +211,11 @@
                 android:id="@+id/name_text_view6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="종이"
+                android:text="플라스틱"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/paper6" />
+                app:layout_constraintTop_toBottomOf="@id/plastic" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

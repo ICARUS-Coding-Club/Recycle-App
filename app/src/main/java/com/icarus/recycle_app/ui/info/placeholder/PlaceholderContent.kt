@@ -1,4 +1,4 @@
-package com.icarus.recycle_app.ui.current_situation.placeholder
+package com.icarus.recycle_app.ui.info.placeholder
 
 import java.util.ArrayList
 import java.util.HashMap

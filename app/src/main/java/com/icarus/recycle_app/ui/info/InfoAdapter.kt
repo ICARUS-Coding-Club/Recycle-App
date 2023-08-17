@@ -1,4 +1,4 @@
-package com.icarus.recycle_app.ui.current_situation
+package com.icarus.recycle_app.ui.info
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,17 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.icarus.recycle_app.ui.current_situation.placeholder.PlaceholderContent.PlaceholderItem
-import com.icarus.recycle_app.databinding.ItemCurrentSituationBinding
+import com.icarus.recycle_app.ui.info.placeholder.PlaceholderContent.PlaceholderItem
+import com.icarus.recycle_app.databinding.ItemInfoBinding
 
-class CurrentSituationAdapter(
+class InfoAdapter(
     private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<CurrentSituationAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            ItemCurrentSituationBinding.inflate(
+            ItemInfoBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -33,7 +33,7 @@ class CurrentSituationAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: ItemCurrentSituationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ItemInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         val image: ImageView = binding.ivImage
         val title: TextView = binding.tvTitle
 

@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
+import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 import com.icarus.recycle_app.utils.CameraHelper
 import java.io.File
 import java.io.IOException
@@ -89,9 +90,18 @@ class SearchImageFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
+        initListener()
 
         return root
+    }
+
+    /**
+     * 리스너 등록
+     */
+    private fun initListener() {
+        binding.btnSend.setOnClickListener {
+            requireActivity().startActivity(Intent(requireActivity(), TrashRequestActivity::class.java))
+        }
     }
 
 
@@ -133,6 +143,11 @@ class SearchImageFragment : Fragment() {
             val selectedImage = data?.data
             Glide.with(requireActivity()).load(selectedImage).into(binding.ivCameraResult)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 //    override fun onCreate(savedInstanceState: Bundle?) {

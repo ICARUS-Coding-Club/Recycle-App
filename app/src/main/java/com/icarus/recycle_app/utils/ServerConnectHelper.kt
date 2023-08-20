@@ -12,23 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 /**
- * retrofit api 인터페이스
- */
-interface ApiService {
-    @GET("posts/1")
-    fun getPost(): Call<TestPost>
-}
-
-/**
- * 서버 응답 인터페이스
- */
-interface RequestServer {
-    fun onSuccess(testPost: TestPost)
-    fun onFailure()
-}
-
-
-/**
  * 쓰레기 사진을 전송하여 쓰레기 정보를 반환 받는 클래스
  */
 class ServerConnectHelper {
@@ -63,5 +46,21 @@ class ServerConnectHelper {
                 }
             }
         }
+    }
+
+    /**
+     * retrofit api 인터페이스
+     */
+    interface ApiService {
+        @GET("posts/1")
+        fun getPost(): Call<TestPost>
+    }
+
+    /**
+     * 서버 응답 인터페이스
+     */
+    interface RequestServer {
+        fun onSuccess(testPost: TestPost)
+        fun onFailure()
     }
 }

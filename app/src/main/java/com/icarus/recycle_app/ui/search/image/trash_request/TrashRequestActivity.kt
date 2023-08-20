@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.icarus.recycle_app.databinding.ActivityTrashRequestBinding
 import com.icarus.recycle_app.dto.Trash
-import com.icarus.recycle_app.utils.RequestServer
 import com.icarus.recycle_app.utils.ServerConnectHelper
 
 class TrashRequestActivity : AppCompatActivity() {
@@ -34,7 +33,7 @@ class TrashRequestActivity : AppCompatActivity() {
 
 
         // 서버 요청 리스너 등록
-        serverConnectHelper.request = object : RequestServer {
+        serverConnectHelper.request = object : ServerConnectHelper.RequestServer {
             override fun onSuccess(testPost: TestPost) {
                 // 데이터 가져오기 성공
                 println("Post title: ${testPost.title}")

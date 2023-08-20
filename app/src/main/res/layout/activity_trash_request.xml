@@ -116,7 +116,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/ttvTrashThrowInfoTitle"
+                    android:id="@+id/tvTrashThrowInfoTitle"
                     android:textStyle="bold"
                     android:layout_marginTop="15dp"
                     android:layout_marginHorizontal="15dp"

@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 카메라 사용 권한 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
-
-    <!-- 내부 저장소 사용 권한 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 인터넷 사용 권한 -->
+        android:required="true" /> <!-- 내부 저장소 사용 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 인터넷 사용 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:allowBackup="true"
@@ -26,6 +21,11 @@
         tools:targetApi="31">
 
 
+        <!-- 쓰레기 안내 액티비티 -->
+        <activity
+            android:name=".ui.info.content.InfoContentActivity"
+            android:exported="true" >
+        </activity>
         <!-- 파일 저장소 관련 프로바이더 -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -35,30 +35,22 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
+        </provider> <!-- 쓰레기 결과 반환 액티비티 -->
 
-        <!-- 쓰레기 결과 반환 액티비티 -->
+
         <activity
             android:name=".ui.search.image.trash_request.TrashRequestActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
 
 
 
         <!-- 검색 화면 -->
         <activity
             android:name=".ui.search.SearchActivity"
-            android:exported="false" />
-
-
-        <!-- 도움말 화면 액티비티 -->
+            android:exported="false" /> <!-- 도움말 화면 액티비티 -->
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:exported="false" />
-
-
-
-        <!-- 스플래시 화면 -->
+            android:exported="false" /> <!-- 스플래시 화면 -->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
@@ -67,10 +59,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-
-        <!-- 메인 액티비티 화면 -->
+        </activity> <!-- 메인 액티비티 화면 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

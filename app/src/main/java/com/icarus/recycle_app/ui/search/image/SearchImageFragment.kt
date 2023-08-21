@@ -22,8 +22,11 @@ import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
+import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
 import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 import com.icarus.recycle_app.utils.CameraHelper
+import com.icarus.recycle_app.utils.ServerConnectHelper
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -37,6 +40,8 @@ class SearchImageFragment : Fragment() {
     private val REQUEST_IMAGE_CAPTURE = 1
     private val REQUEST_GALLERY_IMAGE = 2 // 갤러리 요청 코드 추가
     private var photoUri: Uri? = null
+
+    private var imageByteArray: ByteArray = byteArrayOf() // ByteArray 변수를 빈 배열로 초기화
 
 
     private val binding get() = _binding!!
@@ -100,7 +105,32 @@ class SearchImageFragment : Fragment() {
      */
     private fun initListener() {
         binding.btnSend.setOnClickListener {
-            requireActivity().startActivity(Intent(requireActivity(), TrashRequestActivity::class.java))
+
+            val serverConnectHelper = ServerConnectHelper()
+
+            // 서버 요청 리스너 등록
+            serverConnectHelper.request = object : ServerConnectHelper.RequestServer {
+                override fun onSuccess(testPost: TestPost) {
+                }
+
+                override fun onSuccess() {
+                    Log.d("asd", "전송 성공")
+                }
+
+                override fun onFailure() {
+                    Log.d("asd", "전송 실패")
+                }
+
+            }
+
+            // 서버 요청 실행
+            serverConnectHelper.uploadImage(imageByteArray)
+
+            // requireActivity().startActivity(Intent(requireActivity(), TrashRequestActivity::class.java))
+
+
+
+
         }
     }
 
@@ -134,14 +164,33 @@ class SearchImageFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data) // 필요한 호출 추가
+        super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val photoUri = cameraHelper.getPhotoUri()
             Glide.with(requireActivity()).load(photoUri).into(binding.ivCameraResult)
+
+            // Uri를 Bitmap으로 변환
+            val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, photoUri)
+
+            // Bitmap을 ByteArray로 변환
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            imageByteArray = byteArrayOutputStream.toByteArray() // 전역 변수에 바이트 배열 저장
+
+
         } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
             val selectedImage = data?.data
             Glide.with(requireActivity()).load(selectedImage).into(binding.ivCameraResult)
+
+            // Uri를 Bitmap으로 변환
+            val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedImage)
+
+            // Bitmap을 ByteArray로 변환
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            imageByteArray = byteArrayOutputStream.toByteArray() // 전역 변수에 바이트 배열 저장
+
         }
     }
 

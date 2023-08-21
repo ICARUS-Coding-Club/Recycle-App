@@ -45,6 +45,9 @@ class TrashRequestActivity : AppCompatActivity() {
                 setContentView(binding.root)
             }
 
+            override fun onSuccess() {
+            }
+
             override fun onFailure() {
                 // 서버 요청에 실패 했을 때
                 setContentView(binding.root)

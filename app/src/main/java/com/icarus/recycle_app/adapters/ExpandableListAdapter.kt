@@ -5,13 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import android.widget.ExpandableListView
+import android.widget.ImageView
 import android.widget.TextView
+import com.icarus.recycle_app.R
 import com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol.RecyclingSymbolFragment
 
 class ExpandableListAdapter (
     private val context: Context,
     private val items: List<RecyclingSymbolFragment.Item>
     ) : BaseExpandableListAdapter() {
+
+
     override fun getGroupCount(): Int = items.size
 
     override fun getChildrenCount(groupPosition: Int): Int = items[groupPosition].details.size
@@ -24,7 +29,7 @@ class ExpandableListAdapter (
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long = childPosition.toLong()
 
-    override fun hasStableIds(): Boolean = false
+    override fun hasStableIds(): Boolean = true
 
     override fun getGroupView(
         groupPosition: Int, isExpanded: Boolean,
@@ -33,29 +38,32 @@ class ExpandableListAdapter (
         var view = convertView
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(android.R.layout.simple_expandable_list_item_1, parent, false)
+            view = inflater.inflate(R.layout.cv_expandable_list_group, parent, false)
         }
 
-        val textView = view?.findViewById<TextView>(android.R.id.text1)
-        textView?.text = items[groupPosition].title
+        val title = view!!.findViewById<TextView>(R.id.tvTitle)
+        title.text = items[groupPosition].title
 
-        return view!!
+
+
+        return view
     }
 
     override fun getChildView(
         groupPosition: Int, childPosition: Int, isLastChild: Boolean,
         convertView: View?, parent: ViewGroup?
-    ): View {
+    ):  View {
         var view = convertView
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            view = inflater.inflate(android.R.layout.simple_expandable_list_item_2, parent, false)
+            view = inflater.inflate(R.layout.cv_expandable_list_child, parent, false)
         }
 
-        val textView = view?.findViewById<TextView>(android.R.id.text1)
-        textView?.text = items[groupPosition].details[childPosition]
+        val content = view!!.findViewById<TextView>(R.id.tvContent)
+        content.text = items[groupPosition].details[childPosition]
 
-        return view!!
+
+        return view
     }
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean = true

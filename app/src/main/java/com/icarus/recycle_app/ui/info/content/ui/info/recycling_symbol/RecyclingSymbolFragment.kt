@@ -50,10 +50,18 @@ class RecyclingSymbolFragment : Fragment() {
     ): View {
         _binding = FragmentRecyclingSymbolBinding.inflate(inflater, container, false)
 
+        val adapter = ExpandableListAdapter(requireContext(), data)
 
-        binding.elvRecyclingSymbol.setAdapter(ExpandableListAdapter(requireContext(), data))
+        binding.elvRecyclingSymbol.setAdapter(adapter)
 
-
+        binding.elvRecyclingSymbol.setOnGroupClickListener { _, _, groupPosition, _ ->
+            if (binding.elvRecyclingSymbol.isGroupExpanded(groupPosition)) {
+                binding.elvRecyclingSymbol.collapseGroup(groupPosition)
+            } else {
+                binding.elvRecyclingSymbol.expandGroup(groupPosition)
+            }
+            true
+        }
 
 
         return binding.root

@@ -91,7 +91,8 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#D3F1E8">
+
+                android:background="@color/teal_700">
 
                 <TextView
                     android:id="@+id/tvClFirstAppInfo1"
@@ -100,6 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="리사이클러 앱"
+                    android:theme="@style/bold_style_white"
                     android:layout_marginVertical="20dp" />
 
                 <!-- 모양만 잡으려고 searchView 사용함 나중에 없앨 예정 -->
@@ -109,6 +111,7 @@
                     app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
                     android:layout_marginVertical="15dp"
                     android:layout_marginHorizontal="20dp"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -116,12 +119,13 @@
                     android:id="@+id/tvClFirstAppInfo2"
                     app:layout_constraintTop_toBottomOf="@id/svCl1"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:text="어떻게 버릴까"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:text="어떻게 버리지?"
                     android:layout_marginVertical="20dp" />
 
 
@@ -132,17 +136,15 @@
                 android:padding="10dp"
                 android:id="@+id/cl2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#E8C8C8">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:padding="10dp"
                     android:id="@+id/tv_title"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:theme="@style/bold_style_black"
                     android:text="카테고리별 쓰레기" />
                 <GridLayout
                     android:id="@+id/gl1"
@@ -159,10 +161,12 @@
                         android:layout_row="0"
                         android:layout_column="0"
                         android:orientation="vertical">
+
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            style="@style/icon_style"
+                            android:src="@drawable/icon_furniture" />
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -181,7 +185,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            style="@style/icon_style"
+                            android:src="@drawable/icon_electronics"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -197,11 +202,13 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_daily"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:text="생활용퓸"/>
                     </LinearLayout>
                     <LinearLayout
@@ -213,7 +220,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_bathroom"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -229,7 +237,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_book"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -246,7 +255,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_cosmetics"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -263,7 +273,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_kitchen"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -280,7 +291,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_food"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -297,7 +309,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_container"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -315,7 +328,8 @@
                         <ImageButton
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_error"/>
+                            android:src="@drawable/icon_dress"
+                            style="@style/icon_style"/>
                         <TextView
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -332,11 +346,17 @@
                 android:id="@+id/cl3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#BDCAEC"
+                android:padding="10dp"
                 android:paddingBottom="150dp">
-
-                <GridView
+                <TextView
+                    android:id="@+id/tv_bookmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/bold_style_black"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:text="즐겨찾기"/>
+                <GridView
+                    app:layout_constraintTop_toBottomOf="@id/tv_bookmark"
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

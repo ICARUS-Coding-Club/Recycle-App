@@ -16,14 +16,19 @@ class MainBottomSheetDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.dialog_main_fragment_bottom_sheet, container, false)
-        val button1 = v.findViewById<Button>(R.id.button1)
-        val button2 = v.findViewById<Button>(R.id.button2)
-        button1.setOnClickListener { v1: View? ->
-            mListener!!.onButtonClicked("button1")
+        val btnCamera = v.findViewById<Button>(R.id.btnCamera)
+        val btnGallery = v.findViewById<Button>(R.id.btnGallery)
+        val btnBarcode = v.findViewById<Button>(R.id.btnBarcode)
+        btnCamera.setOnClickListener { v1: View? ->
+            mListener!!.onButtonClicked("click_btn_camera")
             dismiss()
         }
-        button2.setOnClickListener { v12: View? ->
-            mListener!!.onButtonClicked("button2")
+        btnGallery.setOnClickListener { v1: View? ->
+            mListener!!.onButtonClicked("click_btn_gallery")
+            dismiss()
+        }
+        btnBarcode.setOnClickListener { v1: View? ->
+            mListener!!.onButtonClicked("click_btn_barcode")
             dismiss()
         }
         return v

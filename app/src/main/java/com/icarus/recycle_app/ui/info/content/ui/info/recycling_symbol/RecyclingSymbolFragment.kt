@@ -1,0 +1,70 @@
+package com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ExpandableListView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.icarus.recycle_app.adapters.ExpandableListAdapter
+import com.icarus.recycle_app.databinding.FragmentRecyclingSymbolBinding
+
+
+/**
+ * 쓰레기 재활용 마크 안내
+ */
+class RecyclingSymbolFragment : Fragment() {
+
+    private var _binding : FragmentRecyclingSymbolBinding? = null
+    private val binding get() = _binding!!
+
+    data class Item(val title: String, val details: List<String>)
+    private val data = listOf(
+
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1")),
+        Item("Title3", listOf("Detail3-1"))
+    )
+
+    companion object {
+        fun newInstance() = RecyclingSymbolFragment()
+    }
+
+    private lateinit var viewModel: RecyclingSymbolViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(RecyclingSymbolViewModel::class.java)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRecyclingSymbolBinding.inflate(inflater, container, false)
+
+
+        binding.elvRecyclingSymbol.setAdapter(ExpandableListAdapter(requireContext(), data))
+
+
+
+
+        return binding.root
+    }
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
+}

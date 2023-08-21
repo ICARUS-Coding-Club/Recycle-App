@@ -50,11 +50,7 @@ class RecyclingSymbolFragment : Fragment() {
     ): View {
         _binding = FragmentRecyclingSymbolBinding.inflate(inflater, container, false)
 
-
         binding.elvRecyclingSymbol.setAdapter(ExpandableListAdapter(requireContext(), data))
-
-
-
 
         return binding.root
     }

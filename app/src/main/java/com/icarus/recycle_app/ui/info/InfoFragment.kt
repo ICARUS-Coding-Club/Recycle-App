@@ -1,5 +1,6 @@
 package com.icarus.recycle_app.ui.info
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.ui.info.InfoAdapter.ButtonListener
+import com.icarus.recycle_app.ui.info.content.InfoContentActivity
 import com.icarus.recycle_app.ui.info.placeholder.PlaceholderContent
 
 
@@ -33,25 +36,26 @@ class InfoFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_current_situation, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = InfoAdapter(PlaceholderContent.ITEMS)
+        // 리사이클러뷰 설정
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)
+        val adapter = InfoAdapter(PlaceholderContent.ITEMS)
+        recyclerView.adapter = adapter
+
+        // 설명 보러기가기 버튼을 누르면 실행되는 리스너
+        adapter.buttonListener = object: ButtonListener{
+            override fun onClick(id: String) {
+                val intent = Intent(requireContext(), InfoContentActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
             }
         }
+
         return view
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
             InfoFragment().apply {

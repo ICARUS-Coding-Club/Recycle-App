@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 
 import com.icarus.recycle_app.ui.info.placeholder.PlaceholderContent.PlaceholderItem
 import com.icarus.recycle_app.databinding.ItemInfoBinding
@@ -12,6 +13,13 @@ import com.icarus.recycle_app.databinding.ItemInfoBinding
 class InfoAdapter(
     private val values: List<PlaceholderItem>
 ) : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
+
+    interface ButtonListener {
+        fun onClick(id: String)
+    }
+
+    lateinit var buttonListener: ButtonListener
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -26,19 +34,22 @@ class InfoAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-/*        holder.image = item.*/
-        holder.title.text = item.content
+        // 홀더에서 bind
+        holder.bind(position)
+
+        // 버튼을 누르면 해당 프래그먼트 반환
+        holder.binding.btnAction.setOnClickListener {
+            buttonListener.onClick(values[position].id)
+        }
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(binding: ItemInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-        val image: ImageView = binding.ivImage
-        val title: TextView = binding.tvTitle
+    inner class ViewHolder(val binding: ItemInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        override fun toString(): String {
-            return super.toString() + " '" + title.text + "'"
+        fun bind(position: Int) {
+            this.binding.tvTitle.text = values[position].title
+            this.binding.tvContent.text = values[position].content
         }
     }
 

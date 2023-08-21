@@ -1,57 +1,28 @@
 package com.icarus.recycle_app.ui.info.placeholder
 
+import androidx.fragment.app.Fragment
+import com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol.RecyclingSymbolFragment
 import java.util.ArrayList
 import java.util.HashMap
 
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- *
- * TODO: Replace all uses of this class before publishing your app.
- */
 object PlaceholderContent {
 
-    /**
-     * An array of sample (placeholder) items.
-     */
     val ITEMS: MutableList<PlaceholderItem> = ArrayList()
 
-    /**
-     * A map of sample (placeholder) items, by ID.
-     */
     val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
 
-    private val COUNT = 25
-
     init {
-        // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createPlaceholderItem(i))
-        }
+        addItem(PlaceholderItem("0", "재활용 마크 설명", "재활용 마크에 대한 자세한 설명을 볼 수 있습니다.", RecyclingSymbolFragment()))
+        addItem(PlaceholderItem("1", "환경 관련 팁 안내", "환경 관련 팁을 볼 수 있습니다.", RecyclingSymbolFragment()))
+        addItem(PlaceholderItem("2", "우리 지역 쓰레기 버리는 곳", "우리 지역의 쓰레기 버리는 곳을 볼 수 있습니다.", RecyclingSymbolFragment()))
+        addItem(PlaceholderItem("3", "환경 보호 안내", "우리 지역 환경 보호 안내에 대해 볼 수 있습니다.", RecyclingSymbolFragment()))
+        addItem(PlaceholderItem("4", "분리수거를 하면 좋은 점", "분리수거의 이점에 대해 자세히 볼 수 있습니다.", RecyclingSymbolFragment()))
     }
 
     private fun addItem(item: PlaceholderItem) {
         ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        ITEM_MAP[item.id] = item
     }
 
-    private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
-    }
-
-    private fun makeDetails(position: Int): String {
-        val builder = StringBuilder()
-        builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
-        }
-        return builder.toString()
-    }
-
-    /**
-     * A placeholder item representing a piece of content.
-     */
-    data class PlaceholderItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
-    }
+    data class PlaceholderItem(val id: String, val title:String, val content: String, val fragment: Fragment)
 }

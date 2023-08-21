@@ -1,11 +1,13 @@
 package com.icarus.recycle_app.ui.info.content
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.ActivityInfoContentBinding
 import com.icarus.recycle_app.databinding.ActivityMainBinding
 import com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol.RecyclingSymbolFragment
+import com.icarus.recycle_app.ui.info.placeholder.PlaceholderContent
 
 /**
  * 쓰레기 안내를 표시할 액티비티
@@ -26,22 +28,16 @@ class InfoContentActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        // 액티비티가 시작될 때 intent를 불러옴
+        val intent = intent
+        val id = intent.getStringExtra("id")
 
+        // intent에서 fragment를 불러오고
+        val fragment = PlaceholderContent.ITEM_MAP[id]!!.fragment
 
-
-
-
-
-
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, RecyclingSymbolFragment.newInstance())
-                .commitNow()
-        }
-
+        // 프레그먼트 실행
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RecyclingSymbolFragment.newInstance())
+            .replace(R.id.container, fragment)
             .commitNow()
 
     }

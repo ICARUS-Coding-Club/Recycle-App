@@ -32,6 +32,8 @@ class SearchActivity : AppCompatActivity() {
             }
             else -> {
                 // 오류 처리 또는 기본 로직
+
+
             }
         }
 

@@ -19,7 +19,9 @@ class SearchListActivity : AppCompatActivity() {
         binding = ActivitySearchListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lists.add(Trash(1,"banana","2","2","2",2,false,false, R.drawable.bananas.toString()))
+        initListener()
+
+        lists.add(Trash(1,"바나나 껍질","2","2","2",2,false,false, R.drawable.bananas.toString()))
 
         val adapter = SearchListAdapter(this,lists)
         binding.autoCompleteTextView.setAdapter(adapter)
@@ -35,6 +37,11 @@ class SearchListActivity : AppCompatActivity() {
             intent.putExtra("searchQuery", selectedTrash.name)
             startActivity(intent)
 
+        }
+    }
+    private fun initListener() {
+        binding.ibBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

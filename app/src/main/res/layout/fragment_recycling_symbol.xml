@@ -26,11 +26,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ExpandableListView
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
         android:id="@+id/elvRecyclingSymbol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"/>
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:scrollbars="none"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+
 
 </LinearLayout>

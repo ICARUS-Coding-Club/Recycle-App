@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@id/include"
         android:text="캔류 알루미늄에 대한 정보" />
 
-    <ImageButton
+    <TextView
         android:id="@+id/ibArrow"
         app:layout_constraintTop_toTopOf="@id/include"
         app:layout_constraintBottom_toBottomOf="@id/include"

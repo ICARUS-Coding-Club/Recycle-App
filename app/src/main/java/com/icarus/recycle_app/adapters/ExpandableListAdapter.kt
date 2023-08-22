@@ -1,6 +1,7 @@
 package com.icarus.recycle_app.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,35 +36,36 @@ class ExpandableListAdapter (
         groupPosition: Int, isExpanded: Boolean,
         convertView: View?, parent: ViewGroup?
     ): View {
+        Log.d("asd", "asdgroup")
         var view = convertView
+        Log.d("asd", "asdgroup")
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.cv_expandable_list_group, parent, false)
         }
 
-        val title = view!!.findViewById<TextView>(R.id.tvTitle)
-        title.text = items[groupPosition].title
+        Log.d("1234", isExpanded.toString())
 
 
 
-        return view
+        return view!!
     }
 
     override fun getChildView(
         groupPosition: Int, childPosition: Int, isLastChild: Boolean,
         convertView: View?, parent: ViewGroup?
     ):  View {
+        Log.d("asd", "asdchild")
         var view = convertView
+        Log.d("asd", "asdchild")
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.cv_expandable_list_child, parent, false)
         }
 
-        val content = view!!.findViewById<TextView>(R.id.tvContent)
-        content.text = items[groupPosition].details[childPosition]
+        Log.d("asd", "asd")
 
-
-        return view
+        return view!!
     }
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean = true

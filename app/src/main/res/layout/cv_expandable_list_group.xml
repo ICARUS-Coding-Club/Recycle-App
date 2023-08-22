@@ -30,8 +30,8 @@
         app:layout_constraintTop_toTopOf="@id/include"
         app:layout_constraintBottom_toBottomOf="@id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/ic_arrow_down1_black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

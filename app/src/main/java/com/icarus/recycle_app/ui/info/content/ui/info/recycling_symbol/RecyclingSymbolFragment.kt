@@ -58,6 +58,8 @@ class RecyclingSymbolFragment : Fragment() {
         binding.elvRecyclingSymbol.setAdapter(adapter)
         binding.elvRecyclingSymbol.setIndicatorBounds(width-5000, width);
 
+
+
         return binding.root
     }
 

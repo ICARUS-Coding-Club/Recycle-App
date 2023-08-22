@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol.RecyclingSymbolFragment
 
@@ -36,34 +37,34 @@ class ExpandableListAdapter (
         groupPosition: Int, isExpanded: Boolean,
         convertView: View?, parent: ViewGroup?
     ): View {
-        Log.d("asd", "asdgroup")
         var view = convertView
-        Log.d("asd", "asdgroup")
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.cv_expandable_list_group, parent, false)
         }
 
-        Log.d("1234", isExpanded.toString())
+        val ivArrowMark = view!!.findViewById<TextView>(R.id.ibArrow)
+
+        if (isExpanded) {
+            ivArrowMark.setBackgroundResource(R.drawable.ic_arrow_up1_balck)
+        } else {
+            ivArrowMark.setBackgroundResource(R.drawable.ic_arrow_down1_black)
+        }
 
 
 
-        return view!!
+        return view
     }
 
     override fun getChildView(
         groupPosition: Int, childPosition: Int, isLastChild: Boolean,
         convertView: View?, parent: ViewGroup?
     ):  View {
-        Log.d("asd", "asdchild")
         var view = convertView
-        Log.d("asd", "asdchild")
         if (view == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.cv_expandable_list_child, parent, false)
         }
-
-        Log.d("asd", "asd")
 
         return view!!
     }

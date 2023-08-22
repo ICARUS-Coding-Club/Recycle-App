@@ -40,14 +40,15 @@
 
         <activity
             android:name=".ui.search.image.trash_request.TrashRequestActivity"
-            android:exported="true"></activity>
-
-
+            android:exported="true"/>
 
         <!-- 검색 화면 -->
         <activity
             android:name=".ui.search.SearchActivity"
             android:exported="false" /> <!-- 도움말 화면 액티비티 -->
+        <activity
+            android:name=".ui.search.base.SearchListActivity"
+            android:exported="false"/> <!-- 검색 화면 액티비티 -->
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
             android:exported="false" /> <!-- 스플래시 화면 -->

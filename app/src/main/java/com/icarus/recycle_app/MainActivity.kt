@@ -139,11 +139,6 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
                 intent.putExtra("click_btn", 1)
                 startActivity(intent)
             }
-            "click_btn_barcode" -> {
-                val intent = Intent(this, SearchActivity::class.java)
-                intent.putExtra("click_btn", 2)
-                startActivity(intent)
-            }
         }
 
     }

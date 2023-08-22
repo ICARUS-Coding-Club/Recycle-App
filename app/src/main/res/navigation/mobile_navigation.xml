@@ -28,4 +28,10 @@
         android:label="@string/title_setting"
         tools:layout="@layout/fragment_setting" />
 
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.icarus.recycle_app.ui.setting.SettingFragment"
+        android:label="검색 화면"
+        tools:layout="@layout/fragment_info" />
+
 </navigation>

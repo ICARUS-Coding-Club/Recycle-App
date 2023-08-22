@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:background="@color/teal_700">
+                android:background="@color/teal_200">
 
                 <TextView
                     android:id="@+id/tvClFirstAppInfo1"
@@ -110,8 +110,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1"
                     app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
                     android:layout_marginVertical="15dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/white"
+                    android:background="@drawable/custom_circle_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -122,11 +121,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:padding="10dp"
-                    android:text="어떻게 버리지?"
-                    android:layout_marginVertical="20dp" />
+                    style="@style/bold_style_white"
+                    android:text="어떻게 버리지?" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -360,6 +356,7 @@
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="10dp"
                     android:numColumns="3"/>
 
 

@@ -1,13 +1,17 @@
 package com.icarus.recycle_app.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.dto.Trash
+import com.icarus.recycle_app.ui.onboarding.OnBoardingActivity
+import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 
 
 class HomeAdapter(private val trashes: List<Trash>, context: Context?): BaseAdapter() {
@@ -37,6 +41,9 @@ class HomeAdapter(private val trashes: List<Trash>, context: Context?): BaseAdap
         }
 
         imageView.setImageResource(R.drawable.can)
+        imageView.setOnClickListener {
+            mContext?.startActivity(Intent(mContext, TrashRequestActivity::class.java))
+        }
 
         return imageView
     }

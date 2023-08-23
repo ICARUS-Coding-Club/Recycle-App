@@ -22,7 +22,7 @@ class TrashRequestActivity : AppCompatActivity() {
             "-김치 양념과 국물에는 매운 캡사이신 성분과 나트륨이 다량 함유되어 있어 사료나 퇴비로 적합하지 않습니다. 반드시 양념을 헹군 후 음식물쓰레기로 배출해주세요.  ",
         0,
         favorite = false,
-        isRecycle = true,
+        "",
         image = "test.png"
     )
 

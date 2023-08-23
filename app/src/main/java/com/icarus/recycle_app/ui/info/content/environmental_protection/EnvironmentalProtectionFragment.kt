@@ -7,8 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.databinding.FragmentEnvironmentalProtectionBinding
+import com.icarus.recycle_app.databinding.FragmentRecyclingAdvantageBinding
 
 class EnvironmentalProtectionFragment : Fragment() {
+
+    private var _binding : FragmentEnvironmentalProtectionBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance() = EnvironmentalProtectionFragment()
@@ -19,14 +24,18 @@ class EnvironmentalProtectionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_environmental_protection, container, false)
+    ): View {
+
+        _binding = FragmentEnvironmentalProtectionBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(EnvironmentalProtectionViewModel::class.java)
+
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EnvironmentalProtectionViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

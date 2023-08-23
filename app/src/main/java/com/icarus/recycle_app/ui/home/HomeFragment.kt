@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val lists = listOf<Trash>(
-            Trash(1,"종이","종이","1","2",1,favorite = true,isRecycle = false, R.drawable.can.toString())
+            Trash(1,"종이","종이","1","2",1,true,"", R.drawable.can.toString())
         )
         binding.gridView.adapter = HomeAdapter(lists,activity)
 

@@ -21,7 +21,7 @@ class SearchListActivity : AppCompatActivity() {
 
         initListener()
 
-        lists.add(Trash(1,"바나나 껍질","2","2","2",2,false,false, R.drawable.bananas.toString()))
+        lists.add(Trash(1,"바나나 껍질","2","2","2",2,false,"", R.drawable.bananas.toString()))
 
         val adapter = SearchListAdapter(this,lists)
         binding.autoCompleteTextView.setAdapter(adapter)

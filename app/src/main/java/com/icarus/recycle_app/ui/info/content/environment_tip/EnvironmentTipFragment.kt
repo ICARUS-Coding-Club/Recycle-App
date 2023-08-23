@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.adapters.EnvironmentRecyclerViewAdapter
 import com.icarus.recycle_app.databinding.FragmentEnvironmentTipBinding
 import com.icarus.recycle_app.databinding.FragmentEnvironmentalProtectionBinding
+import com.icarus.recycle_app.dto.EnvironmentTip
 import com.icarus.recycle_app.ui.info.content.environmental_protection.EnvironmentalProtectionViewModel
 
 class EnvironmentTipFragment : Fragment() {
@@ -28,6 +30,20 @@ class EnvironmentTipFragment : Fragment() {
     ): View {
         _binding = FragmentEnvironmentTipBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(EnvironmentTipViewModel::class.java)
+
+        val items = ArrayList<EnvironmentTip>()
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+        items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
+
+        val adapter = EnvironmentRecyclerViewAdapter(items)
+        binding.rvEnvironmentTip.adapter = adapter
+        binding.rvEnvironmentTip.setHasFixedSize(true)
+
+
 
         return binding.root
     }

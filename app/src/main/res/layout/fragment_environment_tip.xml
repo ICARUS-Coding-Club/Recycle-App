@@ -11,7 +11,7 @@
         android:id="@+id/rvEnvironmentTip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="50dp"
+        android:paddingBottom="14dp"
         android:clipToPadding="false"
         tools:listitem="@layout/cv_cardview_environment_tip_info"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

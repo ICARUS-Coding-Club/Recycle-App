@@ -40,7 +40,7 @@ class InfoContentActivity : AppCompatActivity() {
 
         // 프레그먼트 실행
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
+            .replace(R.id.flFragment, fragment)
             .commitNow()
 
     }

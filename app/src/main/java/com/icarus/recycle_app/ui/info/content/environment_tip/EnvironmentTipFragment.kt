@@ -1,6 +1,5 @@
 package com.icarus.recycle_app.ui.info.content.environment_tip
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +8,8 @@ import android.view.ViewGroup
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.EnvironmentRecyclerViewAdapter
 import com.icarus.recycle_app.databinding.FragmentEnvironmentTipBinding
-import com.icarus.recycle_app.databinding.FragmentEnvironmentalProtectionBinding
 import com.icarus.recycle_app.dto.EnvironmentTip
-import com.icarus.recycle_app.ui.info.content.environmental_protection.EnvironmentalProtectionViewModel
+import com.icarus.recycle_app.ui.info.content.InfoContentActivity as InfoContentActivity1
 
 class EnvironmentTipFragment : Fragment() {
 
@@ -22,14 +20,12 @@ class EnvironmentTipFragment : Fragment() {
         fun newInstance() = EnvironmentTipFragment()
     }
 
-    private lateinit var viewModel: EnvironmentTipViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEnvironmentTipBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(EnvironmentTipViewModel::class.java)
 
         val items = ArrayList<EnvironmentTip>()
         items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
@@ -40,8 +36,21 @@ class EnvironmentTipFragment : Fragment() {
         items.add(EnvironmentTip("0", "환경의날", "환경의날은 이런 것"))
 
         val adapter = EnvironmentRecyclerViewAdapter(items)
+        adapter.listener = object : EnvironmentRecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClicked(environmentTip: EnvironmentTip) {
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.slide_in_right, 0, 0, 0)
+                transaction.replace(R.id.flFragment, EnvironmentTipContentFragment())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        }
+
         binding.rvEnvironmentTip.adapter = adapter
         binding.rvEnvironmentTip.setHasFixedSize(true)
+
+
+
 
 
 

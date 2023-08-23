@@ -1,14 +1,24 @@
 package com.icarus.recycle_app.adapters
 
-import android.text.Layout
+import android.app.Activity
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.CvCardviewEnvironmentTipInfoBinding
 import com.icarus.recycle_app.dto.EnvironmentTip
 
-class EnvironmentRecyclerViewAdapter(private val environmentTips: List<EnvironmentTip>): RecyclerView.Adapter<EnvironmentRecyclerViewAdapter.ViewHolder>() {
+class EnvironmentRecyclerViewAdapter(
+    private val environmentTips: List<EnvironmentTip>
+): RecyclerView.Adapter<EnvironmentRecyclerViewAdapter.ViewHolder>() {
+
+    interface OnItemClickListener {
+        fun onItemClicked(environmentTip: EnvironmentTip)
+    }
+
+    lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,17 +33,27 @@ class EnvironmentRecyclerViewAdapter(private val environmentTips: List<Environme
         position: Int) {
 
         holder.bind(environmentTips[position])
+
+
     }
 
     override fun getItemCount(): Int {
         return environmentTips.size
     }
 
-    class ViewHolder(val binding: CvCardviewEnvironmentTipInfoBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: CvCardviewEnvironmentTipInfoBinding) : RecyclerView.ViewHolder(binding.root){
+
+
         fun bind(item: EnvironmentTip) {
             binding.tvTitle.text = item.title
             binding.tvContent.text = item.content
-        }
 
+            binding.root.setOnClickListener {
+                Log.d("asd", "클릭 ")
+                listener.onItemClicked(item)
+            }
+
+
+        }
     }
 }

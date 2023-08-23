@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentEnvironmentalProtectionBinding
-import com.icarus.recycle_app.databinding.FragmentRecyclingAdvantageBinding
 
 class EnvironmentalProtectionFragment : Fragment() {
 

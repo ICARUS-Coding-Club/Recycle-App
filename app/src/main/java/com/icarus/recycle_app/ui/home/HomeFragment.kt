@@ -2,6 +2,7 @@ package com.icarus.recycle_app.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,20 +38,28 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+
         val lists = listOf<Trash>(
             Trash(1,"종이","종이","1","2",1,favorite = true,isRecycle = false, R.drawable.can.toString())
         )
         binding.gridView.adapter = HomeAdapter(lists,activity)
 
         initListener()
-        return root
+
+        return binding.root
     }
 
     private fun initListener(){
         binding.svCl1.setOnClickListener {
 
             startActivity(Intent(activity,SearchListActivity::class.java))
+
+        }
+
+        // 주소 검색
+        binding.ibAddressSearch.setOnClickListener {
+            val dialogFragment = DaumAddressDialogFragment()
+            dialogFragment.show(parentFragmentManager, "dialog_tag")
 
         }
     }

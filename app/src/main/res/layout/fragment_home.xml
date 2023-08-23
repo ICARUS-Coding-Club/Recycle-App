@@ -77,80 +77,84 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
-        android:paddingTop="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl1"
-                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/teal_200"
 
-                android:background="@color/teal_200">
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/tvClFirstAppInfo1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
                     android:text="리사이클러 앱"
                     android:theme="@style/bold_style_white"
-                    android:layout_marginVertical="20dp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 모양만 잡으려고 searchView 사용함 나중에 없앨 예정 -->
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/svCl1"
-                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1"
-                    app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginVertical="15dp"
                     android:background="@drawable/custom_circle_background"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
+                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1" />
 
                 <TextView
                     android:id="@+id/tvClFirstAppInfo2"
-                    app:layout_constraintTop_toBottomOf="@id/svCl1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/bold_style_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/bold_style_white"
-                    android:text="어떻게 버리지?" />
+                    android:text="어떻게 버리지?"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/svCl1" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- 색깔은 임시로 넣어 둔 것 -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:padding="10dp"
                 android:id="@+id/cl2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/tv_title"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="카테고리별 쓰레기"
                     android:theme="@style/bold_style_black"
-                    android:text="카테고리별 쓰레기" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <GridLayout
                     android:id="@+id/gl1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:columnCount="5"
-                    android:rowCount="2">
+                    android:rowCount="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -159,16 +163,17 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            style="@style/icon_style"
                             android:src="@drawable/icon_furniture" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:text="가구/인테리어"/>
+                            android:layout_gravity="center"
+                            android:text="가구/인테리어"
+                            android:textSize="11sp" />
                     </LinearLayout>
 
 
@@ -178,68 +183,79 @@
                         android:layout_row="0"
                         android:layout_column="1"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            style="@style/icon_style"
-                            android:src="@drawable/icon_electronics"/>
+                            android:src="@drawable/icon_electronics" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="가전제품"/>
+                            android:layout_gravity="center"
+                            android:text="가전제품" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_row="0"
                         android:layout_column="2"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_daily"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_daily" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
 
-                            android:text="생활용퓸"/>
+                            android:text="생활용퓸" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_row="0"
                         android:layout_column="3"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_bathroom"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_bathroom" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="욕실용품"/>
+                            android:layout_gravity="center"
+                            android:text="욕실용품" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_row="0"
                         android:layout_column="4"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_book"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_book" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="도서/문구"/>
+                            android:layout_gravity="center"
+                            android:text="도서/문구" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -248,16 +264,18 @@
                         android:layout_row="1"
                         android:layout_column="0"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_cosmetics"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_cosmetics" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="화장품"/>
+                            android:layout_gravity="center"
+                            android:text="화장품" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -266,16 +284,18 @@
                         android:layout_row="1"
                         android:layout_column="1"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_kitchen"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_kitchen" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="주방용품"/>
+                            android:layout_gravity="center"
+                            android:text="주방용품" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -284,16 +304,18 @@
                         android:layout_row="1"
                         android:layout_column="2"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_food"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_food" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="식품"/>
+                            android:layout_gravity="center"
+                            android:text="식품" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -302,17 +324,19 @@
                         android:layout_row="1"
                         android:layout_column="3"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_container"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_container" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:text="용기/포장재"/>
+                            android:layout_gravity="center"
+                            android:text="용기/포장재"
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -321,16 +345,18 @@
                         android:layout_row="1"
                         android:layout_column="4"
                         android:orientation="vertical">
+
                         <ImageButton
+                            style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/icon_dress"
-                            style="@style/icon_style"/>
+                            android:src="@drawable/icon_dress" />
+
                         <TextView
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="패션/잡화"/>
+                            android:layout_gravity="center"
+                            android:text="패션/잡화" />
                     </LinearLayout>
                 </GridLayout>
 
@@ -344,20 +370,22 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingBottom="150dp">
+
                 <TextView
                     android:id="@+id/tv_bookmark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="즐겨찾기"
                     android:theme="@style/bold_style_black"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="즐겨찾기"/>
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <GridView
-                    app:layout_constraintTop_toBottomOf="@id/tv_bookmark"
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:numColumns="3"
                     android:padding="10dp"
-                    android:numColumns="3"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_bookmark" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -366,7 +394,6 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

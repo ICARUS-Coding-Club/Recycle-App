@@ -100,7 +100,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="리사이클러 앱"
+                    android:text="@string/app_name"
                     android:theme="@style/bold_style_white"
                     android:layout_marginVertical="20dp" />
 

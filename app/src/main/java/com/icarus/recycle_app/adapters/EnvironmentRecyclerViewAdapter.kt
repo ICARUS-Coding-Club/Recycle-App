@@ -49,7 +49,6 @@ class EnvironmentRecyclerViewAdapter(
             binding.tvContent.text = item.content
 
             binding.root.setOnClickListener {
-                Log.d("asd", "클릭 ")
                 listener.onItemClicked(item)
             }
 

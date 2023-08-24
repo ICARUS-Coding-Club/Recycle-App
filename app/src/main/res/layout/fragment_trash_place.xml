@@ -13,7 +13,7 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".ui.info.content.trash_place.TrashPlaceFragment">
 
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:padding="16dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -22,29 +22,60 @@ tools:context=".ui.info.content.trash_place.TrashPlaceFragment">
     android:background="@color/white" >
 
     <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/tvOtgerTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="다른 지역 검색하기" />
 
-    <androidx.appcompat.widget.SearchView
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/tvOtgerTitle"
+        android:paddingVertical="10dp"
+        android:paddingStart="60dp"
+        android:paddingEnd="14dp"
+        android:textSize="17sp"
+        android:text="강남로"
+        android:id="@+id/tvSearch"
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_circle_background_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/ibSearch"
+        android:layout_marginStart="14dp"
+        app:layout_constraintStart_toStartOf="@id/tvSearch"
+        app:layout_constraintTop_toTopOf="@id/tvSearch"
+        app:layout_constraintBottom_toBottomOf="@id/tvSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/ic_menu_search" />
+
     <TextView
+        android:id="@+id/tvNowSelectedTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvSearch"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="현재 선택된 지역" />
 
     <TextView
-        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvNowSelectedTitle"
+        android:id="@+id/tvAddress"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="진주시 어디어디 어디번지" />
 
-</LinearLayout>
+    <Button
+        app:layout_constraintTop_toBottomOf="@id/tvAddress"
+        android:id="@+id/btnApply"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="적용" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginTop="8dp"
     android:padding="16dp"

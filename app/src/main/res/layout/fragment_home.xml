@@ -37,6 +37,8 @@
 
 
             <TextView
+
+                android:maxLength="25"
                 android:id="@+id/tvAddress"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -103,15 +105,26 @@
                     android:background="@drawable/gradient_overlay" />
 
                 <TextView
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/tvClFirstAppInfo1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="20dp"
-                    android:text="리사이클러 앱"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="AI 쓰레기 이미지 인식"
                     android:theme="@style/bold_style_white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:textSize="20sp"
+                    android:id="@+id/tvClFirstAppInfo1c1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="배출 방법 안내"
+                    android:theme="@style/bold_style_white"
+                    app:layout_constraintStart_toEndOf="@id/tvClFirstAppInfo1"
+                    app:layout_constraintBottom_toBottomOf="@id/tvClFirstAppInfo1" />
 
                 <!-- 모양만 잡으려고 searchView 사용함 나중에 없앨 예정 -->
                 <androidx.appcompat.widget.SearchView
@@ -122,10 +135,15 @@
                     android:layout_marginVertical="15dp"
                     android:background="@drawable/custom_circle_background"
                     app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
-                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1" />
+                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1c1" >
+
+
+
+                </androidx.appcompat.widget.SearchView>
 
                 <TextView
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/tvClFirstAppInfo2"
                     style="@style/bold_style_white"
                     android:layout_width="wrap_content"

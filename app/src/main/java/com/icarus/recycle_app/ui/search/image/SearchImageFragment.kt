@@ -109,10 +109,7 @@ class SearchImageFragment : Fragment() {
             val serverConnectHelper = ServerConnectHelper()
 
             // 서버 요청 리스너 등록
-            serverConnectHelper.request = object : ServerConnectHelper.RequestServer {
-                override fun onSuccess(testPost: TestPost) {
-                }
-
+            serverConnectHelper.requestImageUpload = object : ServerConnectHelper.RequestImageUpload {
                 override fun onSuccess() {
                     Log.d("asd", "전송 성공")
                 }
@@ -120,6 +117,7 @@ class SearchImageFragment : Fragment() {
                 override fun onFailure() {
                     Log.d("asd", "전송 실패")
                 }
+
 
             }
 

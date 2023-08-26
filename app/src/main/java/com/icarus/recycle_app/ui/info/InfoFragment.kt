@@ -1,42 +1,67 @@
 package com.icarus.recycle_app.ui.info
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.icarus.recycle_app.databinding.FragmentDashboardBinding
+import com.icarus.recycle_app.R
+import com.icarus.recycle_app.ui.info.InfoAdapter.ButtonListener
+import com.icarus.recycle_app.ui.info.content.InfoContentActivity
+import com.icarus.recycle_app.ui.info.placeholder.PlaceholderContent
 
+
+/**
+ * A fragment representing a list of Items.
+ */
 class InfoFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var columnCount = 1
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val infoViewModel =
-            ViewModelProvider(this).get(InfoViewModel::class.java)
-
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        infoViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        arguments?.let {
+            columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
-        return root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_current_situation, container, false)
+
+        // 리사이클러뷰 설정
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)
+        val adapter = InfoAdapter(PlaceholderContent.ITEMS)
+        recyclerView.adapter = adapter
+
+        // 설명 보러기가기 버튼을 누르면 실행되는 리스너
+        adapter.buttonListener = object: ButtonListener{
+            override fun onClick(id: String) {
+                val intent = Intent(requireContext(), InfoContentActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
+            }
+        }
+
+        return view
+    }
+
+    companion object {
+
+        const val ARG_COLUMN_COUNT = "column-count"
+        @JvmStatic
+        fun newInstance(columnCount: Int) =
+            InfoFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_COLUMN_COUNT, columnCount)
+                }
+            }
     }
 }

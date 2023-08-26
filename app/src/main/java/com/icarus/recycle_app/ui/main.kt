@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.recycleadapter
 import com.icarus.recycle_app.recycleitem
+import java.util.UUID
 
 class main : AppCompatActivity() , AdapterView.OnItemClickListener {
 
@@ -47,4 +48,5 @@ class main : AppCompatActivity() , AdapterView.OnItemClickListener {
         var recycleitem: recycleitem = arrayList!!.get(p2)
         Toast.makeText(applicationContext,recycleitem.name , Toast.LENGTH_LONG).show()
     }
+
 }

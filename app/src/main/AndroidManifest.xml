@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- 카메라 사용 권한 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" /> <!-- 내부 저장소 사용 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 인터넷 사용 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Recycle_App"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:networkSecurityConfig="@xml/network_security_config">
 
+
+
+
+        <!-- 쓰레기 안내 액티비티 -->
+        <activity
+            android:name=".ui.info.content.InfoContentActivity"
+            android:exported="true" >
+
+
+        </activity>
+        <!-- 파일 저장소 관련 프로바이더 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.icarus.recycle_app.fileprovider"
@@ -24,28 +40,40 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
+        </provider> <!-- 쓰레기 결과 반환 액티비티 -->
 
 
+        <activity
+            android:name=".ui.search.image.trash_request.TrashRequestActivity"
+            android:exported="true"/>
+
+        <!-- 검색 화면 -->
         <activity
             android:name=".ui.search.SearchActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- 도움말 화면 액티비티 -->
+        <activity
+            android:name=".ui.search.base.SearchListActivity"
+            android:exported="false"/> <!-- 검색 화면 액티비티 -->
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- 스플래시 화면 -->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
+
+        </activity> <!-- 메인 액티비티 화면 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name" >
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name" />
     </application>
 
 </manifest>

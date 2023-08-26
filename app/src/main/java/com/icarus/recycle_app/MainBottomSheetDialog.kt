@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MainBottomSheetDialog : BottomSheetDialogFragment() {
@@ -16,14 +17,14 @@ class MainBottomSheetDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.dialog_main_fragment_bottom_sheet, container, false)
-        val button1 = v.findViewById<Button>(R.id.button1)
-        val button2 = v.findViewById<Button>(R.id.button2)
-        button1.setOnClickListener { v1: View? ->
-            mListener!!.onButtonClicked("button1")
+        val btnCamera = v.findViewById<LinearLayout>(R.id.ll_camera)
+        val btnGallery = v.findViewById<LinearLayout>(R.id.ll_gallery)
+        btnCamera.setOnClickListener { v1: View? ->
+            mListener!!.onButtonClicked("click_btn_camera")
             dismiss()
         }
-        button2.setOnClickListener { v12: View? ->
-            mListener!!.onButtonClicked("button2")
+        btnGallery.setOnClickListener { v1: View? ->
+            mListener!!.onButtonClicked("click_btn_gallery")
             dismiss()
         }
         return v

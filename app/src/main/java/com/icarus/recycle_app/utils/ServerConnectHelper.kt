@@ -1,11 +1,10 @@
 package com.icarus.recycle_app.utils
 
-import com.icarus.recycle_app.dto.Address
-import com.icarus.recycle_app.dto.TrashPlaceResponse
+import com.icarus.recycle_app.dto.RegionInfo
+import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
 import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -28,8 +27,9 @@ class ServerConnectHelper {
 
     private val apiService: ApiService
     var request: RequestServer? = null
-    var requestAddress: RequestAddress? = null
+    var requestRegionInfo: RequestRegionInfo? = null
     var requestImageUpload: RequestImageUpload? = null
+    var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
 
 
 
@@ -89,18 +89,31 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestAddress!!.onSuccess(response.body()!!)
+                    requestRegionInfo!!.onSuccess(response.body()!!)
                 }
             } else {
                 withContext(Dispatchers.Main) {
-                    requestAddress!!.onFailure()
+                    requestRegionInfo!!.onFailure()
                 }
             }
         }
+    }
 
+    fun getRegionTrashPlaceInfo(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getRegionTrashPlace(id)
+            val response = call.execute()
 
-
-
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestRegionTrashPlaceInfo!!.onSuccess(response.body()!!)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    requestRegionTrashPlaceInfo!!.onFailure()
+                }
+            }
+        }
     }
 
 
@@ -116,8 +129,12 @@ class ServerConnectHelper {
         @POST("upload")
         fun uploadImage(@Part image: MultipartBody.Part): Call<ResponseBody>
 
-        @GET("db")
-        fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<String>
+        @GET("dbwt")
+        fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<List<RegionInfo>>
+
+
+        @GET("dbwt")
+        fun getRegionTrashPlace(@Query("roadAdd") id: Int): Call<RegionTrashPlaceInfo>
 
 
     }
@@ -136,8 +153,13 @@ class ServerConnectHelper {
 
     }
 
-    interface RequestAddress {
-        fun onSuccess(string: String)
+    interface RequestRegionInfo {
+        fun onSuccess(regionInfoList: List<RegionInfo>)
+        fun onFailure()
+    }
+
+    interface RequestRegionTrashPlaceInfo {
+        fun onSuccess(regionTrashPlaceInfo: RegionTrashPlaceInfo)
         fun onFailure()
     }
 

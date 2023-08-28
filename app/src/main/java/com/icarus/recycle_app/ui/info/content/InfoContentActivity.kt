@@ -33,11 +33,14 @@ class InfoContentActivity : AppCompatActivity() {
         val id = intent.getStringExtra("id")
 
         // intent에서 fragment를 불러오고
-        val fragment = PlaceholderContent.ITEM_MAP[id]!!.fragment
+        val item = PlaceholderContent.ITEM_MAP[id]
+
+        val fragment = item!!.fragment
+        binding.toolbar.title = item.title
 
         // 프레그먼트 실행
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
+            .replace(R.id.flFragment, fragment)
             .commitNow()
 
     }

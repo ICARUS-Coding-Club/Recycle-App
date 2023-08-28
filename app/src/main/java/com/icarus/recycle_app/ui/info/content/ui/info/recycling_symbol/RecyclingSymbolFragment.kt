@@ -1,6 +1,7 @@
 package com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol
 
 import android.os.Bundle
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,15 @@ class RecyclingSymbolFragment : Fragment() {
     ): View {
         _binding = FragmentRecyclingSymbolBinding.inflate(inflater, container, false)
 
-        binding.elvRecyclingSymbol.setAdapter(ExpandableListAdapter(requireContext(), data))
+        val adapter = ExpandableListAdapter(requireContext(), data)
+
+        val newDisplay: Display = requireActivity().windowManager.getDefaultDisplay()
+        val width = newDisplay.width
+
+        binding.elvRecyclingSymbol.setAdapter(adapter)
+        binding.elvRecyclingSymbol.setIndicatorBounds(width-5000, width);
+
+
 
         return binding.root
     }

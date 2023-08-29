@@ -1,7 +1,6 @@
 package com.icarus.recycle_app
 
-class AppManager private constructor() {
-
+object AppManager {
     private var uid: String? = null
 
     fun setUid(uid: String) {
@@ -11,17 +10,4 @@ class AppManager private constructor() {
     fun getUid(): String? {
         return uid
     }
-
-
-    companion object {
-        private var instance: AppManager? = null
-
-        fun getInstance(): AppManager {
-            if (instance == null) {
-                instance = AppManager()
-            }
-            return instance!!
-        }
-    }
-
 }

@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         // 앱 매니저 등록
         initAppManager()
 
-        Log.d("asd", AppManager.getInstance().getUid().toString())
+        Log.d("asd", AppManager.getUid().toString())
 
 
     }
@@ -76,10 +76,10 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
             // 미리 저장된 uid가 없을 경우 새로운 uid를 만들고 저장
             val newUid = UUID.randomUUID().toString()
             sp.edit().putString("user_id", newUid).apply()
-            AppManager.getInstance().setUid(newUid)
+            AppManager.setUid(newUid)
         } else {
             // 이미 저장된 uid가 있을경우 uid를 불러옴
-            AppManager.getInstance().setUid(uid)
+            AppManager.setUid(uid)
         }
     }
 
@@ -142,10 +142,5 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         }
 
     }
-
-
-
-
-
 
 }

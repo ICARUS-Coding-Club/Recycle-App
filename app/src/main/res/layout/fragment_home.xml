@@ -37,7 +37,6 @@
 
 
             <TextView
-
                 android:maxLength="25"
                 android:id="@+id/tvAddress"
                 android:layout_marginStart="30dp"
@@ -62,16 +61,6 @@
                 android:src="@drawable/ic_down_black"
                 android:background="@color/white" />
 
-            <ImageButton
-                android:id="@+id/ibAlarmInfo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_question_mark_black"
-                android:background="@color/white"
-                android:layout_marginEnd="20dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

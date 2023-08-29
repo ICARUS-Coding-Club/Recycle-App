@@ -105,7 +105,7 @@ class TrashPlaceFragment : Fragment() {
                                     val recyclMethod = regionTrashPlaceInfo.recyclableDisposalMethod + "\n\n" + regionTrashPlaceInfo.recyclableDisposalDay + "\n\n" + regionTrashPlaceInfo.recyclableDisposalStartTime + "\n\n" + regionTrashPlaceInfo.recyclableDisposalEndTime
                                     binding.tvRecyclContent.text = recyclMethod
 
-
+                                    regionInfoDialog.dismiss()
                                 }
 
                                 override fun onFailure() {

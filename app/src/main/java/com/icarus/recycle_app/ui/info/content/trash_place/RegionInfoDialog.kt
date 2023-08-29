@@ -51,10 +51,7 @@ class RegionInfoDialog(private val regionInfoList: List<RegionInfo>) : DialogFra
 
 
         binding.btnSelect.setOnClickListener {
-
             selectBtnListener?.onClick(adapter.lastSelectedId)
-
-
         }
 
 

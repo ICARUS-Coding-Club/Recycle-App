@@ -133,7 +133,7 @@ class ServerConnectHelper {
         fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<List<RegionInfo>>
 
 
-        @GET("dbwt")
+        @GET("dbhw")
         fun getRegionTrashPlace(@Query("roadAdd") id: Int): Call<RegionTrashPlaceInfo>
 
 

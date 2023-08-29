@@ -57,9 +57,20 @@ class RegionInfoAdapter(private val regionInfoList: List<RegionInfo>): RecyclerV
             binding.sectorName.text = item.sectorName
             binding.targetAreaName.text = item.targetAreaName
 
+
+            listenerMap[item.id] = object: OnChangeRadioBtnListener {
+                override fun onClick() {
+                    binding.radioButton.isChecked = false
+                }
+            }
+
+            // OnCheckedChangeListener를 제거 (뷰가 재사용되는 것을 대비)
+            binding.radioButton.setOnCheckedChangeListener(null)
+
             // 아이템의 ID가 lastSelectedId와 동일한 경우 RadioButton을 체크합니다.
             binding.radioButton.isChecked = lastSelectedId == item.id
 
+            // OnCheckedChangeListener를 다시 설정
             binding.radioButton.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     // 이전 선택된 항목의 RadioButton을 해제합니다.
@@ -68,6 +79,7 @@ class RegionInfoAdapter(private val regionInfoList: List<RegionInfo>): RecyclerV
                     lastSelectedId = item.id
                 }
             }
+
         }
     }
 

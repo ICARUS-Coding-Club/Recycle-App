@@ -20,19 +20,6 @@ class RecyclingSymbolFragment : Fragment() {
     private var _binding : FragmentRecyclingSymbolBinding? = null
     private val binding get() = _binding!!
 
-    data class Item(val title: String, val details: List<String>)
-    private val data = listOf(
-
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1")),
-        Item("Title3", listOf("Detail3-1"))
-    )
 
     companion object {
         fun newInstance() = RecyclingSymbolFragment()
@@ -51,7 +38,7 @@ class RecyclingSymbolFragment : Fragment() {
     ): View {
         _binding = FragmentRecyclingSymbolBinding.inflate(inflater, container, false)
 
-        val adapter = ExpandableListAdapter(requireContext(), data)
+        val adapter = ExpandableListAdapter(requireContext(), RecyclingSymbolContent.ITEMS)
 
         val newDisplay: Display = requireActivity().windowManager.getDefaultDisplay()
         val width = newDisplay.width

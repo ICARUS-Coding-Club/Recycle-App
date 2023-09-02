@@ -24,6 +24,7 @@ class SearchActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, SearchImageFragment.newInstance(typeClickValue))
                     .commitNow()
+                Log.d("ViewModel", "asd")
             }
             2 -> {
                 supportFragmentManager.beginTransaction()

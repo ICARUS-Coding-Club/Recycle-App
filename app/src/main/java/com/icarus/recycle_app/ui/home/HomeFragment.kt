@@ -55,6 +55,10 @@ class HomeFragment : Fragment() {
 
         val lists = listOf<Trash>(
             Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString())
         )
         binding.gridView.adapter = HomeAdapter(lists,activity)
 
@@ -82,7 +86,7 @@ class HomeFragment : Fragment() {
 
     private fun initListener(){
 
-        val imageButtons = listOf(binding.ibFurniture,binding.ibElectronics,binding.ibDaily,binding.ibBathroom,binding.ibBook,binding.ibCosmetics,binding.ibKitchen,binding.ibFood,binding.ibContainer,binding.ibDress)
+        val imageButtons = listOf(binding.ibFurniture,binding.ibElectronics,binding.ibDaily,binding.ibBathroom,binding.ibBook,binding.ibCosmetics,binding.ibKitchen,binding.ibFood,binding.ibContainer,binding.ibDress,binding.ibMore)
 
         imageButtons.forEach { imageButton ->
             imageButton.setOnClickListener {

@@ -179,12 +179,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_furniture"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_furniture" />
 
                         <TextView
+                            android:id="@+id/tv_furniture"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -201,12 +203,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_electronics"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_electronics" />
 
                         <TextView
+                            android:id="@+id/tv_electronics"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -221,12 +225,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_daily"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_daily" />
 
                         <TextView
+                            android:id="@+id/tv_daily"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -242,6 +248,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_bathroom"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
@@ -262,12 +269,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_book"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_book" />
 
                         <TextView
+                            android:id="@+id/tv_book"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -282,12 +291,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_cosmetics"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_cosmetics" />
 
                         <TextView
+                            android:id="@+id/tv_cosmetics"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -302,6 +313,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_kitchen"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
@@ -322,12 +334,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_food"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_food" />
 
                         <TextView
+                            android:id="@+id/tv_food"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -342,12 +356,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_container"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_container" />
 
                         <TextView
+                            android:id="@+id/tv_container"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -363,12 +379,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
+                            android:id="@+id/ib_dress"
                             style="@style/icon_style"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/icon_dress" />
 
                         <TextView
+                            android:id="@+id/tv_dress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -383,7 +401,7 @@
 
                 android:id="@+id/cl3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="10dp"
                 android:paddingBottom="150dp">
 
@@ -398,10 +416,15 @@
                 <GridView
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="3"
-                    android:padding="10dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_bookmark" />
+                    android:layout_height="match_parent"
+                    android:numColumns="4"
+                    android:columnWidth="10dp"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:stretchMode="columnWidth"
+                    android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_bookmark" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

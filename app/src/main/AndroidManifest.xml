@@ -27,10 +27,10 @@
         <!-- 쓰레기 안내 액티비티 -->
         <activity
             android:name=".ui.info.content.InfoContentActivity"
-            android:exported="true" >
-
-
-        </activity>
+            android:exported="true" />
+        <!-- 카테고리 액티비티 -->
+        <activity android:name=".ui.category.CategoryResultActivity"
+            android:exported="true"/>
         <!-- 파일 저장소 관련 프로바이더 -->
         <provider
             android:name="androidx.core.content.FileProvider"

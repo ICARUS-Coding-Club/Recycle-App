@@ -27,6 +27,7 @@ import com.icarus.recycle_app.adapters.HomeAdapter
 import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
+import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.info.InfoFragment
 import com.icarus.recycle_app.ui.search.SearchActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val lists = listOf<Trash>(
-            Trash(1,"종이","종이","1","2",1,true,"", R.drawable.can.toString())
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
         )
         binding.gridView.adapter = HomeAdapter(lists,activity)
 
@@ -80,11 +81,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun initListener(){
+
+        val imageButtons = listOf(binding.ibFurniture,binding.ibElectronics,binding.ibDaily,binding.ibBathroom,binding.ibBook,binding.ibCosmetics,binding.ibKitchen,binding.ibFood,binding.ibContainer,binding.ibDress)
+
+        imageButtons.forEach { imageButton ->
+            imageButton.setOnClickListener {
+                startActivity(Intent(activity,CategoryResultActivity::class.java))
+            }
+        }
+
         binding.svCl1.setOnClickListener {
 
             startActivity(Intent(activity,SearchListActivity::class.java))
 
         }
+
 
         // 주소 검색
         binding.ibAddressSearch.setOnClickListener {

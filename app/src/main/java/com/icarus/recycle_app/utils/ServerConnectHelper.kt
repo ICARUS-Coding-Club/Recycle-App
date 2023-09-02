@@ -3,6 +3,7 @@ package com.icarus.recycle_app.utils
 import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.dto.RegionInfo
 import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
+import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,7 @@ class ServerConnectHelper {
     var requestRegionInfo: RequestRegionInfo? = null
     var requestImageUpload: RequestImageUpload? = null
     var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
+    var requestTrashes: RequestTrashes? = null
 
 
 
@@ -123,6 +125,22 @@ class ServerConnectHelper {
         }
     }
 
+    fun getTrashes(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getTrashes()
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onSuccess(response.body()!!)
+                }
+            }else {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onFailure()
+                }
+            }
+        }
+    }
 
     /**
      * retrofit api 인터페이스
@@ -145,6 +163,9 @@ class ServerConnectHelper {
         @GET("dbhw")
         fun getRegionTrashPlace(@Query("roadAdd") id: Int): Call<RegionTrashPlaceInfo>
 
+        @GET("trashes")
+        fun getTrashes(): Call<List<Trash>>
+
 
     }
 
@@ -158,6 +179,12 @@ class ServerConnectHelper {
 
     interface RequestImageUpload {
         fun onSuccess()
+        fun onFailure()
+
+    }
+
+    interface RequestTrashes {
+        fun onSuccess(trashes: List<Trash>)
         fun onFailure()
 
     }

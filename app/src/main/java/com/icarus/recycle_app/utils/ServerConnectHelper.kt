@@ -1,5 +1,6 @@
 package com.icarus.recycle_app.utils
 
+import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.dto.RegionInfo
 import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
 import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
@@ -9,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -62,12 +64,17 @@ class ServerConnectHelper {
         }
     }
 
-    fun uploadImage(imageByteArray: ByteArray) {
+    fun uploadImage(image: Image) {
+
+        val imageByteArray = image.image
+        val uid = image.uid
         val requestFile = imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
         val imagePart = MultipartBody.Part.createFormData("image", "image.jpg", requestFile)
+        val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
+
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.uploadImage(imagePart)
+            val call = apiService.uploadImageWithUid(imagePart,uidRequestBody)
             val response = call.execute()
 
             if (response.isSuccessful) {
@@ -124,10 +131,12 @@ class ServerConnectHelper {
         @GET("posts/1")
         fun getPost(): Call<TestPost>
 
-
         @Multipart
         @POST("upload")
-        fun uploadImage(@Part image: MultipartBody.Part): Call<ResponseBody>
+        fun uploadImageWithUid(
+            @Part image: MultipartBody.Part,
+            @Part("uid") uid: RequestBody?
+        ): Call<ResponseBody>
 
         @GET("dbwt")
         fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<List<RegionInfo>>

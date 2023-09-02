@@ -19,9 +19,11 @@ import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
+import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
 import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 import com.icarus.recycle_app.utils.CameraHelper
@@ -121,8 +123,10 @@ class SearchImageFragment : Fragment() {
 
             }
 
+            val image = Image(AppManager.getUid(),imageByteArray)
+
             // 서버 요청 실행
-            serverConnectHelper.uploadImage(imageByteArray)
+            serverConnectHelper.uploadImage(image)
 
             // requireActivity().startActivity(Intent(requireActivity(), TrashRequestActivity::class.java))
 

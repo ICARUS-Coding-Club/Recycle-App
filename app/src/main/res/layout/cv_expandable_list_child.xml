@@ -7,13 +7,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:textStyle="bold"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="25dp"
+        android:background="@drawable/custom_circle_background_gray"
         android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="세부 품목" />
 
 
+
+
     <TextView
+        android:padding="25dp"
+        android:background="@drawable/custom_circle_background_gray"
         android:layout_marginTop="8dp"
         android:id="@+id/tvDetailItem"
         android:layout_width="match_parent"
@@ -23,12 +31,18 @@
         android:minHeight="50dp" />
 
     <TextView
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="25dp"
+        android:background="@drawable/custom_circle_background_gray"
+        android:layout_marginTop="18dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="배출 방법" />
 
     <TextView
+        android:padding="25dp"
+        android:background="@drawable/custom_circle_background_gray"
         android:layout_marginTop="8dp"
         android:id="@+id/tvDetailMethod"
         android:layout_width="match_parent"
@@ -38,12 +52,19 @@
         android:minHeight="50dp" />
 
     <TextView
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
+
+        android:textStyle="bold"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="25dp"
+        android:background="@drawable/custom_circle_background_gray"
+        android:layout_marginTop="18dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="제한 품목" />
 
     <TextView
+        android:padding="25dp"
+        android:background="@drawable/custom_circle_background_gray"
         android:layout_marginTop="8dp"
         android:id="@+id/tvNoRecycle"
         android:layout_width="match_parent"

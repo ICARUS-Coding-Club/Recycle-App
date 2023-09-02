@@ -119,10 +119,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1c1" >
 
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:background="@drawable/gradient_overlay" />
                 </androidx.appcompat.widget.SearchView>
 
                 <TextView

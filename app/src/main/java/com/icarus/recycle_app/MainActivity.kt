@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppManager.init(applicationContext)
+
         // supportActionBar?.hide()
 
         val navView: BottomNavigationView = binding.navView

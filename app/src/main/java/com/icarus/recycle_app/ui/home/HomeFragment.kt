@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
+    private fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
         val listAdapter = gridView.adapter
             ?: // pre-condition
             return

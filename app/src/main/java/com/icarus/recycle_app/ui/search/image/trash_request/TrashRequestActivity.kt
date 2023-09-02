@@ -3,6 +3,8 @@ package com.icarus.recycle_app.ui.search.image.trash_request
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.icarus.recycle_app.AppManager
+import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.ActivityTrashRequestBinding
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.utils.ServerConnectHelper
@@ -99,6 +101,33 @@ class TrashRequestActivity : AppCompatActivity() {
         binding.tvTrashThrowInfo.text = "${trash.method}"
         binding.tvTrashTipInfo.text = "${trash.etc}"
 
+        binding.ibFavorite.setOnClickListener {
+            favoriteUpdate(trash.id)
+        }
+        favoriteInit(trash.id)
+
+
+    }
+
+    private fun favoriteInit(id: Int){
+        //favorite 확인
+        val map = AppManager.getFavorites()
+        if(map.containsKey(id)){
+            binding.ibFavorite.setImageResource(R.drawable.ic_favorite)
+        }else{
+            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favroite)
+        }
+    }
+    private fun favoriteUpdate(id: Int){//버그 있음
+        //favorite 확인
+        val map = AppManager.getFavorites()
+        if(map[id]==1){
+            binding.ibFavorite.setImageResource(R.drawable.ic_favorite)
+            AppManager.setFavorites(id,0)
+        }else{
+            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favroite)
+            AppManager.setFavorites(id,1)
+        }
     }
 
     private fun initListener() {

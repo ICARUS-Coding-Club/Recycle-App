@@ -31,7 +31,9 @@ class TrashRequestActivity : AppCompatActivity() {
         "",
         0,
         "",
-        image = "test.png"
+        image = "test.png",
+        "",
+        ""
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

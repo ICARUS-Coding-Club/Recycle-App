@@ -47,9 +47,6 @@ class HomeAdapter(private var trashes: List<Trash>, context: Context?): BaseAdap
 
         }
 
-
-
-
         imageView.setOnClickListener {
             mContext?.startActivity(Intent(mContext, TrashRequestActivity::class.java))
         }

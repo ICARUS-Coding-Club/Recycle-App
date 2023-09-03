@@ -209,7 +209,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:textColor="@color/black"
-                        android:text="팀 설명"/>
+                        android:text="프로젝트 및 팀 설명"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

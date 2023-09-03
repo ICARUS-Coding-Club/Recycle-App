@@ -69,8 +69,8 @@
 
         <ImageView
             android:layout_gravity="end"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
             android:scaleType="fitEnd"
             android:layout_width="300dp"
             android:layout_height="150dp"
@@ -79,14 +79,77 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:padding="20dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_margin="20dp"
+            android:layout_marginTop="30dp"
+            style="@style/info_title_black_bold"
             android:background="@drawable/custom_circle_background_gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="동아리 소개"/>
+
+        <TextView
+            style="@style/info_content_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="경상국립대 코딩동아리로서 자신의 한계를 깨고 새롭고 높은 목표를 향해 도전하는 이카루스처럼 자신의 능력을 향상시켜 새로운 도전에 성공하기 위해 노력하는 사람들이 모인 동아리입니다."/>
+
+
+        <TextView
+            style="@style/info_title_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주요 활동"/>
+
+        <TextView
+            style="@style/info_content_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로그래밍 언어 학습을 통한 스터디 및 다양한 분야 프로젝트를 통해 프로그래밍 능력 향상 및 코딩 사고력 증진을 목표로 합니다." />
+
+        <TextView
+            style="@style/info_title_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이번 프로젝트 소개"/>
+
+        <TextView
+            style="@style/info_content_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이미지 감지 판별 인공지능 모델을 학습하여 스마트폰으로 쓰레기 사진을 촬영하여 분류결과에 따른 쓰레기 배출 및 분리수거 방법을 안내하고 현재 저조한 재활용률을 상승시키고 크롤링되어 구축된 환경 및 재활용 데이터를 사용자에게 안내하는 프로젝트입니다." />
+
+
+        <TextView
+            style="@style/info_title_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀원 소개 및 개발 소감"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutForText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="30dp"
+            style="@style/info_title_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개발 환경"/>
+
+        <TextView
+            style="@style/info_content_black_bold"
+            android:background="@drawable/custom_circle_background_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- 인공지능 모델 개발\n\nVisual Code, Python 3.8.17, Anaconda, CUDA 11.8, Pytorch, RTX 3070, RAM 32GB\n\n\n- 서버 개발\n\nPycharm, Python 3.8, MySQL 8.0, Flask\n\n\n- 애플리케이션 개발\n\nAndroid Studio 2023.1, Kotlin, Retrofit HTTP API"/>
 
     </LinearLayout>
 

@@ -41,4 +41,24 @@
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:scaleType">centerInside</item>
     </style>
+
+    <style name="info_title_black_bold">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/custom_circle_background_gray</item>
+    </style>
+
+    <style name="info_content_black_bold">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/custom_circle_background_gray</item>
+    </style>
 </resources>

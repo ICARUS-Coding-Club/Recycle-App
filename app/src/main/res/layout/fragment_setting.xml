@@ -224,33 +224,6 @@
                     android:layout_height="2dp"
                     android:background="@color/gray"/>
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clAppDeveloperInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:textColor="@color/black"
-                        android:text="앱 제작자"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_right"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:tint="@color/black" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="@color/gray"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clAppInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

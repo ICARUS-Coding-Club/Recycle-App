@@ -2,6 +2,7 @@ package com.icarus.recycle_app.ui.setting
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,12 +28,11 @@ class SettingFragment : Fragment() {
 
 
         val dialog = AlertDialog.Builder(requireContext())
-        dialog.setPositiveButton("확인") { dialog, _ -> dialog?.dismiss() }
+        dialog.setPositiveButton("확인") { sDialog, _ -> sDialog?.dismiss() }
 
 
-        binding.clAppDeveloperInfo.setOnClickListener {
-            dialog.setMessage("차도훈, 김주영, 이가은")
-            dialog.show()
+        binding.clTeamInfo.setOnClickListener {
+            requireActivity().startActivity(Intent(requireActivity(), DeveloperInfoActivity::class.java))
         }
 
         binding.clAppInfo.setOnClickListener {

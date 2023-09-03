@@ -14,7 +14,7 @@ import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 
 class HomeAdapter(
-    private val context: Context?
+    private val context: Context
 ) : RecyclerView.Adapter<HomeAdapter.TrashViewHolder>() {
 
 
@@ -36,8 +36,12 @@ class HomeAdapter(
             .load(trash.image)
             .into(holder.imageView)
 
+
         holder.imageView.setOnClickListener {
-            context?.startActivity(Intent(context, TrashRequestActivity::class.java))
+            val intent = Intent(context, TrashRequestActivity::class.java)
+            intent.putExtra("trash", trash)
+            intent.putExtra("type", 0)
+            context.startActivity(intent)
         }
 
         holder.imageView.outlineProvider = ViewOutlineProvider.BACKGROUND

@@ -21,20 +21,7 @@ class TrashRequestActivity : AppCompatActivity() {
     //Intent Type 0 - 일반검색 1- 카메라/갤러리 검색
 
 
-    private val testTrash : Trash = Trash(0, "김치", "음식물쓰레기", "-상해서 먹지 못하는 김치는 김장 양념을 물에 한번 헹군 후 음식물쓰레기로 버려요.\n" +
-            "\n" +
-            "-가정에서 배출하는 소량의 김치국물은 하수구로 흘려보내도 무방합니다. 다만 건더기는 걸러서 음식물쓰레기로 버려주세요.\n" +
-            "\n" +
-            "-식당 등에서 대량으로 버려야할 경우 주민센터/구청 등에 생활폐기물로 신고/배출해주세요.", "-음식물 쓰레기는 살균 처리와 고온 건조 과정을 거쳐 동물용 사료 또는 경작용 퇴비로 재활용됩니다. 그래서 쉽게 분해되지 않거나 매운 맛과 향이 강해서 사료나 퇴비로 쓰일 수 없는 음식물은 재활용이 불가능합니다.\n" +
-            "\n" +
-            "-김치 양념과 국물에는 매운 캡사이신 성분과 나트륨이 다량 함유되어 있어 사료나 퇴비로 적합하지 않습니다. 반드시 양념을 헹군 후 음식물쓰레기로 배출해주세요.  ",
-        "",
-        0,
-        "",
-        image = "test.png",
-        "",
-        ""
-    )
+    private lateinit var testTrash : Trash
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,22 +80,30 @@ class TrashRequestActivity : AppCompatActivity() {
 
     private fun initRequestData(trash: Trash) {
         binding.tvToolBarTitle.text = trash.name
+
         binding.tvTrashTitle.text = "${trash.name} 정보"
+
         Glide.with(applicationContext)
             .load(trash.image) // item.image는 이미지 파일의 경로 문자열
             .into(binding.ivTrash)
-        binding.tvTrashType.text = trash.type
+
+        binding.tvTrashType.text = trash.type + "\n\n" + trash.recycleAble
+
         binding.tvTrashThrowInfoTitle.text = "${trash.name}의 버리는 방법"
+
         binding.tvTrashTipInfoTitle.text = "${trash.name}의 알아두면 좋은 점"
 
+        trash.method = trash.method.replace("|", "\n\n\n")
         binding.tvTrashThrowInfo.text = "${trash.method}"
+
+        trash.etc = trash.etc.replace("|", "\n\n\n")
         binding.tvTrashTipInfo.text = "${trash.etc}"
 
         binding.ibFavorite.setOnClickListener {
             favoriteUpdate(trash.id)
         }
-        favoriteInit(trash.id)
 
+        favoriteInit(trash.id)
 
     }
 

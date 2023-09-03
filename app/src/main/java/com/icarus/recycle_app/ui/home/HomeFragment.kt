@@ -269,6 +269,7 @@ class HomeFragment : Fragment() {
         val text = "1 2 3"
         serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
             override fun onSuccess(trashes: List<Trash>) {
+                Log.d("test", trashes.toString())
                 binding.gridView.adapter = HomeAdapter(trashes,activity)
                 adapter.notifyDataSetChanged()
             }

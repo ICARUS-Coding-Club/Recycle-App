@@ -32,7 +32,7 @@ data class Trash(
     @SerializedName("image")
     val image: String,
 
-    @SerializedName("recycleable")
+    @SerializedName("recycle_able")
     val recycleAble: String,
 
     @SerializedName("tags")

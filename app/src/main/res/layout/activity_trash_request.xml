@@ -79,55 +79,41 @@
             android:background="@color/gray"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
                 android:minHeight="150dp"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <ImageView
-                    android:id="@+id/ivTrash"
-                    android:src="@drawable/ic_down_black"
+
+
+                <View
+                    android:layout_gravity="center"
                     android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:background="@drawable/cv_fav_image_rounded"
+                    android:id="@+id/ivTrash"
+                    android:layout_margin="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:scaleType="fitEnd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:minHeight="150dp"
-                android:background="@color/white"
-                android:layout_marginTop="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/tvTrashTitle"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="쓰레기 이름" />
-
-                <TextView
-                    android:id="@+id/tvTrashType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding = "15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tvTrashTitle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:text="테스트"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
 
             <LinearLayout
@@ -139,18 +125,56 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
+                    android:id="@+id/tvTrashTitle"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="쓰레기 이름" />
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
+                    android:id="@+id/tvTrashType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="테스트"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:minHeight="150dp"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
                     android:id="@+id/tvTrashThrowInfoTitle"
                     android:textStyle="bold"
                     android:layout_marginTop="15dp"
                     android:layout_marginHorizontal="15dp"
                     android:maxLines="1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="쓰레기 이름의 버리는 방법" />
 
                 <TextView
-                    android:layout_marginVertical="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
+                    android:layout_marginVertical="15dp"
                     android:id="@+id/tvTrashThrowInfo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -168,17 +192,22 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
                     android:id="@+id/tvTrashTipInfoTitle"
                     android:textStyle="bold"
-                    android:layout_marginTop="15dp"
                     android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="쓰레기 이름의 알아두면 좋은 점" />
 
                 <TextView
-                    android:layout_marginHorizontal="15dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_circle_background_gray"
                     android:layout_marginBottom="30dp"
                     android:id="@+id/tvTrashTipInfo"
                     android:layout_width="match_parent"

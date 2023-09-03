@@ -1,6 +1,7 @@
 package com.icarus.recycle_app.ui.search.image
 
 import android.Manifest
+import android.animation.ObjectAnimator
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -13,12 +14,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
+import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.icarus.recycle_app.AppManager
+import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
 import com.icarus.recycle_app.dto.Image
+import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.utils.CameraHelper
 import java.io.ByteArrayOutputStream
 
@@ -32,12 +40,10 @@ class SearchImageFragment : Fragment() {
 
     private val REQUEST_GALLERY_IMAGE = 2 // 갤러리 요청 코드 추가
 
-    init {
-        Log.d("ViewModel", "Initialized")
-    }
+    private lateinit var viewModel: SearchImageViewModel
+
 
     companion object {
-
         private const val ARG_TYPE = "click_btn"
         fun newInstance(type: Int?): SearchImageFragment {
             val fragment = SearchImageFragment()
@@ -53,13 +59,9 @@ class SearchImageFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: SearchImageViewModel
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[SearchImageViewModel::class.java]
-
+        viewModel = ViewModelProvider(requireActivity())[SearchImageViewModel::class.java]
 
         viewModel.cameraHelper = CameraHelper(requireActivity())
 
@@ -71,16 +73,61 @@ class SearchImageFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchImageBinding.inflate(inflater, container, false)
+        binding.ivCameraResult.outlineProvider = ViewOutlineProvider.BACKGROUND
+        binding.ivCameraResult.clipToOutline = true
+
+        val downArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down1_black)
+        val upArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up1_balck)
+
 
         initListener()
 
+        val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+        val slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+        viewModel.isClickedTextInfo.observe(requireActivity()) {
+            if (viewModel.isClickedTextInfo.value == true) {
+                binding.tvInfoChild.startAnimation(slideDown)
+                binding.tvInfoChild.visibility = View.VISIBLE
+                binding.tvInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, upArrow, null)
+                ObjectAnimator.ofInt(binding.nestedScrollView, "scrollY", binding.tvInfoChild.bottom).apply {
+                    duration = 1000 
+                    start()
+                }
 
-        if (viewModel.isCameraOpened.value != true) {
+
+            } else {
+                binding.tvInfoChild.startAnimation(slideUp)
+                binding.tvInfoChild.visibility = View.INVISIBLE
+                binding.tvInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null)
+            }
+        }
+
+        viewModel.imageResultUri.observe(requireActivity()) {
+            if (viewModel.imageResultUri.value != null) {
+                Glide.with(requireActivity())
+                    .load(viewModel.imageResultUri.value)
+                    .into(binding.ivCameraResult)
+            }
+        }
+
+        viewModel.isCameraOpened.observe(requireActivity()) {
+            if (viewModel.isCameraOpened.value == true) {
+                binding.progressBar.visibility = View.GONE
+                binding.fabBack.visibility = View.VISIBLE
+                binding.tvInfo.visibility = View.VISIBLE
+                binding.btnSend.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.fabBack.visibility = View.INVISIBLE
+                binding.tvInfo.visibility = View.INVISIBLE
+                binding.btnSend.visibility = View.INVISIBLE
+            }
+        }
+
+        if (viewModel.isCameraOpened.value == false) {
+            binding.progressBar.visibility = View.VISIBLE
             when (arguments?.getInt(ARG_TYPE)) {
                 0 -> takePhotoFromCamera()
                 1 -> openGallery()
@@ -89,11 +136,6 @@ class SearchImageFragment : Fragment() {
                 }
             }
         }
-
-        Log.d("asd", viewModel.isCameraOpened.value.toString())
-
-
-
 
         return binding.root
     }
@@ -118,6 +160,10 @@ class SearchImageFragment : Fragment() {
                 Log.d("asd", "전송 실패")
             }
         })
+
+        binding.tvInfo.setOnClickListener {
+            viewModel.toggleIsClickedTextInfo()
+        }
     }
 
 
@@ -140,23 +186,22 @@ class SearchImageFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            viewModel.uri = viewModel.cameraHelper.getPhotoUri()
-            Glide.with(requireActivity()).load(viewModel.uri).into(binding.ivCameraResult)
+            viewModel.imageResultUri.value = viewModel.cameraHelper.getPhotoUri()
 
             // Uri를 Bitmap으로 변환
-            val imageBitmap = createBitmap(viewModel.uri)
+            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
             convertBitmapToByteArray(imageBitmap)
 
         } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
-            viewModel.uri = data?.data
-            Glide.with(requireActivity()).load(viewModel.uri).into(binding.ivCameraResult)
+            viewModel.imageResultUri.value = data?.data
 
             // Uri를 Bitmap으로 변환
-            val imageBitmap = createBitmap(viewModel.uri)
+            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
             convertBitmapToByteArray(imageBitmap)
 
         }
         viewModel.isCameraOpened.value = true
+
     }
 
     private fun createBitmap(uri: Uri?): Bitmap {

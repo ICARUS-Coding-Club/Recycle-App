@@ -10,7 +10,7 @@ object RecyclingSymbolContent {
         // 페트
         ITEMS.add(RecyclingSymbol(
             "페트",
-            "",
+            "페트",
             Color.rgb(255, 228, 0),
             "PET 용기, 포장재",
             "1.비우기 & 헹구기: 용기에 남아있는 음료나 식품을 완전히 비우십시오. 가능한 한 용기를 헹구워 깨끗이 만들어 재활용 과정에 방해되지 않도록 합니다.\n" +
@@ -57,7 +57,7 @@ object RecyclingSymbolContent {
         // 종이
         ITEMS.add(RecyclingSymbol(
             "종이",
-            "",
+            "종이",
             Color.rgb(0, 0, 0),
             "1.오염된 종이 제외: 음식물, 기름, 왁스 등으로 오염된 종이는 재활용에 적합하지 않습니다. 예를 들어, 기름진 피자 상자의 오염된 부분은 일반 쓰레기로 처리하고, 깨끗한 부분만 재활용해야 합니다.\n" +
                     "2.제거할 아이템 확인: 테이프, 스테이플러, 플라스틱 클립 등은 가능한 한 제거하고 재활용하세요. 그렇지만 대부분의 재활용 시설은 이러한 소량의 금속이나 플라스틱을 분리할 수 있습니다.\n" +
@@ -73,7 +73,7 @@ object RecyclingSymbolContent {
         // 종이팩
         ITEMS.add(RecyclingSymbol(
             "종이팩",
-            "",
+            "종이",
             Color.rgb(47, 157, 39),
             "1.비우기: 종이팩에 남아있는 내용물을 완전히 비우십시오.\n" +
                     "2.헹구기: 가능한 한 내용물을 깨끗이 헹궈 오염을 최소화합니다.\n" +
@@ -87,7 +87,7 @@ object RecyclingSymbolContent {
         // 유리
         ITEMS.add(RecyclingSymbol(
             "유리",
-            "",
+            "유리",
             Color.rgb(255, 187, 0),
             "",
             "1.오염물질 제거: 유리병이나 유리용기에 남아 있는 음료나 음식물을 완전히 비우고 헹군 후 말립니다.\n" +

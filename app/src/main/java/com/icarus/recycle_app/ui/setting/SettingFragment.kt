@@ -1,5 +1,7 @@
 package com.icarus.recycle_app.ui.setting
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,26 +9,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
 
+    private var _binding: FragmentSettingBinding? = null
+    private val binding get() = _binding!!
     companion object {
         fun newInstance() = SettingFragment()
     }
 
-    private lateinit var viewModel: SettingViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+    ): View {
+        _binding = FragmentSettingBinding.inflate(inflater, container, false)
+
+
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setPositiveButton("확인") { dialog, _ -> dialog?.dismiss() }
+
+
+        binding.clAppDeveloperInfo.setOnClickListener {
+            dialog.setMessage("차도훈, 김주영, 이가은")
+            dialog.show()
+        }
+
+        binding.clAppInfo.setOnClickListener {
+            dialog.setMessage("인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1-beta.0")
+            dialog.show()
+        }
+
+
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

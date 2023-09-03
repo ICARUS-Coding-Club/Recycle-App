@@ -33,6 +33,7 @@ class CategoryResultActivity : AppCompatActivity() {
             0,
             "",
             image = "https://cdn.imweb.me/thumbnail/20220120/dba3608172709.jpg",
+            "",
             ""
         )
         // 아이템 데이터를 초기화합니다.

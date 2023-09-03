@@ -250,9 +250,12 @@ class HomeFragment : Fragment() {
 
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
-        val text = DataManager.mapToString(AppManager.getFavorites())
+        val text = AppManager.getFavorites().keys.toString().replace("[", "").replace("]", "").replace(",", " ")
 
-        Log.d("test", text)
+
+        Log.d("test asdasdsad", text)
+
+
         serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
             override fun onSuccess(trashes: List<Trash>) {
 

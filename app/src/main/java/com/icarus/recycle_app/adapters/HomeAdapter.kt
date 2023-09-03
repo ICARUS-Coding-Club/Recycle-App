@@ -8,13 +8,15 @@ import android.widget.AbsListView
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.createBitmap
+import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.onboarding.OnBoardingActivity
 import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 
 
-class HomeAdapter(private val trashes: List<Trash>, context: Context?): BaseAdapter() {
+class HomeAdapter(private var trashes: List<Trash>, context: Context?): BaseAdapter() {
     private var mContext: Context? = context
 
 
@@ -23,11 +25,11 @@ class HomeAdapter(private val trashes: List<Trash>, context: Context?): BaseAdap
     }
 
     override fun getItem(position: Int): Any? {
-        return null
+        return trashes[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return trashes[position].id.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
@@ -38,13 +40,24 @@ class HomeAdapter(private val trashes: List<Trash>, context: Context?): BaseAdap
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
         } else {
             imageView = convertView as ImageView
+
+            mContext?.let {
+                Glide.with(it).load(trashes[position].image).into(imageView)
+            }
+
         }
 
-        imageView.setImageResource(R.drawable.can)
+
+
+
         imageView.setOnClickListener {
             mContext?.startActivity(Intent(mContext, TrashRequestActivity::class.java))
         }
 
         return imageView
+    }
+
+    fun updateData(newTrashes: List<Trash>) {
+        this.trashes = newTrashes
     }
 }

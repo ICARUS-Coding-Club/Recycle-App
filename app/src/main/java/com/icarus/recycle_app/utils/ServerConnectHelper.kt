@@ -34,7 +34,7 @@ class ServerConnectHelper {
     var requestImageUpload: RequestImageUpload? = null
     var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
     var requestTrashes: RequestTrashes? = null
-    var requestMultiTrashes: RequestMultiTrashes? = null
+    var requestMultiTrashes: RequestTrashes? = null
 
 
 
@@ -184,7 +184,7 @@ class ServerConnectHelper {
         @GET("trashes")
         fun getTrashes(): Call<List<Trash>>
 
-        @GET("sexy")
+        @GET("multiTrashes")
         fun getMultiTrashes(@Query("idList") idList: String): Call<List<Trash>>
 
 
@@ -210,10 +210,6 @@ class ServerConnectHelper {
 
     }
 
-    interface RequestMultiTrashes {
-        fun onSuccess(trashes: List<Trash>)
-        fun onFailure()
-    }
 
     interface RequestRegionInfo {
         fun onSuccess(regionInfoList: List<RegionInfo>)

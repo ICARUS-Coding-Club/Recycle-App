@@ -15,8 +15,6 @@ import com.icarus.recycle_app.utils.ServerConnectHelper
 class SearchListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchListBinding
-    private lateinit var searchAdapter: SearchListAdapter
-    private var lists = listOf<Trash>()
     private val serverConnectHelper = ServerConnectHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,12 +13,13 @@ import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.AddressRecyclerViewAdapter
 import com.icarus.recycle_app.adapters.HomeAdapter
@@ -27,7 +28,9 @@ import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
+import com.icarus.recycle_app.utils.DataManager
 import com.icarus.recycle_app.utils.ServerConnectHelper
+import kotlin.math.ceil
 
 
 class HomeFragment : Fragment() {
@@ -39,7 +42,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val dialogFragment = DaumAddressDialogFragment()
     private val serverConnectHelper = ServerConnectHelper()
-    private lateinit var adapter: HomeAdapter
+    private lateinit var homeAdapter: HomeAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,11 +53,12 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // 북마크 목록을 초기화하거나 표시하는 코드를 추가합니다.
-        // 예를 들어, RecyclerView를 초기화하고 어댑터를 설정합니다.
-        val recyclerView = binding.gridView
-        adapter = HomeAdapter(listOf(),activity)
-        recyclerView.adapter = adapter
+
+        homeAdapter = HomeAdapter(requireContext())
+
+        binding.gridView.setHasFixedSize(true)
+        val layoutManager = GridLayoutManager(requireContext(), 4)
+        binding.gridView.layoutManager = layoutManager
 
 
         val sp: SharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
@@ -73,35 +77,13 @@ class HomeFragment : Fragment() {
             binding.tvAddress.text = "주소를 선택해주세요."
         }
 
-        setGridViewHeightBasedOnChildren(binding.gridView, 4)
+
         initListener()
 
         return binding.root
     }
 
-    private fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
-        val listAdapter = gridView.adapter
-            ?: // pre-condition
-            return
-        var totalHeight = 0
-        val items = listAdapter.count
-        var rows = 0
-        val listItem = listAdapter.getView(0, null, gridView)
-        listItem.measure(0, 0)
-        totalHeight = listItem.measuredHeight
-        var x = 1f
-        if (items > columns) {
-            x = (items / columns).toFloat()
-            rows = (x + 1).toInt()
-            totalHeight *= rows
-        }
 
-        // Add any additional height for decorations (such as padding or vertical spacing)
-        totalHeight += gridView.verticalSpacing * (rows - 1)
-        val params = gridView.layoutParams
-        params.height = totalHeight
-        gridView.layoutParams = params
-    }
 
     private fun initListener(){
 
@@ -266,11 +248,21 @@ class HomeFragment : Fragment() {
 
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
-        val text = "1 2 3"
+        val text = DataManager.mapToString(AppManager.getFavorites())
+
+        Log.d("test", text)
         serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
             override fun onSuccess(trashes: List<Trash>) {
-                binding.gridView.adapter = HomeAdapter(trashes,activity)
-                adapter.notifyDataSetChanged()
+
+                for (item in trashes) {
+
+                    Log.d("test", "HomeFragment" + item.toString())
+                }
+
+                binding.gridView.adapter = homeAdapter
+                homeAdapter.updateData(trashes)
+
+                //setGridViewHeightBasedOnChildren(binding.gridView, 4, trashes)
             }
 
             override fun onFailure() {
@@ -282,9 +274,45 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun setGridViewHeightBasedOnChildren(
+        gridView: GridView,
+        columns: Int,
+        trashes: List<Trash>
+    ) {
+        val listAdapter = gridView.adapter ?: return
+
+        if (listAdapter.count == 0) {
+            return
+        }
+
+        var totalHeight = 0
+        var rows = 0
+
+        for ((index, _) in trashes.withIndex()) {
+            val listItem = listAdapter.getView(index, null, gridView)
+            listItem.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            )
+            totalHeight += listItem.measuredHeight // 각 아이템의 높이를 더함
+        }
+
+        // 필요한 행 수 계산
+        rows = ceil(listAdapter.count.toDouble() / columns).toInt()
+
+        // 행 간의 여백을 더함
+        totalHeight += gridView.verticalSpacing * (rows - 1)
+
+        // GridView의 높이 설정
+        val params = gridView.layoutParams
+        params.height = totalHeight
+        gridView.layoutParams = params
+    }
+
     override fun onResume() {
         super.onResume()
         Log.d("testPage","호출댐")
+        Log.d("test", AppManager.getFavorites().toString())
         updateBookmarkList()
     }
 

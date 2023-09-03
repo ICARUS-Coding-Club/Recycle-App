@@ -70,8 +70,8 @@
     <androidx.core.widget.NestedScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/custom_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -427,7 +427,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-
+                android:layout_marginBottom="100dp"
                 android:id="@+id/cl3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -442,16 +442,14 @@
                     android:theme="@style/bold_style_black"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <GridView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_margin="5dp"
                     android:id="@+id/gridView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:numColumns="4"
-                    android:columnWidth="10dp"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"
-                    android:padding="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/cv_favorite_item"
+                    android:nestedScrollingEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_bookmark"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 

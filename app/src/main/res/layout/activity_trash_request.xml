@@ -100,7 +100,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:minHeight="200dp"
+                android:minHeight="150dp"
                 android:background="@color/white"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
@@ -131,7 +131,7 @@
 
 
             <LinearLayout
-                android:minHeight="300dp"
+                android:minHeight="150dp"
                 android:background="@color/white"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
@@ -159,9 +159,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:minHeight="300dp"
+                android:minHeight="150dp"
                 android:background="@color/white"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -176,8 +177,9 @@
                     android:text="쓰레기 이름의 알아두면 좋은 점" />
 
                 <TextView
-                    android:layout_marginVertical="15dp"
                     android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
                     android:id="@+id/tvTrashTipInfo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

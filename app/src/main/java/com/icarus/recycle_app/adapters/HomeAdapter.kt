@@ -2,59 +2,58 @@ package com.icarus.recycle_app.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.BaseAdapter
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.graphics.createBitmap
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.dto.Trash
-import com.icarus.recycle_app.ui.onboarding.OnBoardingActivity
 import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
 
+class HomeAdapter(
+    private val context: Context
+) : RecyclerView.Adapter<HomeAdapter.TrashViewHolder>() {
 
-class HomeAdapter(private var trashes: List<Trash>, context: Context?): BaseAdapter() {
-    private var mContext: Context? = context
+
+    private var trashes: List<Trash> = mutableListOf()
+
+    inner class TrashViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrashViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cv_favorite_item, parent, false)
+        return TrashViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: TrashViewHolder, position: Int) {
+        val trash = trashes[position]
+
+        Glide.with(holder.itemView)
+            .load(trash.image)
+            .into(holder.imageView)
 
 
-    override fun getCount(): Int {
+        holder.imageView.setOnClickListener {
+            val intent = Intent(context, TrashRequestActivity::class.java)
+            intent.putExtra("trash", trash)
+            intent.putExtra("type", 0)
+            context.startActivity(intent)
+        }
+
+        holder.imageView.outlineProvider = ViewOutlineProvider.BACKGROUND
+        holder.imageView.clipToOutline = true
+    }
+
+    override fun getItemCount(): Int {
         return trashes.size
-    }
-
-    override fun getItem(position: Int): Any? {
-        return trashes[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return trashes[position].id.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        val imageView: ImageView
-        if (convertView == null) {
-            imageView = ImageView(mContext)
-            imageView.layoutParams = AbsListView.LayoutParams(200, 200) // 이미지 크기 조절
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        } else {
-            imageView = convertView as ImageView
-
-            mContext?.let {
-                Glide.with(it).load(trashes[position].image).into(imageView)
-            }
-
-        }
-
-        imageView.setOnClickListener {
-            mContext?.startActivity(Intent(mContext, TrashRequestActivity::class.java))
-        }
-
-        return imageView
     }
 
     fun updateData(newTrashes: List<Trash>) {
         this.trashes = newTrashes
+        notifyDataSetChanged()
     }
 }

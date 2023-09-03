@@ -9,34 +9,34 @@ data class Trash(
     val id: Int,
 
     @SerializedName("name")
-    val name : String,
+    var name : String,
 
     @SerializedName("type")
-    val type: String,
+    var type: String,
 
     @SerializedName("category")
-    val category: String,
+    var category: String,
 
     @SerializedName("method")
-    val method: String,
+    var method: String,
 
     @SerializedName("etc")
-    val etc: String,
+    var etc: String,
 
     @SerializedName("views")
-    val views: Int,
+    var views: Int,
 
     @SerializedName("date")
-    val date: String,
+    var date: String,
 
     @SerializedName("image")
-    val image: String,
+    var image: String,
 
-    @SerializedName("recycleable")
-    val recycleAble: String,
+    @SerializedName("recycle_able")
+    var recycleAble: String,
 
     @SerializedName("tags")
-    val tags: String,
+    var tags: String,
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

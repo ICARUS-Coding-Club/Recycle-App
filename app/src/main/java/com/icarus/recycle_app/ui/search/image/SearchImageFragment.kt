@@ -177,7 +177,8 @@ class SearchImageFragment : Fragment() {
 
             if (viewModel.uploadStatus.value == true) {
                 Log.d("asd", "전송 성공")
-                // Start your next Activity here
+
+
                 val intent = Intent(activity,ImageResultActivity::class.java)
                 val bundle = Bundle()
 

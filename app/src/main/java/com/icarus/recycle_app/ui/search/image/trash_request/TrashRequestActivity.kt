@@ -2,6 +2,7 @@ package com.icarus.recycle_app.ui.search.image.trash_request
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ViewOutlineProvider
 import com.bumptech.glide.Glide
 import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
@@ -29,6 +30,11 @@ class TrashRequestActivity : AppCompatActivity() {
         _binding = ActivityTrashRequestBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        binding.ivTrash.outlineProvider = ViewOutlineProvider.BACKGROUND
+        binding.ivTrash.clipToOutline = true
+
+
 
         _type = intent.getIntExtra("type",0)
 

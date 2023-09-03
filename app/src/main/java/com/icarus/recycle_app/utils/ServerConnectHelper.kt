@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
@@ -22,6 +23,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 /**
  * 쓰레기 사진을 전송하여 쓰레기 정보를 반환 받는 클래스
@@ -35,13 +37,23 @@ class ServerConnectHelper {
     var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
     var requestTrashes: RequestTrashes? = null
     var requestMultiTrashes: RequestTrashes? = null
+    var requestCategoryTrashes: RequestCategoryTrashes? = null
 
 
 
     init {
+
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+
+
         val retrofit = Retrofit.Builder()
             .baseUrl("http://211.246.215.59:8887/")
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)  // 여기에 추가
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
@@ -72,7 +84,7 @@ class ServerConnectHelper {
         val imageByteArray = image.image
         val uid = image.uid
         val requestFile = imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
-        val imagePart = MultipartBody.Part.createFormData("image", "image.jpg", requestFile)
+        val imagePart = MultipartBody.Part.createFormData("image", "image.png", requestFile)
         val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
 
 
@@ -82,7 +94,7 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestImageUpload!!.onSuccess()
+                    requestImageUpload!!.onSuccess(response.body()!!)
                 }
             } else {
                 withContext(Dispatchers.Main) {
@@ -160,6 +172,25 @@ class ServerConnectHelper {
         }
     }
 
+    fun getCategoryTrashes(name: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getCategoryTrashes(name)
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestCategoryTrashes?.onSuccess(response.body()!!)
+                }
+            }else {
+                withContext(Dispatchers.Main) {
+                    requestCategoryTrashes?.onFailure()
+                }
+            }
+        }
+    }
+
+
+
     /**
      * retrofit api 인터페이스
      */
@@ -172,7 +203,7 @@ class ServerConnectHelper {
         fun uploadImageWithUid(
             @Part image: MultipartBody.Part,
             @Part("uid") uid: RequestBody?
-        ): Call<ResponseBody>
+        ): Call<List<Trash>>
 
         @GET("dbwt")
         fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<List<RegionInfo>>
@@ -187,6 +218,9 @@ class ServerConnectHelper {
         @GET("multiTrashes")
         fun getMultiTrashes(@Query("idList") idList: String): Call<List<Trash>>
 
+        @GET("category")
+        fun getCategoryTrashes(@Query("name") name: String): Call<List<Trash>>
+
 
     }
 
@@ -199,7 +233,7 @@ class ServerConnectHelper {
     }
 
     interface RequestImageUpload {
-        fun onSuccess()
+        fun onSuccess(trashes: List<Trash>)
         fun onFailure()
 
     }
@@ -218,6 +252,11 @@ class ServerConnectHelper {
 
     interface RequestRegionTrashPlaceInfo {
         fun onSuccess(regionTrashPlaceInfo: RegionTrashPlaceInfo)
+        fun onFailure()
+    }
+
+    interface RequestCategoryTrashes {
+        fun onSuccess(trashes: List<Trash>)
         fun onFailure()
     }
 

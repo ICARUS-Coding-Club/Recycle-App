@@ -46,15 +46,27 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // 북마크 목록을 초기화하거나 표시하는 코드를 추가합니다.
-        // 예를 들어, RecyclerView를 초기화하고 어댑터를 설정합니다.
-        val recyclerView = binding.gridView
-        adapter = HomeAdapter(listOf(),activity)
-        recyclerView.adapter = adapter
+        adapter = HomeAdapter(listOf(), requireContext())
+        binding.gridView.adapter = adapter
+
+        serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
+            override fun onSuccess(trashes: List<Trash>) {
+                Log.d("testPage",trashes[0].name)
+                adapter.updateData(trashes)
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure() {
+                Log.d("testPage","씰패")
+            }
+
+        }
+
+        serverConnectHelper.getMultiTrashes("1 2 3")
 
 
         val sp: SharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
@@ -267,17 +279,7 @@ class HomeFragment : Fragment() {
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
         val text = "1 2 3"
-        serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestMultiTrashes{
-            override fun onSuccess(trashes: List<Trash>) {
-                binding.gridView.adapter = HomeAdapter(trashes,activity)
-                adapter.notifyDataSetChanged()
-            }
 
-            override fun onFailure() {
-                Log.d("numberss2","씰패")
-            }
-
-        }
         serverConnectHelper.getMultiTrashes(text)
 
     }

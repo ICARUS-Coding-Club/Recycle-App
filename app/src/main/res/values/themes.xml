@@ -17,6 +17,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <!--폰트 색상 설정 -->
         <item name="android:textColor">@color/black</item>
+
     </style>
     <style name="bold_style_black" parent="Theme.Recycle_App">
         <item name="android:textStyle">bold</item>
@@ -39,5 +40,25 @@
         <item name="android:tint">@color/white</item>
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="info_title_black_bold">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/custom_circle_background_gray</item>
+    </style>
+
+    <style name="info_content_black_bold">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/custom_circle_background_gray</item>
     </style>
 </resources>

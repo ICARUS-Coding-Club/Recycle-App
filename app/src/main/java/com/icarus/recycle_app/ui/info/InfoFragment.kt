@@ -34,7 +34,7 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_current_situation, container, false)
+        val view = inflater.inflate(R.layout.fragment_info, container, false)
 
         // 리사이클러뷰 설정
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)

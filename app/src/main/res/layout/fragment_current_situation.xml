@@ -4,18 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="16dp"
-    tools:context=".ui.current_situation.CurrentSituationFragment" >
+    android:orientation="vertical" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:name="com.icarus.recycle_app.ui.current_situation.ItemFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/item_info"
-        android:clipToPadding="false"
-        android:paddingBottom="50dp"/>
 
 </LinearLayout>

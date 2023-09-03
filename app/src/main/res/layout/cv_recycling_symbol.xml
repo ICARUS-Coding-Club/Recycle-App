@@ -14,7 +14,8 @@
         android:src="@drawable/ic_recycling_black" />
 
     <TextView
-        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textSize="8sp"
         android:id="@+id/tvInnerText"
         app:layout_constraintStart_toStartOf="@id/ivRecyclingSymbol"
         app:layout_constraintEnd_toEndOf="@id/ivRecyclingSymbol"

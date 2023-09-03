@@ -1,15 +1,17 @@
 package com.icarus.recycle_app.utils
 
-import com.icarus.recycle_app.dto.Address
-import com.icarus.recycle_app.dto.TrashPlaceResponse
+import com.icarus.recycle_app.dto.Image
+import com.icarus.recycle_app.dto.RegionInfo
+import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
+import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -28,8 +30,10 @@ class ServerConnectHelper {
 
     private val apiService: ApiService
     var request: RequestServer? = null
-    var requestAddress: RequestAddress? = null
+    var requestRegionInfo: RequestRegionInfo? = null
     var requestImageUpload: RequestImageUpload? = null
+    var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
+    var requestTrashes: RequestTrashes? = null
 
 
 
@@ -62,12 +66,17 @@ class ServerConnectHelper {
         }
     }
 
-    fun uploadImage(imageByteArray: ByteArray) {
+    fun uploadImage(image: Image) {
+
+        val imageByteArray = image.image
+        val uid = image.uid
         val requestFile = imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
         val imagePart = MultipartBody.Part.createFormData("image", "image.jpg", requestFile)
+        val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
+
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.uploadImage(imagePart)
+            val call = apiService.uploadImageWithUid(imagePart,uidRequestBody)
             val response = call.execute()
 
             if (response.isSuccessful) {
@@ -89,20 +98,49 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestAddress!!.onSuccess(response.body()!!)
+                    requestRegionInfo!!.onSuccess(response.body()!!)
                 }
             } else {
                 withContext(Dispatchers.Main) {
-                    requestAddress!!.onFailure()
+                    requestRegionInfo!!.onFailure()
                 }
             }
         }
-
-
-
-
     }
 
+    fun getRegionTrashPlaceInfo(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getRegionTrashPlace(id)
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestRegionTrashPlaceInfo!!.onSuccess(response.body()!!)
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    requestRegionTrashPlaceInfo!!.onFailure()
+                }
+            }
+        }
+    }
+
+    fun getTrashes(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getTrashes()
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onSuccess(response.body()!!)
+                }
+            }else {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onFailure()
+                }
+            }
+        }
+    }
 
     /**
      * retrofit api 인터페이스
@@ -111,13 +149,22 @@ class ServerConnectHelper {
         @GET("posts/1")
         fun getPost(): Call<TestPost>
 
-
         @Multipart
         @POST("upload")
-        fun uploadImage(@Part image: MultipartBody.Part): Call<ResponseBody>
+        fun uploadImageWithUid(
+            @Part image: MultipartBody.Part,
+            @Part("uid") uid: RequestBody?
+        ): Call<ResponseBody>
 
-        @GET("db")
-        fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<String>
+        @GET("dbwt")
+        fun getTrashPlace(@Query("roadAdd") roadAdd: String): Call<List<RegionInfo>>
+
+
+        @GET("dbhw")
+        fun getRegionTrashPlace(@Query("roadAdd") id: Int): Call<RegionTrashPlaceInfo>
+
+        @GET("trashes")
+        fun getTrashes(): Call<List<Trash>>
 
 
     }
@@ -136,8 +183,19 @@ class ServerConnectHelper {
 
     }
 
-    interface RequestAddress {
-        fun onSuccess(string: String)
+    interface RequestTrashes {
+        fun onSuccess(trashes: List<Trash>)
+        fun onFailure()
+
+    }
+
+    interface RequestRegionInfo {
+        fun onSuccess(regionInfoList: List<RegionInfo>)
+        fun onFailure()
+    }
+
+    interface RequestRegionTrashPlaceInfo {
+        fun onSuccess(regionTrashPlaceInfo: RegionTrashPlaceInfo)
         fun onFailure()
     }
 

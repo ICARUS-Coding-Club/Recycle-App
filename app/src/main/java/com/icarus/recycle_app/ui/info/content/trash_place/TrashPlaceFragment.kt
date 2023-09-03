@@ -9,14 +9,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentTrashPlaceBinding
 import com.icarus.recycle_app.dto.Address
-import com.icarus.recycle_app.dto.TrashPlaceResponse
+import com.icarus.recycle_app.dto.RegionInfo
+import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
 import com.icarus.recycle_app.ui.home.DaumAddressDialogFragment
 import com.icarus.recycle_app.utils.ServerConnectHelper
 
@@ -79,9 +77,49 @@ class TrashPlaceFragment : Fragment() {
 
         binding.btnApply.setOnClickListener {
             val serverConnector = ServerConnectHelper()
-            serverConnector.requestAddress = object : ServerConnectHelper.RequestAddress {
-                override fun onSuccess(string: String) {
-                    Log.d("asd", string)
+            serverConnector.requestRegionInfo = object : ServerConnectHelper.RequestRegionInfo {
+                override fun onSuccess(regionInfoList: List<RegionInfo>) {
+
+                    val regionInfoDialog = RegionInfoDialog(regionInfoList)
+
+                    regionInfoDialog.show(parentFragmentManager, "dialog_tag")
+
+
+                    regionInfoDialog.selectBtnListener = object : RegionInfoDialog.OnSelectBtnListener {
+                        override fun onClick(lastSelectedId: Int) {
+
+                            val serverConnection = ServerConnectHelper()
+                            serverConnection.requestRegionTrashPlaceInfo = object : ServerConnectHelper.RequestRegionTrashPlaceInfo {
+                                override fun onSuccess(regionTrashPlaceInfo: RegionTrashPlaceInfo) {
+
+
+                                    val infoContent = regionTrashPlaceInfo.disposalPlaceType + "\n\n" + regionTrashPlaceInfo.disposalPlace + "\n\n" + regionTrashPlaceInfo.nonCollectionDay + "\n\n" + regionTrashPlaceInfo.managementDepartmentPhone + "\n\n" + regionTrashPlaceInfo.dataStandardDate
+                                    binding.tvInfoContent.text = infoContent
+
+                                    val generalMethod = regionTrashPlaceInfo.generalWasteDisposalMethod + "\n\n" + regionTrashPlaceInfo.generalWasteDisposalStartTime + "\n\n" + regionTrashPlaceInfo.generalWasteDisposalEndTime
+                                    binding.tvGeneralContent.text = generalMethod
+
+                                    val foodMethod = regionTrashPlaceInfo.foodWasteDisposalMethod + "\n\n" + regionTrashPlaceInfo.foodWasteDisposalDay + "\n\n" + regionTrashPlaceInfo.foodWasteDisposalStartTime + "\n\n" + regionTrashPlaceInfo.foodWasteDisposalEndTime
+                                    binding.tvFoodContent.text = foodMethod
+
+                                    val recyclMethod = regionTrashPlaceInfo.recyclableDisposalMethod + "\n\n" + regionTrashPlaceInfo.recyclableDisposalDay + "\n\n" + regionTrashPlaceInfo.recyclableDisposalStartTime + "\n\n" + regionTrashPlaceInfo.recyclableDisposalEndTime
+                                    binding.tvRecyclContent.text = recyclMethod
+
+                                    regionInfoDialog.dismiss()
+                                }
+
+                                override fun onFailure() {
+                                    Log.d("asd", "실패")
+                                }
+
+                            }
+
+                            serverConnection.getRegionTrashPlaceInfo(lastSelectedId)
+
+
+                        }
+
+                    }
 
                 }
 

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
+import com.bumptech.glide.Glide
 import com.icarus.recycle_app.databinding.ItemSearchBinding
 import com.icarus.recycle_app.dto.Trash
 import java.util.Locale
@@ -44,7 +45,11 @@ class SearchListAdapter(private val context: Context, itemList: List<Trash>) :
 
         val item = filteredList[position]
         binding.tvTitle.text = item.name
-        binding.ivImage.setImageResource(item.image.toInt())
+
+        Glide.with(context)
+            .load(item.image) // item.image는 이미지 파일의 경로 문자열
+            .into(binding.ivImage)
+
         // 여기에서 다른 필요한 데이터를 설정할 수 있습니다.
 
         return binding.root

@@ -9,14 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.GridView
 import android.widget.ImageView
-import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -27,11 +24,8 @@ import com.icarus.recycle_app.adapters.HomeAdapter
 import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
-import com.icarus.recycle_app.ui.info.InfoFragment
-import com.icarus.recycle_app.ui.search.SearchActivity
+import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
-import com.icarus.recycle_app.ui.setting.SettingFragment
-import com.icarus.recycle_app.ui.splash.SplashActivity
 
 
 class HomeFragment : Fragment() {
@@ -53,7 +47,13 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val lists = listOf<Trash>(
-            Trash(1,"종이","종이","1","2",1,true,"", R.drawable.can.toString())
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
+            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString())
         )
         binding.gridView.adapter = HomeAdapter(lists,activity)
 
@@ -73,18 +73,52 @@ class HomeFragment : Fragment() {
             binding.tvAddress.text = "주소를 선택해주세요."
         }
 
-
+        setGridViewHeightBasedOnChildren(binding.gridView, 4)
         initListener()
 
         return binding.root
     }
 
+    fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
+        val listAdapter = gridView.adapter
+            ?: // pre-condition
+            return
+        var totalHeight = 0
+        val items = listAdapter.count
+        var rows = 0
+        val listItem = listAdapter.getView(0, null, gridView)
+        listItem.measure(0, 0)
+        totalHeight = listItem.measuredHeight
+        var x = 1f
+        if (items > columns) {
+            x = (items / columns).toFloat()
+            rows = (x + 1).toInt()
+            totalHeight *= rows
+        }
+
+        // Add any additional height for decorations (such as padding or vertical spacing)
+        totalHeight += gridView.verticalSpacing * (rows - 1)
+        val params = gridView.layoutParams
+        params.height = totalHeight
+        gridView.layoutParams = params
+    }
+
     private fun initListener(){
+
+        val imageButtons = listOf(binding.ibFurniture,binding.ibElectronics,binding.ibDaily,binding.ibBathroom,binding.ibBook,binding.ibCosmetics,binding.ibKitchen,binding.ibFood,binding.ibContainer,binding.ibDress,binding.ibMore)
+
+        imageButtons.forEach { imageButton ->
+            imageButton.setOnClickListener {
+                startActivity(Intent(activity,CategoryResultActivity::class.java))
+            }
+        }
+
         binding.svCl1.setOnClickListener {
 
             startActivity(Intent(activity,SearchListActivity::class.java))
 
         }
+
 
         // 주소 검색
         binding.ibAddressSearch.setOnClickListener {

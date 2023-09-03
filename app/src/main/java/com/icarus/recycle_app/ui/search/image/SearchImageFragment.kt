@@ -1,54 +1,49 @@
 package com.icarus.recycle_app.ui.search.image
 
 import android.Manifest
-import android.annotation.SuppressLint
+import android.animation.ObjectAnimator
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.view.ViewOutlineProvider
+import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
-import androidx.core.content.FileProvider
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
-import com.icarus.recycle_app.databinding.FragmentHomeBinding
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
-import com.icarus.recycle_app.ui.search.image.trash_request.TestPost
-import com.icarus.recycle_app.ui.search.image.trash_request.TrashRequestActivity
+import com.icarus.recycle_app.dto.Image
+import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.utils.CameraHelper
-import com.icarus.recycle_app.utils.ServerConnectHelper
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class SearchImageFragment : Fragment() {
 
 
     private var _binding: FragmentSearchImageBinding? = null
-    private val REQUEST_IMAGE_CAPTURE = 1
-    private val REQUEST_GALLERY_IMAGE = 2 // 갤러리 요청 코드 추가
-    private var photoUri: Uri? = null
-
-    private var imageByteArray: ByteArray = byteArrayOf() // ByteArray 변수를 빈 배열로 초기화
-
 
     private val binding get() = _binding!!
 
 
-    companion object {
+    private val REQUEST_GALLERY_IMAGE = 2 // 갤러리 요청 코드 추가
 
+    private lateinit var viewModel: SearchImageViewModel
+
+
+    companion object {
         private const val ARG_TYPE = "click_btn"
         fun newInstance(type: Int?): SearchImageFragment {
             val fragment = SearchImageFragment()
@@ -64,132 +59,160 @@ class SearchImageFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: SearchImageViewModel
-
-    private lateinit var cameraHelper: CameraHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SearchImageViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[SearchImageViewModel::class.java]
 
-
-
-        cameraHelper = CameraHelper(requireActivity())
+        viewModel.cameraHelper = CameraHelper(requireActivity())
 
         ActivityCompat.requestPermissions(requireActivity(),
             arrayOf(
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            cameraHelper.REQUEST_IMAGE_CAPTURE)
+            viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE)
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchImageBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        binding.ivCameraResult.outlineProvider = ViewOutlineProvider.BACKGROUND
+        binding.ivCameraResult.clipToOutline = true
 
+        val downArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down1_black)
+        val upArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up1_balck)
 
-        binding.fabBack.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
 
         initListener()
 
-        return root
+        val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+        val slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+        viewModel.isClickedTextInfo.observe(requireActivity()) {
+            if (viewModel.isClickedTextInfo.value == true) {
+                binding.tvInfoChild.startAnimation(slideDown)
+                binding.tvInfoChild.visibility = View.VISIBLE
+                binding.tvInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, upArrow, null)
+                ObjectAnimator.ofInt(binding.nestedScrollView, "scrollY", binding.tvInfoChild.bottom).apply {
+                    duration = 1000 
+                    start()
+                }
+
+
+            } else {
+                binding.tvInfoChild.startAnimation(slideUp)
+                binding.tvInfoChild.visibility = View.INVISIBLE
+                binding.tvInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, downArrow, null)
+            }
+        }
+
+        viewModel.imageResultUri.observe(requireActivity()) {
+            if (viewModel.imageResultUri.value != null) {
+                Glide.with(requireActivity())
+                    .load(viewModel.imageResultUri.value)
+                    .into(binding.ivCameraResult)
+            }
+        }
+
+        viewModel.isCameraOpened.observe(requireActivity()) {
+            if (viewModel.isCameraOpened.value == true) {
+                binding.progressBar.visibility = View.GONE
+                binding.fabBack.visibility = View.VISIBLE
+                binding.tvInfo.visibility = View.VISIBLE
+                binding.btnSend.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.fabBack.visibility = View.INVISIBLE
+                binding.tvInfo.visibility = View.INVISIBLE
+                binding.btnSend.visibility = View.INVISIBLE
+            }
+        }
+
+        if (viewModel.isCameraOpened.value == false) {
+            binding.progressBar.visibility = View.VISIBLE
+            when (arguments?.getInt(ARG_TYPE)) {
+                0 -> takePhotoFromCamera()
+                1 -> openGallery()
+                else -> {
+                    // 다른 동작
+                }
+            }
+        }
+
+        return binding.root
     }
 
     /**
      * 리스너 등록
      */
     private fun initListener() {
+        binding.fabBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         binding.btnSend.setOnClickListener {
+            val image = Image(AppManager.getUid(), viewModel.imageByteArray)
+            viewModel.uploadImageToServer(image)
+        }
 
-            val serverConnectHelper = ServerConnectHelper()
-
-            // 서버 요청 리스너 등록
-            serverConnectHelper.requestImageUpload = object : ServerConnectHelper.RequestImageUpload {
-                override fun onSuccess() {
-                    Log.d("asd", "전송 성공")
-                }
-
-                override fun onFailure() {
-                    Log.d("asd", "전송 실패")
-                }
-
-
+        viewModel.uploadStatus.observe(viewLifecycleOwner, Observer { isSuccess ->
+            if (isSuccess) {
+                Log.d("asd", "전송 성공")
+            } else {
+                Log.d("asd", "전송 실패")
             }
+        })
 
-            // 서버 요청 실행
-            serverConnectHelper.uploadImage(imageByteArray)
-
-            // requireActivity().startActivity(Intent(requireActivity(), TrashRequestActivity::class.java))
-
-
-
-
+        binding.tvInfo.setOnClickListener {
+            viewModel.toggleIsClickedTextInfo()
         }
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        val type = arguments?.getInt(ARG_TYPE)
-
-        when (type) {
-            0 -> takePhotoFromCamera()
-            1 -> openGallery() // 갤러리를 열어 사진을 선택
-            else -> {
-                // 다른 클래스나 메서드 사용 등의 다른 동작 수행
-            }
-        }
-
-
-
-    }
     private fun takePhotoFromCamera() {
-        val intent = cameraHelper.dispatchTakePictureIntent()
+        val intent = viewModel.cameraHelper.dispatchTakePictureIntent()
         intent?.let {
-            startActivityForResult(it, cameraHelper.REQUEST_IMAGE_CAPTURE)
+            startActivityForResult(it, viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE)
         }
     }
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_GALLERY_IMAGE)
+
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val photoUri = cameraHelper.getPhotoUri()
-            Glide.with(requireActivity()).load(photoUri).into(binding.ivCameraResult)
+        if (requestCode == viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            viewModel.imageResultUri.value = viewModel.cameraHelper.getPhotoUri()
 
             // Uri를 Bitmap으로 변환
-            val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, photoUri)
-
-            // Bitmap을 ByteArray로 변환
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            imageByteArray = byteArrayOutputStream.toByteArray() // 전역 변수에 바이트 배열 저장
-
+            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
+            convertBitmapToByteArray(imageBitmap)
 
         } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
-            val selectedImage = data?.data
-            Glide.with(requireActivity()).load(selectedImage).into(binding.ivCameraResult)
+            viewModel.imageResultUri.value = data?.data
 
             // Uri를 Bitmap으로 변환
-            val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedImage)
-
-            // Bitmap을 ByteArray로 변환
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-            imageByteArray = byteArrayOutputStream.toByteArray() // 전역 변수에 바이트 배열 저장
+            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
+            convertBitmapToByteArray(imageBitmap)
 
         }
+        viewModel.isCameraOpened.value = true
+
+    }
+
+    private fun createBitmap(uri: Uri?): Bitmap {
+        return MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+    }
+
+    private fun convertBitmapToByteArray(imageBitmap: Bitmap) {
+        // Bitmap을 ByteArray로 변환
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        viewModel.imageByteArray = byteArrayOutputStream.toByteArray()
     }
 
     override fun onDestroy() {
@@ -197,67 +220,5 @@ class SearchImageFragment : Fragment() {
         _binding = null
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(SearchImageViewModel::class.java)
-//
-//        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_IMAGE_CAPTURE)
-//
-//    }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        dispatchTakePictureIntent()
-//    }
-//
-//
-//    @SuppressLint("QueryPermissionsNeeded")
-//    private fun dispatchTakePictureIntent() {
-//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
-//            // startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//
-//            // 이미지 파일을 생성하는 코드
-//            val photoFile: File? = try {
-//                createImageFile()
-//            } catch (ex: IOException) {
-//                null
-//            }
-//
-//            photoFile?.also {
-//                photoUri = FileProvider.getUriForFile(
-//                    requireActivity(),
-//                    "com.icarus.recycle_app.fileprovider",
-//                    it
-//                )
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//            }
-//        }
-//    }
-//
-//    private fun createImageFile(): File {
-//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-//        val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//        return File.createTempFile(
-//            "JPEG_${timeStamp}_",
-//            ".jpg",
-//            storageDir
-//        )
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            Glide.with(requireActivity()).load(photoUri).into(capturedImageView)
-//        }
-//    }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            val imageBitmap = data?.extras?.get("data") as Bitmap
-//            Glide.with(requireActivity()).load(imageBitmap).into(capturedImageView)
-//        }
-//    }
 
 }

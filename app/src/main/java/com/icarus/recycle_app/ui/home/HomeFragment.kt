@@ -13,6 +13,7 @@ import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
+import com.icarus.recycle_app.utils.ServerConnectHelper
 
 
 class HomeFragment : Fragment() {
@@ -36,6 +38,8 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val dialogFragment = DaumAddressDialogFragment()
+    private val serverConnectHelper = ServerConnectHelper()
+    private lateinit var adapter: HomeAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,16 +50,12 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val lists = listOf<Trash>(
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString()),
-            Trash(1,"종이","종이","1","2","",1,"", R.drawable.can.toString())
-        )
-        binding.gridView.adapter = HomeAdapter(lists,activity)
+        // 북마크 목록을 초기화하거나 표시하는 코드를 추가합니다.
+        // 예를 들어, RecyclerView를 초기화하고 어댑터를 설정합니다.
+        val recyclerView = binding.gridView
+        adapter = HomeAdapter(listOf(),activity)
+        recyclerView.adapter = adapter
+
 
         val sp: SharedPreferences = requireActivity().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
+    private fun setGridViewHeightBasedOnChildren(gridView: GridView, columns: Int) {
         val listAdapter = gridView.adapter
             ?: // pre-condition
             return
@@ -261,8 +261,32 @@ class HomeFragment : Fragment() {
 
 
         }
+
     }
 
+    private fun updateBookmarkList(){
+        // 북마크 목록 데이터를 업데이트합니다.
+        val text = "1 2 3"
+        serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestMultiTrashes{
+            override fun onSuccess(trashes: List<Trash>) {
+                binding.gridView.adapter = HomeAdapter(trashes,activity)
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure() {
+                Log.d("numberss2","씰패")
+            }
+
+        }
+        serverConnectHelper.getMultiTrashes(text)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("testPage","호출댐")
+        updateBookmarkList()
+    }
 
 
     override fun onDestroyView() {

@@ -278,7 +278,7 @@ class HomeFragment : Fragment() {
             }
 
         }
-        serverConnectHelper.getMultiTrashes(text)
+        //serverConnectHelper.getMultiTrashes(text)
 
     }
 

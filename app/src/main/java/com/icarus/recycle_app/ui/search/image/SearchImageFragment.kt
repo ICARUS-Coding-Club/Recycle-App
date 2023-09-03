@@ -92,7 +92,7 @@ class SearchImageFragment : Fragment() {
                 binding.tvInfoChild.visibility = View.VISIBLE
                 binding.tvInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, upArrow, null)
                 ObjectAnimator.ofInt(binding.nestedScrollView, "scrollY", binding.tvInfoChild.bottom).apply {
-                    duration = 1000 
+                    duration = 1000
                     start()
                 }
 
@@ -152,6 +152,7 @@ class SearchImageFragment : Fragment() {
             val image = Image(AppManager.getUid(), viewModel.imageByteArray)
             viewModel.uploadImageToServer(image)
         }
+
 
         viewModel.uploadStatus.observe(viewLifecycleOwner, Observer { isSuccess ->
             if (isSuccess) {

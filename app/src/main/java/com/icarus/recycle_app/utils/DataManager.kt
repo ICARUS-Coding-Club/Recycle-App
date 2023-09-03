@@ -1,8 +1,8 @@
 package com.icarus.recycle_app.utils
 
 object DataManager {
-    fun stringToMap(input: String?): Map<Int, Int> {
-        val map = mutableMapOf<Int, Int>()
+    fun stringToMap(input: String?): Map<Int, Boolean> {
+        val map = mutableMapOf<Int, Boolean>()
         if(input != ""){
             val keyValuePairs = input?.split(" ")
 
@@ -10,7 +10,7 @@ object DataManager {
             if (keyValuePairs.isNotEmpty()) {
                 for (pair in keyValuePairs) {
                     val (key, value) = pair.split(":")
-                    map[key.toInt()] = value.toInt()
+                    map[key.toInt()] = value.toBoolean()
                 }
             }
         }
@@ -18,7 +18,7 @@ object DataManager {
         return map
     }
 
-    fun mapToString(map: Map<Int, Int>): String {
+    fun mapToString(map: Map<Int, Boolean>): String {
         val keyValuePairs = mutableListOf<String>()
 
         for ((key, value) in map) {

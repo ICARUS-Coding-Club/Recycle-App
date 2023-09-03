@@ -34,6 +34,7 @@ class ServerConnectHelper {
     var requestImageUpload: RequestImageUpload? = null
     var requestRegionTrashPlaceInfo: RequestRegionTrashPlaceInfo? = null
     var requestTrashes: RequestTrashes? = null
+    var requestMultiTrashes: RequestMultiTrashes? = null
 
 
 
@@ -142,6 +143,23 @@ class ServerConnectHelper {
         }
     }
 
+    fun getMultiTrashes(idList: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getMultiTrashes(idList)
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onSuccess(response.body()!!)
+                }
+            }else {
+                withContext(Dispatchers.Main) {
+                    requestTrashes?.onFailure()
+                }
+            }
+        }
+    }
+
     /**
      * retrofit api 인터페이스
      */
@@ -166,6 +184,9 @@ class ServerConnectHelper {
         @GET("trashes")
         fun getTrashes(): Call<List<Trash>>
 
+        @GET("sexy")
+        fun getMultiTrashes(@Query("idList") idList: String): Call<List<Trash>>
+
 
     }
 
@@ -189,6 +210,11 @@ class ServerConnectHelper {
 
     }
 
+    interface RequestMultiTrashes {
+        fun onSuccess(trashes: List<Trash>)
+        fun onFailure()
+    }
+
     interface RequestRegionInfo {
         fun onSuccess(regionInfoList: List<RegionInfo>)
         fun onFailure()
@@ -198,5 +224,7 @@ class ServerConnectHelper {
         fun onSuccess(regionTrashPlaceInfo: RegionTrashPlaceInfo)
         fun onFailure()
     }
+
+
 
 }

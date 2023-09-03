@@ -7,6 +7,7 @@ import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.ActivityTrashRequestBinding
 import com.icarus.recycle_app.dto.Trash
+import com.icarus.recycle_app.ui.home.HomeFragment
 import com.icarus.recycle_app.utils.ServerConnectHelper
 
 class TrashRequestActivity : AppCompatActivity() {
@@ -113,22 +114,29 @@ class TrashRequestActivity : AppCompatActivity() {
         //favorite 확인
         val map = AppManager.getFavorites()
         if(map.containsKey(id)){
-            binding.ibFavorite.setImageResource(R.drawable.ic_favorite)
+            if(map[id]==true){
+                binding.ibFavorite.setImageResource(R.drawable.ic_favorite)
+            }else{
+                binding.ibFavorite.setImageResource(R.drawable.ic_blank_favorite)
+            }
         }else{
-            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favroite)
+            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favorite)
+            AppManager.setFavorites(id,false)
         }
     }
     private fun favoriteUpdate(id: Int){//버그 있음
         //favorite 확인
         val map = AppManager.getFavorites()
-        if(map[id]==1){
+        if(map[id]==true){
+            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favorite)
+            AppManager.setFavorites(id,false)
+        }else if(map[id]==false){
             binding.ibFavorite.setImageResource(R.drawable.ic_favorite)
-            AppManager.setFavorites(id,0)
-        }else{
-            binding.ibFavorite.setImageResource(R.drawable.ic_blank_favroite)
-            AppManager.setFavorites(id,1)
+            AppManager.setFavorites(id,true)
         }
     }
+
+
 
     private fun initListener() {
         binding.ibBack.setOnClickListener {

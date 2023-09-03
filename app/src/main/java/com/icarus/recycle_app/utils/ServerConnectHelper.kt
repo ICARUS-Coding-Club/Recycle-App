@@ -151,11 +151,11 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestTrashes?.onSuccess(response.body()!!)
+                    requestMultiTrashes?.onSuccess(response.body()!!)
                 }
             }else {
                 withContext(Dispatchers.Main) {
-                    requestTrashes?.onFailure()
+                    requestMultiTrashes?.onFailure()
                 }
             }
         }

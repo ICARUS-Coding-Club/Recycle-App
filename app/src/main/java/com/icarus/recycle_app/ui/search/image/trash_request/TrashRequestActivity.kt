@@ -32,6 +32,7 @@ class TrashRequestActivity : AppCompatActivity() {
         0,
         "",
         image = "test.png",
+        "",
         ""
     )
 

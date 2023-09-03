@@ -32,8 +32,11 @@ data class Trash(
     @SerializedName("image")
     val image: String,
 
-    @SerializedName("recycle_able")
-    val recycleAble: String
+    @SerializedName("recycleable")
+    val recycleAble: String,
+
+    @SerializedName("tags")
+    val tags: String,
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -46,7 +49,8 @@ data class Trash(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -60,6 +64,7 @@ data class Trash(
         parcel.writeString(date)
         parcel.writeString(image)
         parcel.writeString(recycleAble)
+        parcel.writeString(tags)
     }
 
     override fun describeContents(): Int {

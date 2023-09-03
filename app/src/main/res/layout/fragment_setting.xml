@@ -20,23 +20,33 @@
             app:title="앱 설정"/>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="15dp"
-            android:padding="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_circle_background_gray" >
 
 
             <TextView
+                android:padding="20dp"
+                style="@style/bold_style_black"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="인공지능 쓰레기 이미지 인식 프로젝트" />
 
+            <TextView
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="공개 SW 개발자 대회 자유 과제 개발" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
 
 
         <LinearLayout

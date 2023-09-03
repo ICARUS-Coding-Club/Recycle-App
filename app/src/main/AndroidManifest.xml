@@ -4,6 +4,13 @@
     <!-- 카메라 사용 권한 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" /> <!-- 내부 저장소 사용 권한 -->

@@ -26,7 +26,10 @@ import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.FragmentSearchImageBinding
 import com.icarus.recycle_app.dto.Image
+import com.icarus.recycle_app.dto.Trash
+import com.icarus.recycle_app.dto.TrashImage
 import com.icarus.recycle_app.ui.search.SearchViewModel
+import com.icarus.recycle_app.ui.search.image.trash_request.ImageResultActivity
 import com.icarus.recycle_app.utils.CameraHelper
 import java.io.ByteArrayOutputStream
 
@@ -70,6 +73,15 @@ class SearchImageFragment : Fragment() {
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE),
             viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE)
+
+//        viewModel.navigateToNextActivity.observe(this) { shouldNavigate ->
+//            if (shouldNavigate) {
+//
+//
+//                // Reset the navigation trigger
+//                viewModel.navigateToNextActivity.value = false
+//            }
+//        }
 
     }
 
@@ -154,9 +166,25 @@ class SearchImageFragment : Fragment() {
         }
 
 
-        viewModel.uploadStatus.observe(viewLifecycleOwner, Observer { isSuccess ->
-            if (isSuccess) {
+        viewModel.trashItems.observe(viewLifecycleOwner, Observer { isSuccess ->
+            if (viewModel.uploadStatus.value == true) {
                 Log.d("asd", "전송 성공")
+                // Start your next Activity here
+                val intent = Intent(activity,ImageResultActivity::class.java)
+
+                val bundle = Bundle()
+
+
+
+                val trashArray = viewModel.trashItems.value
+                val trashArrayList = trashArray?.let { ArrayList<Trash>(it) }
+
+                bundle.putParcelableArrayList("myKey", trashArrayList)
+                intent.putExtras(bundle)
+
+
+
+                startActivity(intent)
             } else {
                 Log.d("asd", "전송 실패")
             }

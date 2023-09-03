@@ -1,6 +1,8 @@
 package com.icarus.recycle_app.ui.category
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.icarus.recycle_app.adapters.CategoryResultAdapter
@@ -19,8 +21,7 @@ class CategoryResultActivity : AppCompatActivity() {
 
         initListener()
 
-        // 더 많은 아이템을 추가할 수 있습니다.
-
+        val category = intent.getStringExtra("category")
         serverConnectHelper.requestCategoryTrashes = object : ServerConnectHelper.RequestCategoryTrashes{
             override fun onSuccess(trashes: List<Trash>) {
                 val adapter = CategoryResultAdapter(trashes, applicationContext)
@@ -28,16 +29,20 @@ class CategoryResultActivity : AppCompatActivity() {
 
                 // RecyclerView에 GridLayoutManager를 설정하여 한 줄에 2개의 아이템이 표시되도록 합니다.
                 binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+
+                Log.d("numberaa",trashes.toString())
             }
 
             override fun onFailure() {
-                TODO("Not yet implemented")
+                Log.d("numberaa","씰패")
             }
 
         }
 
-        serverConnectHelper.getCategoryTrashes("생활용품")
-
+        if(category!=null){
+            serverConnectHelper.getCategoryTrashes(category)
+            binding.tvToolBarTitle.text = category
+        }
 
 
 

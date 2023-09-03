@@ -106,10 +106,12 @@ class HomeFragment : Fragment() {
     private fun initListener(){
 
         val imageButtons = listOf(binding.ibFurniture,binding.ibElectronics,binding.ibDaily,binding.ibBathroom,binding.ibBook,binding.ibCosmetics,binding.ibKitchen,binding.ibFood,binding.ibContainer,binding.ibDress,binding.ibMore)
-
-        imageButtons.forEach { imageButton ->
+        val categories = listOf("가구/인테리어","가전제품","생활용품","욕실용품","도서/문구","화장품","주방용품","식품","용기/포장재","패션/잡화","기타")
+        imageButtons.forEachIndexed { index, imageButton ->
             imageButton.setOnClickListener {
-                startActivity(Intent(activity,CategoryResultActivity::class.java))
+                val intent = Intent(activity, CategoryResultActivity::class.java)
+                intent.putExtra("category", categories[index])
+                startActivity(intent)
             }
         }
 
@@ -285,7 +287,6 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("testPage","호출댐")
         updateBookmarkList()
     }
 

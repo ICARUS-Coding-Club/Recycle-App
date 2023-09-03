@@ -168,11 +168,11 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestTrashes?.onSuccess(response.body()!!)
+                    requestCategoryTrashes?.onSuccess(response.body()!!)
                 }
             }else {
                 withContext(Dispatchers.Main) {
-                    requestTrashes?.onFailure()
+                    requestCategoryTrashes?.onFailure()
                 }
             }
         }

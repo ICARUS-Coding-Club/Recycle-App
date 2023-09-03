@@ -22,7 +22,7 @@ object DataManager {
         val keyValuePairs = mutableListOf<String>()
 
         for ((key, value) in map) {
-            keyValuePairs.add("$key:$value")
+            keyValuePairs.add("$key")
         }
 
         return keyValuePairs.joinToString(" ")

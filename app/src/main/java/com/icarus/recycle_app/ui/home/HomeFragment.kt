@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.AddressRecyclerViewAdapter
 import com.icarus.recycle_app.adapters.HomeAdapter
@@ -27,6 +28,7 @@ import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
+import com.icarus.recycle_app.utils.DataManager
 import com.icarus.recycle_app.utils.ServerConnectHelper
 import kotlin.math.ceil
 
@@ -246,7 +248,9 @@ class HomeFragment : Fragment() {
 
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
-        val text = "1 2 3 4 5 6 7 8"
+        val text = DataManager.mapToString(AppManager.getFavorites())
+
+        Log.d("test", text)
         serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
             override fun onSuccess(trashes: List<Trash>) {
 
@@ -308,6 +312,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("testPage","호출댐")
+        Log.d("test", AppManager.getFavorites().toString())
         updateBookmarkList()
     }
 

@@ -161,28 +161,31 @@ class SearchImageFragment : Fragment() {
         }
 
         binding.btnSend.setOnClickListener {
+
+            binding.fabBack.visibility = View.INVISIBLE
+            binding.tvInfo.visibility = View.INVISIBLE
+            binding.btnSend.visibility = View.INVISIBLE
+            binding.tvInfoChild.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+
             val image = Image(AppManager.getUid(), viewModel.imageByteArray)
             viewModel.uploadImageToServer(image)
         }
 
 
         viewModel.trashItems.observe(viewLifecycleOwner, Observer { isSuccess ->
+
             if (viewModel.uploadStatus.value == true) {
                 Log.d("asd", "전송 성공")
                 // Start your next Activity here
                 val intent = Intent(activity,ImageResultActivity::class.java)
-
                 val bundle = Bundle()
-
-
 
                 val trashArray = viewModel.trashItems.value
                 val trashArrayList = trashArray?.let { ArrayList<Trash>(it) }
 
                 bundle.putParcelableArrayList("myKey", trashArrayList)
                 intent.putExtras(bundle)
-
-
 
                 startActivity(intent)
             } else {

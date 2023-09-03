@@ -60,7 +60,9 @@
             android:exported="false" /> <!-- 스플래시 화면 -->
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:exported="true"></activity> <!-- 메인 액티비티 화면 -->
+            android:exported="true"/> <!-- 메인 액티비티 화면 -->
+        <activity android:name=".ui.search.image.trash_request.ImageResultActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

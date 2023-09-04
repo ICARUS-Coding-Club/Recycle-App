@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="식별된 물체가 없습니다.\n\n뒤로가기 버튼을 눌러서\n\n다시 촬영 해 주세요!"
+        android:text="서버와 연결되지 않아 데이터를 불러오지 못했습니다"
         android:background="@drawable/custom_circle_background_gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

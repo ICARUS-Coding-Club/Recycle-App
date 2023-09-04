@@ -1,5 +1,6 @@
 package com.icarus.recycle_app.utils
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import com.icarus.recycle_app.dto.EnvironmentTip
@@ -243,7 +244,7 @@ class ServerConnectHelper {
     }
 
 
-    fun getCategoryTrashes(name: String) {
+    fun getCategoryTrashes(name: String,context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val call = apiService.getCategoryTrashes(name)
@@ -256,13 +257,9 @@ class ServerConnectHelper {
                         requestCategoryTrashes?.onFailure()
                     }
                 }
-            } catch (e: SocketTimeoutException) {
-                withContext(Dispatchers.Main) {
-                    Log.e("error", "An unexpected error occurred", e)
-                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Log.e("error", "An unexpected error occurred", e)
+                    requestCategoryTrashes?.onFailure()
                 }
             }
         }

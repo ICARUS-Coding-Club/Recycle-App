@@ -49,7 +49,7 @@ class CategoryResultActivity : AppCompatActivity() {
                 }
 
             }
-            serverConnectHelper.getCategoryTrashes(category)
+            serverConnectHelper.getCategoryTrashes(category,this)
             binding.tvToolBarTitle.text = category
 
         }catch (e: IllegalArgumentException) {

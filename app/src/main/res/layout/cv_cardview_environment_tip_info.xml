@@ -17,14 +17,17 @@
         android:layout_height="match_parent" >
 
         <ImageView
-            android:alpha="0.7"
-            android:background="@drawable/i_box_green"
+            android:scaleType="matrix"
+
+            android:id="@+id/imageView"
+            android:alpha="0.8"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <ImageView
-            android:alpha="0.7"
-            android:background="@drawable/gradient_overlay"
+            android:scaleType="matrix"
+            android:alpha="0.8"
+            android:background="@drawable/gradient_news_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -6,16 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.CvCardviewEnvironmentTipInfoBinding
 import com.icarus.recycle_app.dto.EnvironmentTip
 
 class EnvironmentRecyclerViewAdapter(
-    private val environmentTips: List<EnvironmentTip>
+    private val environmentTips: List<EnvironmentTip>?
 ): RecyclerView.Adapter<EnvironmentRecyclerViewAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClicked(environmentTip: EnvironmentTip)
+        fun onItemClicked(pos: Int)
     }
 
     lateinit var listener: OnItemClickListener
@@ -32,13 +33,19 @@ class EnvironmentRecyclerViewAdapter(
         holder: EnvironmentRecyclerViewAdapter.ViewHolder,
         position: Int) {
 
-        holder.bind(environmentTips[position])
+        if (!environmentTips.isNullOrEmpty()) {
+            holder.bind(environmentTips[position])
+        }
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClicked(position)
+        }
 
 
     }
 
     override fun getItemCount(): Int {
-        return environmentTips.size
+        return environmentTips?.size ?: 0
     }
 
     inner class ViewHolder(val binding: CvCardviewEnvironmentTipInfoBinding) : RecyclerView.ViewHolder(binding.root){
@@ -46,12 +53,14 @@ class EnvironmentRecyclerViewAdapter(
 
         fun bind(item: EnvironmentTip) {
             binding.tvTitle.text = item.title
-            binding.tvContent.text = item.content
 
-            binding.root.setOnClickListener {
-                listener.onItemClicked(item)
+            binding.tvContent.text = if (item.body.length > 100) {
+                item.body.substring(0, 50) + "..."
+            } else {
+                item.body
             }
 
+            Glide.with(binding.root).load(item.image).into(binding.imageView)
 
         }
     }

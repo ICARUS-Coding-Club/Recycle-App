@@ -9,6 +9,7 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -36,7 +37,9 @@
             <TextView
                 android:id="@+id/tvTitle"
                 android:textSize="20sp"
-                android:padding="14dp"
+                android:padding="15dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/custom_circle_background_gray"
                 app:layout_constraintTop_toBottomOf="@id/vpTitleImage"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="match_parent"
@@ -44,7 +47,9 @@
                 android:text="Lorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasd "/>
 
             <TextView
-                android:padding="14dp"
+                android:padding="15dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/custom_circle_background_gray"
                 android:text="산림 정보청 | 2016-08-05"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 android:id="@+id/tvInfo"
@@ -52,8 +57,11 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:padding="15dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/custom_circle_background_gray"
                 android:text="Lorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdLorem ipsum door sit amet, consertur adipcsel, sed alua s, do elmode temporinc iondlsuasdd "
-                android:padding="14dp"
+
                 app:layout_constraintTop_toBottomOf="@id/tvInfo"
                 android:id="@+id/tvContent"
                 android:layout_width="match_parent"

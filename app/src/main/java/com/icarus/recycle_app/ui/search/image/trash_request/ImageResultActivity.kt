@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,8 @@ class ImageResultActivity : AppCompatActivity() {
 
             // RecyclerView에 GridLayoutManager를 설정하여 한 줄에 2개의 아이템이 표시되도록 합니다.
             binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
+        } else {
+            binding.tvNoneTrash.visibility = View.VISIBLE
         }
 
 

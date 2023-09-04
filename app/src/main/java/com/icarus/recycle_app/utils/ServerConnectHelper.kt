@@ -1,5 +1,6 @@
 package com.icarus.recycle_app.utils
 
+import com.icarus.recycle_app.dto.EnvironmentTip
 import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.dto.RegionInfo
 import com.icarus.recycle_app.dto.RegionTrashPlaceInfo
@@ -39,6 +40,8 @@ class ServerConnectHelper {
     var requestTrashes: RequestTrashes? = null
     var requestMultiTrashes: RequestTrashes? = null
     var requestCategoryTrashes: RequestCategoryTrashes? = null
+
+    var requestEnvironmentTip: RequestEnvironment? = null
 
 
 
@@ -261,6 +264,22 @@ class ServerConnectHelper {
         }
     }
 
+    fun getEnvironmentTip(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val call = apiService.getEnvironmentTip()
+            val response = call.execute()
+
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    requestEnvironmentTip?.onSuccess(response.body()!!)
+                }
+            }else {
+                withContext(Dispatchers.Main) {
+                    requestEnvironmentTip?.onFailure()
+                }
+            }
+        }
+    }
 
 
     /**
@@ -294,6 +313,8 @@ class ServerConnectHelper {
         fun getCategoryTrashes(@Query("name") name: String): Call<List<Trash>>
 
 
+        @GET("news_send")
+        fun getEnvironmentTip(): Call<List<EnvironmentTip>>
     }
 
     /**
@@ -332,6 +353,12 @@ class ServerConnectHelper {
         fun onFailure()
     }
 
+
+    interface RequestEnvironment {
+        fun onSuccess(environmentTipList: List<EnvironmentTip>)
+
+        fun onFailure()
+    }
 
 
 }

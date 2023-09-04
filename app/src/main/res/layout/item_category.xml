@@ -14,20 +14,25 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center">
         <ImageView
+            android:background="@drawable/cv_fav_image_rounded"
             android:id="@+id/iv_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:scaleType="fitEnd"
             android:src="@drawable/ic_gallery" />
         <TextView
-            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_circle_background_gray"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="쓰레기 안내 타이틀"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>

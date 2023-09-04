@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.icarus.recycle_app.databinding.ItemCategoryBinding
@@ -20,6 +21,10 @@ class CategoryResultAdapter(private val trashes: List<Trash>, private val contex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val trash = trashes[position]
         holder.binding.tvTitle.text = trash.name
+        holder.binding.ivImage.outlineProvider = ViewOutlineProvider.BACKGROUND
+        holder.binding.ivImage.clipToOutline = true
+
+
         Glide.with(context)
                 .load(trash.image)
                 .into(holder.binding.ivImage)

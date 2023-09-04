@@ -31,6 +31,7 @@ import com.icarus.recycle_app.dto.TrashImage
 import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.ui.search.image.trash_request.ImageResultActivity
 import com.icarus.recycle_app.utils.CameraHelper
+import com.icarus.recycle_app.utils.LoadingUtil
 import java.io.ByteArrayOutputStream
 
 class SearchImageFragment : Fragment() {
@@ -45,6 +46,8 @@ class SearchImageFragment : Fragment() {
 
     private lateinit var viewModel: SearchImageViewModel
 
+    private lateinit var loadingUtil: LoadingUtil
+
 
     companion object {
         private const val ARG_TYPE = "click_btn"
@@ -56,6 +59,8 @@ class SearchImageFragment : Fragment() {
             type?.let {
                 args.putInt(ARG_TYPE, it)
             }
+
+
 
             fragment.arguments = args
             return fragment
@@ -74,6 +79,8 @@ class SearchImageFragment : Fragment() {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE),
             viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE)
 
+
+
 //        viewModel.navigateToNextActivity.observe(this) { shouldNavigate ->
 //            if (shouldNavigate) {
 //
@@ -87,12 +94,27 @@ class SearchImageFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSearchImageBinding.inflate(inflater, container, false)
+
         binding.ivCameraResult.outlineProvider = ViewOutlineProvider.BACKGROUND
         binding.ivCameraResult.clipToOutline = true
 
+        loadingUtil = LoadingUtil(requireContext())
+        loadingUtil.initUtil("이미지 변환 중...", "어떻게 동작하나요?",
+            mutableListOf(
+                "1. 촬영된 이미지를 서버를 통해 인공지능에게 전달합니다.",
+                "2. 미리 학습된 16가지 클래스를 기준으로 이미지를 감지하고 판별합니다.",
+                "3. 반환된 클래스와 비슷한 성질의 쓰레기를 데이터베이스에서 반환합니다.",
+                "4. 인공지능의 실시간 이미지 분석이 사용되므로 시간이 걸릴 수 있습니다."),
+            mutableListOf(binding.fabBack,
+                    binding.tvInfo,
+                    binding.btnSend),
+            R.drawable.ic_arrow_down1_black,
+            R.drawable.ic_arrow_up1_balck)
+
+
+
         val downArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_down1_black)
         val upArrow = ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_up1_balck)
-
 
         initListener()
 
@@ -126,20 +148,20 @@ class SearchImageFragment : Fragment() {
 
         viewModel.isCameraOpened.observe(requireActivity()) {
             if (viewModel.isCameraOpened.value == true) {
-                binding.progressBar.visibility = View.GONE
-                binding.fabBack.visibility = View.VISIBLE
-                binding.tvInfo.visibility = View.VISIBLE
-                binding.btnSend.visibility = View.VISIBLE
+                loadingUtil.changeVisibility(View.VISIBLE)
+                loadingUtil.dismiss()
+
             } else {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.fabBack.visibility = View.INVISIBLE
-                binding.tvInfo.visibility = View.INVISIBLE
-                binding.btnSend.visibility = View.INVISIBLE
+                loadingUtil.changeVisibility(View.INVISIBLE)
+                loadingUtil.show()
             }
         }
 
         if (viewModel.isCameraOpened.value == false) {
-            binding.progressBar.visibility = View.VISIBLE
+
+            loadingUtil.changeVisibility(View.INVISIBLE)
+            loadingUtil.show()
+
             when (arguments?.getInt(ARG_TYPE)) {
                 0 -> takePhotoFromCamera()
                 1 -> openGallery()
@@ -162,11 +184,7 @@ class SearchImageFragment : Fragment() {
 
         binding.btnSend.setOnClickListener {
 
-            binding.fabBack.visibility = View.INVISIBLE
-            binding.tvInfo.visibility = View.INVISIBLE
-            binding.btnSend.visibility = View.INVISIBLE
-            binding.tvInfoChild.visibility = View.INVISIBLE
-            binding.progressBar.visibility = View.VISIBLE
+            loadingUtil.show("인공지능 이미지 식별 중...")
 
             val image = Image(AppManager.getUid(), viewModel.imageByteArray)
             viewModel.uploadImageToServer(image)
@@ -175,10 +193,10 @@ class SearchImageFragment : Fragment() {
 
         viewModel.trashItems.observe(viewLifecycleOwner, Observer { isSuccess ->
 
+            loadingUtil.dismiss()
+
             if (viewModel.uploadStatus.value == true) {
                 Log.d("asd", "전송 성공")
-
-
                 val intent = Intent(activity,ImageResultActivity::class.java)
                 val bundle = Bundle()
 

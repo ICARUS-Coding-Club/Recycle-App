@@ -3,7 +3,6 @@ package com.icarus.recycle_app.ui.category
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.icarus.recycle_app.adapters.CategoryResultAdapter
@@ -29,7 +28,7 @@ class CategoryResultActivity : AppCompatActivity() {
         loadingUtil.show()
 
         try {
-            val category = intent.getStringExtra("category")
+            val category = intent.getStringExtra("category") ?: throw IllegalArgumentException("Category is null")
             serverConnectHelper.requestCategoryTrashes = object : ServerConnectHelper.RequestCategoryTrashes{
                 override fun onSuccess(trashes: List<Trash>) {
                     loadingUtil.dismiss()
@@ -50,12 +49,15 @@ class CategoryResultActivity : AppCompatActivity() {
                 }
 
             }
-            if(category!=null){
-                serverConnectHelper.getCategoryTrashes(category)
-                binding.tvToolBarTitle.text = category
-            }
-        }catch (_ : Exception){
+            serverConnectHelper.getCategoryTrashes(category)
+            binding.tvToolBarTitle.text = category
 
+        }catch (e: IllegalArgumentException) {
+            Log.e("error", "Category is missing", e)
+            // 적절한 에러 처리
+        } catch (e: Exception) {
+            Log.e("error", "An unexpected error occurred", e)
+            // 적절한 에러 처리
         }
 
 

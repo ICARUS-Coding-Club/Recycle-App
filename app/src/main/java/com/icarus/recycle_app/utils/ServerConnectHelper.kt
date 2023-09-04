@@ -1,5 +1,7 @@
 package com.icarus.recycle_app.utils
 
+import android.util.Log
+import android.widget.Toast
 import com.icarus.recycle_app.dto.EnvironmentTip
 import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.dto.RegionInfo
@@ -15,7 +17,6 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -238,31 +239,34 @@ class ServerConnectHelper {
         }
     }
 
-    fun getCategoryTrashes(name: String){
+
+    fun getCategoryTrashes(name: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getCategoryTrashes(name)
-            val response = call.execute()
+            try {
+                val call = apiService.getCategoryTrashes(name)
+                val response = call.execute()
 
-            if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-
-                    try {
+                    if (response.isSuccessful) {
                         requestCategoryTrashes?.onSuccess(response.body()!!)
-                        // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
+                    } else {
+                        requestCategoryTrashes?.onFailure()
                     }
-
                 }
-            }else {
+            } catch (e: SocketTimeoutException) {
                 withContext(Dispatchers.Main) {
-                    requestCategoryTrashes?.onFailure()
+                    Log.e("error", "An unexpected error occurred", e)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.e("error", "An unexpected error occurred", e)
                 }
             }
         }
     }
+
+
+
 
     fun getEnvironmentTip(){
         CoroutineScope(Dispatchers.IO).launch {

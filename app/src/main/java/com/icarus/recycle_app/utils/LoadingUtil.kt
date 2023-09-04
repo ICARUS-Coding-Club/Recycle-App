@@ -137,4 +137,5 @@ class LoadingUtil(context: Context): Dialog(context) {
         inner class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
     }
 
+
 }

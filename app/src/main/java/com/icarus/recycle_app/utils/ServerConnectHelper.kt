@@ -97,39 +97,39 @@ class ServerConnectHelper {
     }
 
     fun uploadImage(image: Image) {
-
         val imageByteArray = image.image
         val uid = image.uid
         val requestFile = imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
         val imagePart = MultipartBody.Part.createFormData("image", "image.png", requestFile)
         val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
 
-
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.uploadImageWithUid(imagePart,uidRequestBody)
-            val response = call.execute()
+            try {
+                val call = apiService.uploadImageWithUid(imagePart, uidRequestBody)
+                val response = call.execute()
 
                 if (response.isSuccessful) {
-
                     withContext(Dispatchers.Main) {
-                        try {
-                            requestImageUpload!!.onSuccess(response.body()!!)
-                            // 성공적으로 데이터를 가져왔을 때의 처리
-                        } catch (e: SocketTimeoutException) {
-                            // 타임아웃 발생 시 처리
-                        } catch (e: Exception) {
-                            // 그 외 예외 발생 시 처리
-                        }
-
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                        requestImageUpload?.onSuccess(response.body()!!)
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-
-                        requestImageUpload!!.onFailure()
+                        // 실패 시 처리
+                        requestImageUpload?.onFailure()
                     }
                 }
-
-
+            } catch (e: SocketTimeoutException) {
+                // 타임아웃 발생 시 처리
+                withContext(Dispatchers.Main) {
+                    requestImageUpload?.onFailure()
+                }
+            } catch (e: Exception) {
+                // 그 외 예외 발생 시 처리
+                withContext(Dispatchers.Main) {
+                    requestImageUpload?.onFailure()
+                }
+            }
         }
     }
 
@@ -214,24 +214,27 @@ class ServerConnectHelper {
 
     fun getMultiTrashes(idList: String){
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getMultiTrashes(idList)
-            val response = call.execute()
+            try {
+                val call = apiService.getMultiTrashes(idList)
+                val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
-
-                    try {
-                        requestMultiTrashes?.onSuccess(response.body()!!)
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
                         // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
+                        requestMultiTrashes?.onSuccess(response.body()!!)
                     }
-
-
+                } else {
+                    withContext(Dispatchers.Main) {
+                        requestMultiTrashes?.onFailure()
+                    }
                 }
-            }else {
+            } catch (e: SocketTimeoutException) {
+                // 타임아웃 발생 시 처리
+                withContext(Dispatchers.Main) {
+                    requestMultiTrashes?.onFailure()
+                }
+            } catch (e: Exception) {
+                // 그 외 예외 발생 시 처리
                 withContext(Dispatchers.Main) {
                     requestMultiTrashes?.onFailure()
                 }

@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -37,6 +38,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+import java.lang.Exception
 
 class SearchImageFragment : Fragment() {
 
@@ -184,11 +186,11 @@ class SearchImageFragment : Fragment() {
         }
 
         binding.btnSend.setOnClickListener {
-
             loadingUtil.show("인공지능 이미지 식별 중...")
 
             val image = Image(AppManager.getUid(), viewModel.imageByteArray)
             viewModel.uploadImageToServer(image)
+
         }
 
 
@@ -209,7 +211,9 @@ class SearchImageFragment : Fragment() {
 
                 startActivity(intent)
             } else {
+                loadingUtil.dismiss()
                 Log.d("asd", "전송 실패")
+                Toast.makeText(requireContext(), "서버와 응답이 없습니다.", Toast.LENGTH_SHORT).show()
             }
         })
 

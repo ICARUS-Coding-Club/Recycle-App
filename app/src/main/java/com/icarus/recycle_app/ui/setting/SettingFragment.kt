@@ -39,7 +39,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.clAppInfo.setOnClickListener {
-            dialog.setMessage("인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1-beta.0")
+            dialog.setMessage("인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1")
             dialog.show()
         }
 

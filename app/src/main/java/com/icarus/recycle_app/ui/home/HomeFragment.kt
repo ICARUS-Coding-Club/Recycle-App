@@ -30,6 +30,7 @@ import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
 import com.icarus.recycle_app.utils.DataManager
 import com.icarus.recycle_app.utils.ServerConnectHelper
+import java.lang.Exception
 import kotlin.math.ceil
 
 
@@ -253,29 +254,32 @@ class HomeFragment : Fragment() {
         val filteredKeys = AppManager.getFavorites().filter { it.value == true }.keys.joinToString(" ")
 
 
+        try {
+            serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
+                override fun onSuccess(trashes: List<Trash>) {
 
+                    for (item in trashes) {
 
+                        Log.d("test", "HomeFragment" + item.toString())
+                    }
 
-        serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
-            override fun onSuccess(trashes: List<Trash>) {
+                    binding.gridView.adapter = homeAdapter
+                    homeAdapter.updateData(trashes)
 
-                for (item in trashes) {
-
-                    Log.d("test", "HomeFragment" + item.toString())
+                    //setGridViewHeightBasedOnChildren(binding.gridView, 4, trashes)
                 }
 
-                binding.gridView.adapter = homeAdapter
-                homeAdapter.updateData(trashes)
+                override fun onFailure() {
+                    Log.d("numberss2","씰패")
+                }
 
-                //setGridViewHeightBasedOnChildren(binding.gridView, 4, trashes)
             }
-
-            override fun onFailure() {
-                Log.d("numberss2","씰패")
-            }
-
+            serverConnectHelper.getMultiTrashes(filteredKeys)
+        }catch (_: Exception){
         }
-        serverConnectHelper.getMultiTrashes(filteredKeys)
+
+
+
 
     }
 

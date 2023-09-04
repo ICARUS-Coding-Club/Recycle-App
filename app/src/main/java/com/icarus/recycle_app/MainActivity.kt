@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity(), MainBottomSheetDialog.BottomSheetListe
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        AppManager.init(applicationContext)
-
         // supportActionBar?.hide()
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each

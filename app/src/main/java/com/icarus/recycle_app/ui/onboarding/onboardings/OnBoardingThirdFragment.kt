@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.MainActivity
 import com.icarus.recycle_app.databinding.FragmentOnboardingThirdBinding
 

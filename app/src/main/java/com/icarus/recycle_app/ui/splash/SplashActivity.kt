@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.MainActivity
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.ui.onboarding.OnBoardingActivity
@@ -18,8 +19,8 @@ class SplashActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val debug = false
-        if(debug){
+        if(AppManager.getStartInit()==true){
+            AppManager.startInit()
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

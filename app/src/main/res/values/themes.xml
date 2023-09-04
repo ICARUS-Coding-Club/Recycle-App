@@ -16,7 +16,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
         <!--폰트 색상 설정 -->
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/siam</item>
 
     </style>
     <style name="bold_style_black" parent="Theme.Recycle_App">

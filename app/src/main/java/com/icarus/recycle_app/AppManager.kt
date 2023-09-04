@@ -30,6 +30,14 @@ object AppManager {
         map[key] = value
         sp?.edit()?.putString("favorite",DataManager.mapToString(map))?.apply()
     }
+
+    fun startInit(){
+        sp?.edit()?.putBoolean("init",true)?.apply()
+    }
+
+    fun getStartInit(): Boolean?{
+        return sp?.getBoolean("init",false)
+    }
     fun setUid(uid: String) {
         this.uid = uid
     }

@@ -15,11 +15,76 @@
         app:title="쓰레기 현황"/>
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_gravity="center"
         style="@style/info_content_black_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="추후 개발 예정입니다." />
+        android:gravity="center"
+        android:text="시도별 생활폐기물 총 발생량(톤/일)." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <com.icarus.recycle_app.ZoomAndDragImageView
+            android:id="@+id/iv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/graph1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:padding="20dp">
+
+        <ImageButton
+            android:background="@drawable/custom_circle_background_teal700"
+            android:id="@+id/ib_undo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_arrow_back_black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <ImageButton
+            android:background="@drawable/custom_circle_background_teal700"
+            android:id="@+id/ib_refresh"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_refresh"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ib_undo"
+            app:layout_constraintEnd_toStartOf="@id/ib_next"/>
+
+        <ImageButton
+            android:background="@drawable/custom_circle_background_teal700"
+            android:id="@+id/ib_next"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_arrow_front_black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
 
 
 </LinearLayout>

@@ -33,7 +33,9 @@ class ImageResultActivity : AppCompatActivity() {
 
         binding.tvToolBarTitle.text = "유사 품목 검색 결과"
 
-        if (myArrayList!=null){
+        Log.d("asd", myArrayList.toString())
+
+        if (!myArrayList.isNullOrEmpty()){
             val adapter = CategoryResultAdapter(myArrayList.toList(), applicationContext)
             binding.recyclerView.adapter = adapter
 

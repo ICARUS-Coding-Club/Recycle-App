@@ -34,6 +34,7 @@ import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.ui.search.image.trash_request.ImageResultActivity
 import com.icarus.recycle_app.utils.CameraHelper
 import com.icarus.recycle_app.utils.LoadingUtil
+import com.icarus.recycle_app.utils.ServerConnectHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -53,6 +54,8 @@ class SearchImageFragment : Fragment() {
     private lateinit var viewModel: SearchImageViewModel
 
     private lateinit var loadingUtil: LoadingUtil
+
+    private val serverConnectHelper = ServerConnectHelper()
 
 
     companion object {
@@ -189,33 +192,41 @@ class SearchImageFragment : Fragment() {
             loadingUtil.show("인공지능 이미지 식별 중...")
 
             val image = Image(AppManager.getUid(), viewModel.imageByteArray)
-            viewModel.uploadImageToServer(image)
+
+            // 서버 요청 리스너 등록
+            serverConnectHelper.requestImageUpload = object : ServerConnectHelper.RequestImageUpload {
+                override fun onSuccess(trashes: List<Trash>) {
+
+                    Log.d("asd", "전송 성공")
+
+                    loadingUtil.dismiss()
+
+                    val intent = Intent(activity,ImageResultActivity::class.java)
+                    val bundle = Bundle()
+
+                    val trashArray = viewModel.trashItems.value
+                    val trashArrayList = trashArray?.let { ArrayList<Trash>(it) }
+
+                    bundle.putParcelableArrayList("myKey", trashArrayList)
+                    intent.putExtras(bundle)
+
+                    startActivity(intent)
+                }
+
+                override fun onFailure() {
+                    loadingUtil.dismiss()
+                    Log.d("asd", "전송 실패")
+                    Toast.makeText(requireContext(), "서버와 응답이 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            // 서버 요청 실행
+            serverConnectHelper.uploadImage(image)
 
         }
 
 
-        viewModel.trashItems.observe(viewLifecycleOwner, Observer { isSuccess ->
-
-            loadingUtil.dismiss()
-
-            if (viewModel.uploadStatus.value == true) {
-                Log.d("asd", "전송 성공")
-                val intent = Intent(activity,ImageResultActivity::class.java)
-                val bundle = Bundle()
-
-                val trashArray = viewModel.trashItems.value
-                val trashArrayList = trashArray?.let { ArrayList<Trash>(it) }
-
-                bundle.putParcelableArrayList("myKey", trashArrayList)
-                intent.putExtras(bundle)
-
-                startActivity(intent)
-            } else {
-                loadingUtil.dismiss()
-                Log.d("asd", "전송 실패")
-                Toast.makeText(requireContext(), "서버와 응답이 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-        })
 
         binding.tvInfo.setOnClickListener {
             viewModel.toggleIsClickedTextInfo()

@@ -25,34 +25,6 @@ class SearchImageViewModel : ViewModel() {
     var trashItems = MutableLiveData<List<Trash>>()
 
 
-    fun uploadImageToServer(image: Image) {
-        val serverConnectHelper = ServerConnectHelper()
-
-        // 서버 요청 리스너 등록
-        serverConnectHelper.requestImageUpload = object : ServerConnectHelper.RequestImageUpload {
-            override fun onSuccess(trashes: List<Trash>) {
-                uploadStatus.value = true // or false
-
-                for (item in trashes) {
-                    Log.d("asd", item.toString())
-                }
-
-                trashItems.value = trashes
-
-            }
-
-            override fun onFailure() {
-                uploadStatus.value = false // or false
-            }
-
-        }
-
-        // 서버 요청 실행
-        serverConnectHelper.uploadImage(image)
-
-
-    }
-
     fun toggleIsClickedTextInfo() {
         val currentValue = isClickedTextInfo.value ?: false
         isClickedTextInfo.value = !currentValue

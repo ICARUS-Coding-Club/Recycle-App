@@ -120,12 +120,7 @@ class ServerConnectHelper {
                         requestImageUpload?.onFailure()
                     }
                 }
-            } catch (e: SocketTimeoutException) {
-                // 타임아웃 발생 시 처리
-                withContext(Dispatchers.Main) {
-                    requestImageUpload?.onFailure()
-                }
-            } catch (e: Exception) {
+            }  catch (e: Exception) {
                 // 그 외 예외 발생 시 처리
                 withContext(Dispatchers.Main) {
                     requestImageUpload?.onFailure()

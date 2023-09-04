@@ -5,10 +5,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.icarus.recycle_app.R
 import com.icarus.recycle_app.databinding.CvLoadingDialogBinding
 
 class LoadingUtil(context: Context): Dialog(context) {
@@ -31,20 +34,20 @@ class LoadingUtil(context: Context): Dialog(context) {
         binding = CvLoadingDialogBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        initViewProperty()
         initListener()
+        initViewProperty()
 
         recyclerAdapter = LoadingInfoRecyclerAdapter(loadingInfoContents)
 
         binding.rvLoadingInfoContent.adapter = recyclerAdapter
         binding.rvLoadingInfoContent.setHasFixedSize(true)
-
     }
 
     private fun initListener() {
         binding.cvCenter.setOnClickListener {
             isInfoClicked = !isInfoClicked
+
+            Log.d("loading_util", "Button clicked")
 
             if (isInfoClicked) {
                 binding.ivLoadingInfoTitle.setBackgroundResource(arrowUp)
@@ -103,15 +106,18 @@ class LoadingUtil(context: Context): Dialog(context) {
         ): LoadingInfoRecyclerAdapter.ViewHolder {
             val textView = TextView(parent.context).apply {
                 val dp = 10f
-                val px = (dp * context.resources.displayMetrics.density + 0.5f).toInt()
+                val px = (dp * parent.context.resources.displayMetrics.density + 0.5f).toInt()
 
                 layoutParams = ViewGroup.MarginLayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    setMargins(px, px, px, px)
+                    setMargins(px * 2, px, px * 2, px)
+                    // background = ContextCompat.getDrawable(parent.context, R.drawable.custom_circle_background_gray)
+                    setPadding(px, px, px, px)
                 }
             }
+
             return ViewHolder(textView)
         }
 

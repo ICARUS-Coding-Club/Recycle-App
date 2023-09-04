@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -32,6 +33,9 @@ import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.ui.search.image.trash_request.ImageResultActivity
 import com.icarus.recycle_app.utils.CameraHelper
 import com.icarus.recycle_app.utils.LoadingUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
 class SearchImageFragment : Fragment() {
@@ -148,19 +152,16 @@ class SearchImageFragment : Fragment() {
 
         viewModel.isCameraOpened.observe(requireActivity()) {
             if (viewModel.isCameraOpened.value == true) {
-                loadingUtil.changeVisibility(View.VISIBLE)
                 loadingUtil.dismiss()
+                loadingUtil.changeVisibility(View.VISIBLE)
 
             } else {
-                loadingUtil.changeVisibility(View.INVISIBLE)
                 loadingUtil.show()
+                loadingUtil.changeVisibility(View.INVISIBLE)
             }
         }
 
         if (viewModel.isCameraOpened.value == false) {
-
-            loadingUtil.changeVisibility(View.INVISIBLE)
-            loadingUtil.show()
 
             when (arguments?.getInt(ARG_TYPE)) {
                 0 -> takePhotoFromCamera()
@@ -236,22 +237,21 @@ class SearchImageFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            viewModel.imageResultUri.value = viewModel.cameraHelper.getPhotoUri()
+        lifecycleScope.launch {
+            if (requestCode == viewModel.cameraHelper.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                viewModel.imageResultUri.value = viewModel.cameraHelper.getPhotoUri()
+            } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
+                viewModel.imageResultUri.value = data?.data
+            }
 
             // Uri를 Bitmap으로 변환
-            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
-            convertBitmapToByteArray(imageBitmap)
+            //val imageBitmap = async { createBitmap(viewModel.imageResultUri.value) }
+            val imageBitmap = async(Dispatchers.Default) { createBitmap(viewModel.imageResultUri.value) }
+            //async { convertBitmapToByteArray(imageBitmap.await()) }.await()
+            async(Dispatchers.Default) { convertBitmapToByteArray(imageBitmap.await()) }.await()
 
-        } else if (requestCode == REQUEST_GALLERY_IMAGE && resultCode == RESULT_OK) {
-            viewModel.imageResultUri.value = data?.data
-
-            // Uri를 Bitmap으로 변환
-            val imageBitmap = createBitmap(viewModel.imageResultUri.value)
-            convertBitmapToByteArray(imageBitmap)
-
+            viewModel.isCameraOpened.value = true
         }
-        viewModel.isCameraOpened.value = true
 
     }
 

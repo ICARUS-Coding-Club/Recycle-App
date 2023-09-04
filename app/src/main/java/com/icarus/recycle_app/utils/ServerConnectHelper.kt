@@ -70,30 +70,30 @@ class ServerConnectHelper {
      */
     fun getPost() {
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getPost()
-            val response = call.execute()
+            try{
+                val call = apiService.getPost()
+                val response = call.execute()
+
+                if (response.isSuccessful) {
+
+                    withContext(Dispatchers.Main) {
 
 
-
-            if (response.isSuccessful) {
-
-                withContext(Dispatchers.Main) {
-
-                    try {
                         request!!.onSuccess(response.body()!!)// Retrofit API 호출
                         // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
-                    }
 
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        request!!.onFailure()
+                    }
                 }
-            } else {
+            }catch (e:Exception){
                 withContext(Dispatchers.Main) {
                     request!!.onFailure()
                 }
             }
+
         }
     }
 
@@ -136,80 +136,78 @@ class ServerConnectHelper {
 
     fun getTrashPlace(roadAdd: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getTrashPlace(roadAdd)
-            val response = call.execute()
+            try{
+                val call = apiService.getTrashPlace(roadAdd)
+                val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
 
-                    try {
-                        requestRegionInfo!!.onSuccess(response.body()!!)
-                        // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
+                    requestRegionInfo!!.onSuccess(response.body()!!)
+
                     }
-
+                } else {
+                    withContext(Dispatchers.Main) {
+                        requestRegionInfo!!.onFailure()
+                    }
                 }
-            } else {
+            }catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                    requestRegionInfo!!.onFailure()
+                    requestRegionInfo?.onFailure()
                 }
             }
+
         }
     }
 
     fun getRegionTrashPlaceInfo(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getRegionTrashPlace(id)
-            val response = call.execute()
+            try{
+                val call = apiService.getRegionTrashPlace(id)
+                val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
-
-                    try {
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
                         requestRegionTrashPlaceInfo!!.onSuccess(response.body()!!)
-                        // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
-                    }
 
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        requestRegionTrashPlaceInfo!!.onFailure()
+                    }
                 }
-            } else {
+            }catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                    requestRegionTrashPlaceInfo!!.onFailure()
+                    requestRegionTrashPlaceInfo?.onFailure()
                 }
             }
+
         }
     }
 
     fun getTrashes(){
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getTrashes()
-            val response = call.execute()
+            try{
+                val call = apiService.getTrashes()
+                val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
 
-                    try {
                         requestTrashes?.onSuccess(response.body()!!)
-                        // 성공적으로 데이터를 가져왔을 때의 처리
-                    } catch (e: SocketTimeoutException) {
-                        // 타임아웃 발생 시 처리
-                    } catch (e: Exception) {
-                        // 그 외 예외 발생 시 처리
+
                     }
-
-
+                }else {
+                    withContext(Dispatchers.Main) {
+                        requestTrashes?.onFailure()
+                    }
                 }
-            }else {
+            }catch (e: Exception){
                 withContext(Dispatchers.Main) {
                     requestTrashes?.onFailure()
                 }
             }
+
         }
     }
 
@@ -229,12 +227,7 @@ class ServerConnectHelper {
                         requestMultiTrashes?.onFailure()
                     }
                 }
-            } catch (e: SocketTimeoutException) {
-                // 타임아웃 발생 시 처리
-                withContext(Dispatchers.Main) {
-                    requestMultiTrashes?.onFailure()
-                }
-            } catch (e: Exception) {
+            }catch (e: Exception) {
                 // 그 외 예외 발생 시 처리
                 withContext(Dispatchers.Main) {
                     requestMultiTrashes?.onFailure()
@@ -270,18 +263,25 @@ class ServerConnectHelper {
 
     fun getEnvironmentTip(){
         CoroutineScope(Dispatchers.IO).launch {
-            val call = apiService.getEnvironmentTip()
-            val response = call.execute()
+            try{
+                val call = apiService.getEnvironmentTip()
+                val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
-                    requestEnvironmentTip?.onSuccess(response.body()!!)
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        requestEnvironmentTip?.onSuccess(response.body()!!)
+                    }
+                }else {
+                    withContext(Dispatchers.Main) {
+                        requestEnvironmentTip?.onFailure()
+                    }
                 }
-            }else {
+            }catch (e: Exception){
                 withContext(Dispatchers.Main) {
                     requestEnvironmentTip?.onFailure()
                 }
             }
+
         }
     }
 

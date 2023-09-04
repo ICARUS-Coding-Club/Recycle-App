@@ -250,10 +250,10 @@ class HomeFragment : Fragment() {
 
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
-        val text = AppManager.getFavorites().keys.toString().replace("[", "").replace("]", "").replace(",", " ")
+        val filteredKeys = AppManager.getFavorites().filter { it.value == true }.keys.joinToString(" ")
 
 
-        Log.d("test asdasdsad", text)
+
 
 
         serverConnectHelper.requestMultiTrashes = object : ServerConnectHelper.RequestTrashes{
@@ -275,44 +275,10 @@ class HomeFragment : Fragment() {
             }
 
         }
-        serverConnectHelper.getMultiTrashes(text)
+        serverConnectHelper.getMultiTrashes(filteredKeys)
 
     }
 
-    private fun setGridViewHeightBasedOnChildren(
-        gridView: GridView,
-        columns: Int,
-        trashes: List<Trash>
-    ) {
-        val listAdapter = gridView.adapter ?: return
-
-        if (listAdapter.count == 0) {
-            return
-        }
-
-        var totalHeight = 0
-        var rows = 0
-
-        for ((index, _) in trashes.withIndex()) {
-            val listItem = listAdapter.getView(index, null, gridView)
-            listItem.measure(
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-            )
-            totalHeight += listItem.measuredHeight // 각 아이템의 높이를 더함
-        }
-
-        // 필요한 행 수 계산
-        rows = ceil(listAdapter.count.toDouble() / columns).toInt()
-
-        // 행 간의 여백을 더함
-        totalHeight += gridView.verticalSpacing * (rows - 1)
-
-        // GridView의 높이 설정
-        val params = gridView.layoutParams
-        params.height = totalHeight
-        gridView.layoutParams = params
-    }
 
     override fun onResume() {
         super.onResume()

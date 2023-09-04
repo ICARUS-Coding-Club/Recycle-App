@@ -32,10 +32,13 @@ object AppManager {
     }
 
     fun startInit(){
-        sp?.edit()?.putBoolean("init",true)?.apply()
+        sp?.edit()?.apply {
+            putBoolean("init", true)
+            apply()
+        }
     }
 
-    fun getStartInit(): Boolean?{
+    fun getStartInit(): Boolean? {
         return sp?.getBoolean("init",false)
     }
     fun setUid(uid: String) {

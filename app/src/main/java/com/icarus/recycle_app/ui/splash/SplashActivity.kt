@@ -22,7 +22,6 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         if(AppManager.getStartInit()==true){
-            AppManager.startInit()
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
@@ -30,6 +29,7 @@ class SplashActivity : AppCompatActivity() {
             }, 1000)
         }else{
             Handler(Looper.getMainLooper()).postDelayed({
+                AppManager.startInit()
                 startActivity(Intent(this, OnBoardingActivity::class.java))
                 finish()
 

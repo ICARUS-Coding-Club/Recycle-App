@@ -199,15 +199,16 @@ class SearchImageFragment : Fragment() {
 
                     Log.d("asd", "전송 성공")
 
+                    for (item in trashes) {
+                        Log.d("asd", item.toString())
+                    }
+
                     loadingUtil.dismiss()
 
                     val intent = Intent(activity,ImageResultActivity::class.java)
                     val bundle = Bundle()
 
-                    val trashArray = viewModel.trashItems.value
-                    val trashArrayList = trashArray?.let { ArrayList<Trash>(it) }
-
-                    bundle.putParcelableArrayList("myKey", trashArrayList)
+                    bundle.putParcelableArrayList("myKey", ArrayList(trashes))
                     intent.putExtras(bundle)
 
                     startActivity(intent)

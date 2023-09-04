@@ -17,8 +17,8 @@
         android:layout_height="match_parent" >
 
         <ImageView
+            android:id="@+id/imageView"
             android:alpha="0.7"
-            android:background="@drawable/i_box_green"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2
+import androidx.lifecycle.ViewModel
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.ViewPager2Adapter
 import com.icarus.recycle_app.databinding.FragmentEnvironmentTipContentBinding
+import com.icarus.recycle_app.dto.EnvironmentTip
+import com.icarus.recycle_app.dto.Trash
 
 class EnvironmentTipContentFragment : Fragment() {
 
@@ -20,7 +22,9 @@ class EnvironmentTipContentFragment : Fragment() {
         fun newInstance() = EnvironmentTipContentFragment()
     }
 
-    private lateinit var viewModel: EnvironmentTipContentViewModel
+    private lateinit var viewModel: EnvironmentTipViewModel
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,17 +32,26 @@ class EnvironmentTipContentFragment : Fragment() {
     ): View {
         _binding = FragmentEnvironmentTipContentBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(EnvironmentTipContentViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[EnvironmentTipViewModel::class.java]
 
-        val imageFragments = ArrayList<Fragment>()
-        imageFragments.add(EnvironmentTipImageFragment(R.drawable.i_box_green))
-        imageFragments.add(EnvironmentTipImageFragment(R.drawable.i_box_green))
-        imageFragments.add(EnvironmentTipImageFragment(R.drawable.i_box_green))
+        if (viewModel.isClickedPosition.value != null && !viewModel.environmentTipList.value.isNullOrEmpty()) {
+            val trash: EnvironmentTip = viewModel.environmentTipList.value!![viewModel.isClickedPosition.value!!]
 
-        val adapter = ViewPager2Adapter(imageFragments, requireActivity().supportFragmentManager, lifecycle)
-        binding.vpTitleImage.adapter = adapter
+            val imageFragments = ArrayList<Fragment>()
+            imageFragments.add(EnvironmentTipImageFragment(trash.image))
 
-        binding.indicator.setViewPager(binding.vpTitleImage)
+            val adapter = ViewPager2Adapter(imageFragments, requireActivity().supportFragmentManager, lifecycle)
+            binding.vpTitleImage.adapter = adapter
+
+            binding.indicator.setViewPager(binding.vpTitleImage)
+
+
+            binding.tvTitle.text = trash.title
+            binding.tvInfo.text = trash.reporter + " " + trash.time
+            binding.tvContent.text = trash.body
+
+
+        }
 
 
         return binding.root

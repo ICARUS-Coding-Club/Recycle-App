@@ -57,21 +57,28 @@
             android:exported="false" /> <!-- 검색 화면 액티비티 -->
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
-            android:exported="false" /> <!-- 스플래시 화면 -->
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:exported="true"/> <!-- 메인 액티비티 화면 -->
+            android:exported="true">
+
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity> <!-- 메인 액티비티 화면 -->
         <activity android:name=".ui.search.image.trash_request.ImageResultActivity"
             android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

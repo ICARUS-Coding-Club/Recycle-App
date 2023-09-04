@@ -6,15 +6,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.onboarding.onboardings.OnBoardingFirstFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_marginBottom="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/on_boarding_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <TextView
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="첫 번째 화면 꾸미기" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/bold_style_black"
+        android:text="환경을 위한 "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <Button
+        android:background="@drawable/cv_rounded_bg"
+        android:paddingHorizontal="30dp"
         android:id="@+id/btnNext"
         android:layout_margin="30dp"
         android:layout_width="wrap_content"

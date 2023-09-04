@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val debug = true
+        val debug = false
         if(debug){
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))
@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
 
                 // 기존 접속자 도움말 OnBoarding 화면으로 넘어가지 않도록 수정해야함
-            }, 3000)
+            }, 1500)
         }
 
     }

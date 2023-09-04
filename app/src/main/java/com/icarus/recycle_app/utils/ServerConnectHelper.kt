@@ -23,6 +23,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -67,9 +68,21 @@ class ServerConnectHelper {
             val call = apiService.getPost()
             val response = call.execute()
 
+
+
             if (response.isSuccessful) {
+
                 withContext(Dispatchers.Main) {
-                    request!!.onSuccess(response.body()!!)
+
+                    try {
+                        request!!.onSuccess(response.body()!!)// Retrofit API 호출
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
                 }
             } else {
                 withContext(Dispatchers.Main) {
@@ -92,15 +105,27 @@ class ServerConnectHelper {
             val call = apiService.uploadImageWithUid(imagePart,uidRequestBody)
             val response = call.execute()
 
-            if (response.isSuccessful) {
-                withContext(Dispatchers.Main) {
-                    requestImageUpload!!.onSuccess(response.body()!!)
+                if (response.isSuccessful) {
+
+                    withContext(Dispatchers.Main) {
+                        try {
+                            requestImageUpload!!.onSuccess(response.body()!!)
+                            // 성공적으로 데이터를 가져왔을 때의 처리
+                        } catch (e: SocketTimeoutException) {
+                            // 타임아웃 발생 시 처리
+                        } catch (e: Exception) {
+                            // 그 외 예외 발생 시 처리
+                        }
+
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+
+                        requestImageUpload!!.onFailure()
+                    }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
-                    requestImageUpload!!.onFailure()
-                }
-            }
+
+
         }
     }
 
@@ -111,7 +136,16 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestRegionInfo!!.onSuccess(response.body()!!)
+
+                    try {
+                        requestRegionInfo!!.onSuccess(response.body()!!)
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
                 }
             } else {
                 withContext(Dispatchers.Main) {
@@ -128,7 +162,16 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestRegionTrashPlaceInfo!!.onSuccess(response.body()!!)
+
+                    try {
+                        requestRegionTrashPlaceInfo!!.onSuccess(response.body()!!)
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
                 }
             } else {
                 withContext(Dispatchers.Main) {
@@ -145,7 +188,17 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestTrashes?.onSuccess(response.body()!!)
+
+                    try {
+                        requestTrashes?.onSuccess(response.body()!!)
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
+
                 }
             }else {
                 withContext(Dispatchers.Main) {
@@ -162,7 +215,17 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestMultiTrashes?.onSuccess(response.body()!!)
+
+                    try {
+                        requestMultiTrashes?.onSuccess(response.body()!!)
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
+
                 }
             }else {
                 withContext(Dispatchers.Main) {
@@ -179,7 +242,16 @@ class ServerConnectHelper {
 
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    requestCategoryTrashes?.onSuccess(response.body()!!)
+
+                    try {
+                        requestCategoryTrashes?.onSuccess(response.body()!!)
+                        // 성공적으로 데이터를 가져왔을 때의 처리
+                    } catch (e: SocketTimeoutException) {
+                        // 타임아웃 발생 시 처리
+                    } catch (e: Exception) {
+                        // 그 외 예외 발생 시 처리
+                    }
+
                 }
             }else {
                 withContext(Dispatchers.Main) {

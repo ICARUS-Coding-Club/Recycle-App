@@ -40,6 +40,7 @@ class EnvironmentTipFragment : Fragment() {
         serverConnectHelper.requestEnvironmentTip = object: ServerConnectHelper.RequestEnvironment {
             override fun onSuccess(environmentTipList: List<EnvironmentTip>) {
                 viewModel.environmentTipList.value = environmentTipList
+                Log.d("asd", "성공")
 
             }
 
@@ -71,7 +72,9 @@ class EnvironmentTipFragment : Fragment() {
             }
         }
 
-        if (viewModel.environmentTipList.value?.size == 0) {
+        Log.d("asd", viewModel.environmentTipList.value?.size.toString())
+        if (viewModel.environmentTipList.value.isNullOrEmpty()) {
+            Log.d("asd", "get")
             serverConnectHelper.getEnvironmentTip()
         }
 

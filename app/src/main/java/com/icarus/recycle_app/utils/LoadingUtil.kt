@@ -17,12 +17,15 @@ import com.icarus.recycle_app.databinding.CvLoadingDialogBinding
 class LoadingUtil(context: Context): Dialog(context) {
     private lateinit var binding: CvLoadingDialogBinding
 
-    private lateinit var loadingTitle: String
-    private lateinit var loadingInfo: String
-    private lateinit var loadingInfoContents: List<String>
-    private lateinit var viewList: List<View>
-    private var arrowUp: Int = 0
-    private var arrowDown: Int = 0
+    private var loadingTitle: String = "데이터 로딩중..."
+    private var loadingInfo: String = "왜 로딩이 걸리나요?"
+    private var loadingInfoContents: List<String> = mutableListOf(
+        "1. 쾌적한 애플리케이션 환경을 위해 데이터를 서버에 보관합니다.",
+        "2. 접속중인 사용자가 많응면 서버로부터 요청과 응답하는 시간이 걸릴 수 있습니다.",
+        "3. 앞으로 더 나은 환경을 위해 노력하도록 하겠습니다.")
+    private var viewList: List<View> = mutableListOf()
+    private var arrowUp: Int = R.drawable.ic_arrow_up1_balck
+    private var arrowDown: Int = R.drawable.ic_arrow_down1_black
 
     private var isInfoClicked = false
 
@@ -63,6 +66,7 @@ class LoadingUtil(context: Context): Dialog(context) {
 
     private fun initViewProperty() {
         setCancelable(false)
+
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding.tvLoadingInfoTitle.visibility = View.GONE
         binding.cvBottom.visibility = View.GONE

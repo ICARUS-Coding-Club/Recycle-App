@@ -2,12 +2,14 @@ package com.icarus.recycle_app.ui.category
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.icarus.recycle_app.adapters.CategoryResultAdapter
 import com.icarus.recycle_app.databinding.ActivityCategoryResultBinding
 import com.icarus.recycle_app.dto.Trash
+import com.icarus.recycle_app.utils.LoadingUtil
 import com.icarus.recycle_app.utils.ServerConnectHelper
 
 class CategoryResultActivity : AppCompatActivity() {
@@ -23,10 +25,15 @@ class CategoryResultActivity : AppCompatActivity() {
 
         // 더 많은 아이템을 추가할 수 있습니다.
 
+        val loadingUtil = LoadingUtil(this)
+        loadingUtil.show()
+
         try {
             val category = intent.getStringExtra("category")
             serverConnectHelper.requestCategoryTrashes = object : ServerConnectHelper.RequestCategoryTrashes{
                 override fun onSuccess(trashes: List<Trash>) {
+                    loadingUtil.dismiss()
+
                     val adapter = CategoryResultAdapter(trashes, applicationContext)
                     binding.recyclerView.adapter = adapter
 
@@ -37,7 +44,9 @@ class CategoryResultActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure() {
-                    Log.d("numberaa","씰패")
+
+                    loadingUtil.dismiss()
+                    binding.tvNoneTrash.visibility = View.VISIBLE
                 }
 
             }

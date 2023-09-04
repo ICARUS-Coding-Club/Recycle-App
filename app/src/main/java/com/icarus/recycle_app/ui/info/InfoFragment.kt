@@ -40,6 +40,7 @@ class InfoFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)
         val adapter = InfoAdapter(PlaceholderContent.ITEMS)
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
 
         // 설명 보러기가기 버튼을 누르면 실행되는 리스너
         adapter.buttonListener = object: ButtonListener{

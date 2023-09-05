@@ -147,7 +147,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_2.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -162,7 +162,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_3.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -182,7 +182,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/image_search_g.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -197,7 +197,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/image_search_g.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -211,7 +211,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/image_search_g.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -234,7 +234,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/barchart.gif" width="400" />
 
 </td>
 <td valign="top">
@@ -242,13 +242,6 @@
 #### 우리나라 및 지역의 쓰레기 현황 통계
 - 쓰레기 통계를 바차트 형태로 보기 쉽게 안내합니다.
   
-</td>
-</tr>
-<tr>
-<td>
-
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
-
 </td>
 </tr>
 </table>
@@ -271,13 +264,6 @@
   
 </td>
 </tr>
-<tr>
-<td>
-
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
-
-</td>
-</tr>
 </table>
 </br>
 
@@ -295,14 +281,20 @@
   4. adb connect 아이피:port
     ex) adb connect 192.168.0.144:37207
 
-
-
-
-
-
+</br>
 
 ## 인공지능 Git Hub  
 
 ```bash
 https://github.com/ICARUS-Coding-Club/Recycle-Server
 ```
+
+</br>
+
+## 서버 Git Hub  
+
+```bash
+https://github.com/ICARUS-Coding-Club/Recycle-Server
+```
+
+</br>

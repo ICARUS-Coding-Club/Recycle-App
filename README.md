@@ -240,7 +240,7 @@
 <td valign="top">
 
 #### 우리나라 및 지역의 쓰레기 현황 통계
-- 쓰레기 통계를 바차트 형태로 보기 쉽게 안내합니다.
+- 쓰레기 통계를 바차트 형태로 보기 쉽게 안내합니다. 추후 추가적인 개발을 통해 다양한 기능을 제공하고자 합니다.
   
 </td>
 </tr>
@@ -267,10 +267,6 @@
 </table>
 </br>
 
-
-
-
-
 ## 무선 디버깅 세팅 방법
 
 1. 터미널에서 adb 명령어를 사용하기위해 환경변수 설정(시스템 변수/Path)
@@ -280,6 +276,21 @@
 
   4. adb connect 아이피:port
     ex) adb connect 192.168.0.144:37207
+
+</br>
+
+
+## 개발 환경
+
+```bash
+1. 안드로이드 스튜디오 2023.1 (Kotlin)
+2. Retrofit HTTP API
+3. Visual Studio Code (Python 3.8)
+4. Anaconda
+5. Cuda 11.8 RTX 3070, RAM 32GB
+6. Flask
+7. MySQL 8.0
+```
 
 </br>
 

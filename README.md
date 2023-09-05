@@ -80,6 +80,7 @@
 - 앱 접속에 로그인이 필요하지 않습니다.
 - 불필요한 개인정보를 저장하지 않습니다.
 - 앱 처음 실행 시 Onboarding 화면을 통해 튜토리얼을 진행합니다.
+- 이후 접속 부터는 Onboarding 화면이 나타나지 않습니다.
 - Next 버튼을 눌러 메인 화면으로 이동합니다.
   
 </td>
@@ -93,37 +94,192 @@
 <tr>
 <td>
 
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/category_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 메인 화면 및 카테고리 이동
+- 하단 네비게이션바의 홈 버튼을 눌러서 메인 화면으로 이동합니다.
+- 검색뷰를 통해 직접 입력하거나 카테고리 버튼을 눌러서 이동합니다.
+
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/category_2.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 쓰레기 정보 안내
+- 선택한 쓰레기의 자세한 배출 방법 및 재활용 방법을 안내합니다.
+- 안내 화면의 우측 상단에 하트 마크를 클릭하여 즐겨찾기를 설정 할 수 있습니다.
+- 메인 화면 하단에서 즐겨찾기가 설정된 쓰레기 정보로 바로 이동 가능합니다.
+- 쓰레기 정보는 웹 크롤링을 통해 구축된 데이터베이스가 사용되었습니다.
+- 안내 화면은 리사이클러뷰의 리니어 레이아웃과 그리드 레이아웃을 사용했습니다.
+  
+</td>
+</tr>
+</table>
+</br>
+
+
+**3. 재활용 마크 및 분리수거, 환경 정보 안내 화면**  
+
+<table>
+<tr>
+<td>
+
 <img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
 
 </td>
 <td valign="top">
 
-#### 앱 실행
-- Release 다운로드 링크에서 APK 파일을 다운 받아 설치합니다.
-- 설치된 애플리케이션을 클릭하여 실행합니다.
+#### 재활용 마크 안내
+- 대한민국에서 사용되는 모든 재활용 마크를 안내합니다.
+- 스크롤을 내려 원하는 재활용 마크를 클릭하면 상세 정보가 나타납니다.
+- Expandable View를 기반으로 커스텀된 뷰가 사용되었습니다.
+  
+</td>
+</tr>
+<tr>
+<td>
 
-#### 앱 접속
-- 앱 접속에 로그인이 필요하지 않습니다.
-- 불필요한 개인정보를 저장하지 않습니다.
-- 앱 처음 실행 시 Onboarding 화면을 통해 튜토리얼을 진행합니다.
-- Next 버튼을 눌러 메인 화면으로 이동합니다.
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 지역 쓰레기 배출 장소 및 방법 안내
+- 쓰레기 관리 구역 정보를 통해 사용자가 설정한 지역의 정보를 제공합니다.
+- 다음 주소 API와 쓰레기 관리 구역 API가 사용되었습니다.
+  
+</td>
+</tr>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 환경 및 재활용 관련 기사 안내
+- 관련 기사를 한눈에 제공하기 위해 웹 크롤링된 정보를 안내합니다.
   
 </td>
 </tr>
 </table>
-
-
-
-
-
-
-
-
-
-
-
 </br>
 
+
+**4. 사진 촬영 및 갤러리 사진을 통한 인공지능 쓰레기 인식**  
+
+<table>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 사진 촬영
+- 대한민국에서 사용되는 모든 재활용 마크를 안내합니다.
+- 스크롤을 내려 원하는 재활용 마크를 클릭하면 상세 정보가 나타납니다.
+- Expandable View를 기반으로 커스텀된 뷰가 사용되었습니다.
+  
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 갤러리에서 사진 불러오기
+- 갤러리를 실행하여 선택된 사진의 Uri를 불러옵니다.
+- 해당 사진을 비트맵으로 변환 후 바이트 배열로 서버에 전송합니다.
+  
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 인공지능을 통한 쓰레기 인식
+- 미리 분류되어 학습된 클래스 기준으로 이미지를 인식하여 감지된 결과를 반환합니다.
+- 판별된 쓰레기에 더해 관련된 카테고리의 쓰레기를 반환합니다.
+- 해당 쓰레기의 배출 정보 및 분리수거 방법을 사용자에게 안내합니다.
+  
+</td>
+</tr>
+</table>
+</br>
+
+
+
+**5. 쓰레기 현황 통계**  
+
+<table>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 우리나라 및 지역의 쓰레기 현황 통계
+- 쓰레기 통계를 바차트 형태로 보기 쉽게 안내합니다.
+  
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+</tr>
+</table>
+</br>
+
+**6. 앱 정보 및 설정 화면**  
+
+<table>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 앱의 전반적인 정보 안내
+- 프로젝트 팀 설명 및 앱의 정보를 안내합니다.
+- 스마트폰의 환경설정 및 이메일 액티비티를 통해 앱을 초기화하거나 문의사항얼 전달할 수 있습니다.
+  
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+</tr>
+</table>
+</br>
 
 
 
@@ -138,6 +294,9 @@
 
   4. adb connect 아이피:port
     ex) adb connect 192.168.0.144:37207
+
+
+
 
 
 

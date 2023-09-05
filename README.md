@@ -231,7 +231,7 @@
 <tr>
 <td>
 
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/Screenshot_20230905_175753.png" width="400" />
 
 </td>
 <td valign="top">

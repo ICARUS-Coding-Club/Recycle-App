@@ -85,8 +85,32 @@
 </td>
 </tr>
 </table>
+</br>
 
+**2. 카테고리별 쓰레기 정보 표시**  
 
+<table>
+<tr>
+<td>
+
+<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/trash_info_1.gif" width="400" />
+
+</td>
+<td valign="top">
+
+#### 앱 실행
+- Release 다운로드 링크에서 APK 파일을 다운 받아 설치합니다.
+- 설치된 애플리케이션을 클릭하여 실행합니다.
+
+#### 앱 접속
+- 앱 접속에 로그인이 필요하지 않습니다.
+- 불필요한 개인정보를 저장하지 않습니다.
+- 앱 처음 실행 시 Onboarding 화면을 통해 튜토리얼을 진행합니다.
+- Next 버튼을 눌러 메인 화면으로 이동합니다.
+  
+</td>
+</tr>
+</table>
 
 
 

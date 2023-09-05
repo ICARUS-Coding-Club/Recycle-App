@@ -186,36 +186,14 @@
 
 </td>
 <td valign="top">
-
+  
 #### 사진 촬영
-- 대한민국에서 사용되는 모든 재활용 마크를 안내합니다.
-- 스크롤을 내려 원하는 재활용 마크를 클릭하면 상세 정보가 나타납니다.
-- Expandable View를 기반으로 커스텀된 뷰가 사용되었습니다.
+- 하단 중앙 버튼을 눌러서 사진 촬영 및 갤러리에서 사진을 불러옵니다.
   
-</td>
-</tr>
-<tr>
-<td>
-
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/image_search_g.gif" width="400" />
-
-</td>
-<td valign="top">
-
-#### 갤러리에서 사진 불러오기
-- 갤러리를 실행하여 선택된 사진의 Uri를 불러옵니다.
-- 해당 사진을 비트맵으로 변환 후 바이트 배열로 서버에 전송합니다.
+#### 사진 비트맵 변환 및 서버 전송
+- 촬영된 사진을 비트맵으로 변환하여 저장합니다.
+- 저장된 사진을 바이트 배열로 서버에 전송합니다.
   
-</td>
-</tr>
-<tr>
-<td>
-
-<img src="https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/gif/image_search_g.gif" width="400" />
-
-</td>
-<td valign="top">
-
 #### 인공지능을 통한 쓰레기 인식
 - 미리 분류되어 학습된 클래스 기준으로 이미지를 인식하여 감지된 결과를 반환합니다.
 - 판별된 쓰레기에 더해 관련된 카테고리의 쓰레기를 반환합니다.

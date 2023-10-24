@@ -14,7 +14,7 @@
 </br>
   
 ## 아키텍쳐
-![이미지 설명](https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.png)
+![이미지 설명](https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/image_view/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98_%EC%88%98%EC%A0%95%EB%B3%B8.png)
 
 </br>
 

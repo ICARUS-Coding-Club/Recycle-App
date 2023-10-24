@@ -6,5 +6,6 @@ data class RecyclingSymbol(
     val color: Int,
     val detailItem: String,
     val detailMethod: String,
-    val noRecycle: String
+    val noRecycle: String,
+    val cf: String
 )

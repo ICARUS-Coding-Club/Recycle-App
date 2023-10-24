@@ -97,6 +97,9 @@ class ExpandableListAdapter (
             val noRecycle = it.findViewById<TextView>(R.id.tvNoRecycle)
             noRecycle.text = items[groupPosition].noRecycle
 
+            val cf = it.findViewById<TextView>(R.id.tvCf)
+            cf.text = items[groupPosition].cf
+
         }
 
         return view!!

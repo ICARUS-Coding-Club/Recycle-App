@@ -52,7 +52,6 @@
         android:minHeight="50dp" />
 
     <TextView
-
         android:textStyle="bold"
         android:paddingVertical="12dp"
         android:paddingHorizontal="25dp"
@@ -72,5 +71,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:minHeight="50dp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="25dp"
+        android:background="@drawable/custom_circle_background_gray"
+        android:layout_marginTop="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="참고" />
+
+    <TextView
+        android:padding="25dp"
+        android:background="@drawable/custom_circle_background_gray"
+        android:layout_marginTop="8dp"
+        android:id="@+id/tvCf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="50dp" />
+
+
 
 </LinearLayout>

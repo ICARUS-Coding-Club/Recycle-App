@@ -1,8 +1,10 @@
 package com.icarus.recycle_app.utils
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import com.icarus.recycle_app.AppManager
 import com.icarus.recycle_app.dto.EnvironmentTip
 import com.icarus.recycle_app.dto.Image
 import com.icarus.recycle_app.dto.RegionInfo
@@ -17,6 +19,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -26,6 +29,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.io.File
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
@@ -97,36 +101,39 @@ class ServerConnectHelper {
         }
     }
 
-    fun uploadImage(image: Image) {
-        val imageByteArray = image.image
-        val uid = image.uid
-        val requestFile = imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
-        val imagePart = MultipartBody.Part.createFormData("image", "image.png", requestFile)
-        val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
+    fun uploadImage(imageUri: Uri) {
+        imageUri.path?.let {
+            val file = File(it)
+            val uid = AppManager.getUid()
+            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imagePart = MultipartBody.Part.createFormData("image", "image.jpeg", requestFile)
+            val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val call = apiService.uploadImageWithUid(imagePart, uidRequestBody)
-                val response = call.execute()
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val call = apiService.uploadImageWithUid(imagePart, uidRequestBody)
+                    val response = call.execute()
 
-                if (response.isSuccessful) {
-                    withContext(Dispatchers.Main) {
-                        // 성공적으로 데이터를 가져왔을 때의 처리
-                        requestImageUpload?.onSuccess(response.body()!!)
+                    if (response.isSuccessful) {
+                        withContext(Dispatchers.Main) {
+                            // 성공적으로 데이터를 가져왔을 때의 처리
+                            requestImageUpload?.onSuccess(response.body()!!)
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            // 실패 시 처리
+                            requestImageUpload?.onFailure()
+                        }
                     }
-                } else {
+                }  catch (e: Exception) {
+                    // 그 외 예외 발생 시 처리
                     withContext(Dispatchers.Main) {
-                        // 실패 시 처리
                         requestImageUpload?.onFailure()
                     }
                 }
-            }  catch (e: Exception) {
-                // 그 외 예외 발생 시 처리
-                withContext(Dispatchers.Main) {
-                    requestImageUpload?.onFailure()
-                }
             }
         }
+
     }
 
     fun getTrashPlace(roadAdd: String) {

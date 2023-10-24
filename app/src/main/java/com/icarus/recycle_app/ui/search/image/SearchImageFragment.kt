@@ -191,8 +191,6 @@ class SearchImageFragment : Fragment() {
         binding.btnSend.setOnClickListener {
             loadingUtil.show("인공지능 이미지 식별 중...")
 
-            val image = Image(AppManager.getUid(), viewModel.imageByteArray)
-
             // 서버 요청 리스너 등록
             serverConnectHelper.requestImageUpload = object : ServerConnectHelper.RequestImageUpload {
                 override fun onSuccess(trashes: List<Trash>) {
@@ -223,11 +221,10 @@ class SearchImageFragment : Fragment() {
             }
 
             // 서버 요청 실행
-            serverConnectHelper.uploadImage(image)
-
+            viewModel.imageResultUri.value?.let {
+                serverConnectHelper.uploadImage(it)
+            }
         }
-
-
 
         binding.tvInfo.setOnClickListener {
             viewModel.toggleIsClickedTextInfo()
@@ -260,27 +257,26 @@ class SearchImageFragment : Fragment() {
                 viewModel.imageResultUri.value = data?.data
             }
 
-            // Uri를 Bitmap으로 변환
-            //val imageBitmap = async { createBitmap(viewModel.imageResultUri.value) }
-            val imageBitmap = async(Dispatchers.Default) { createBitmap(viewModel.imageResultUri.value) }
-            //async { convertBitmapToByteArray(imageBitmap.await()) }.await()
-            async(Dispatchers.Default) { convertBitmapToByteArray(imageBitmap.await()) }.await()
+//            // Uri를 Bitmap으로 변환
+//            val imageBitmap = async(Dispatchers.Default) { createBitmap(viewModel.imageResultUri.value) }
+//            //async { convertBitmapToByteArray(imageBitmap.await()) }.await()
+//            async(Dispatchers.Default) { convertBitmapToByteArray(imageBitmap.await()) }.await()
 
             viewModel.isCameraOpened.value = true
         }
 
     }
 
-    private fun createBitmap(uri: Uri?): Bitmap {
-        return MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
-    }
-
-    private fun convertBitmapToByteArray(imageBitmap: Bitmap) {
-        // Bitmap을 ByteArray로 변환
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        viewModel.imageByteArray = byteArrayOutputStream.toByteArray()
-    }
+//    private fun createBitmap(uri: Uri?): Bitmap {
+//        return MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+//    }
+//
+//    private fun convertBitmapToByteArray(imageBitmap: Bitmap) {
+//        // Bitmap을 ByteArray로 변환
+//        val byteArrayOutputStream = ByteArrayOutputStream()
+//        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+//        viewModel.imageByteArray = byteArrayOutputStream.toByteArray()
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

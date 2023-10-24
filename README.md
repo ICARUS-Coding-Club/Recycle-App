@@ -258,7 +258,7 @@
 
 ## 라이선스
 
-[리본 : Apache License 2.0](https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/LICENSE)
+[리본 : Apache License 2.0](https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/LICENSE)    
 [CircleIndicator : Apache License 2.0](https://github.com/ongakuer/CircleIndicator/blob/master/LICENSE)    
 [Retrofit : Apache License 2.0](https://square.github.io/retrofit/#license)    
 [Okhttp : Apache License 2.0](https://square.github.io/okhttp/#license)    

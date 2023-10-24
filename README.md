@@ -256,6 +256,14 @@
 
 </br>
 
+## 라이선스
+
+[CircleIndicator : Apache License 2.0](https://github.com/ongakuer/CircleIndicator/blob/master/LICENSE)
+[Retrofit : Apache License 2.0](https://square.github.io/retrofit/#license)
+[Okhttp : Apache License 2.0](https://square.github.io/okhttp/#license)
+[Glide : Apache License 2.0](https://github.com/bumptech/glide/blob/master/LICENSE)
+
+<br/>
 
 ## 개발 환경
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">재활용 앱</string>
+    <string name="app_name">리본</string>
     <string name="title_home">홈 화면</string>
     <string name="title_info">쓰레기 안내</string>
     <string name="title_search">쓰레기 검색</string>

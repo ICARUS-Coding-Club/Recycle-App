@@ -3,6 +3,8 @@ package com.icarus.recycle_app.ui.info.placeholder
 import androidx.fragment.app.Fragment
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.ui.info.content.environment_tip.EnvironmentTipFragment
+import com.icarus.recycle_app.ui.info.content.environmental_protection.EnvironmentalProtectionFragment
+import com.icarus.recycle_app.ui.info.content.recycling.RecyclingProcessFragment
 import com.icarus.recycle_app.ui.info.content.trash_place.TrashPlaceFragment
 import com.icarus.recycle_app.ui.info.content.ui.info.recycling_symbol.RecyclingSymbolFragment
 import java.util.ArrayList
@@ -29,6 +31,20 @@ object PlaceholderContent {
             "환경 관련 팁을 볼 수 있습니다.",
             EnvironmentTipFragment(),
             R.drawable.info_3
+        ))
+        addItem(PlaceholderItem(
+            "3",
+            "재활용 관련 공공기관 정보",
+            "정부 및 지자체에서 주관하는 관련 캠페인 및 정보를 볼 수 있습니다.",
+            EnvironmentalProtectionFragment(),
+            R.drawable.info_4
+        ))
+        addItem(PlaceholderItem(
+            "4",
+            "재활용품 재생 과정 알아보기",
+            "쓰레기를 처리하고 재활용 과정을 단계별로 알아볼 수 있습니다.",
+            RecyclingProcessFragment(),
+            R.drawable.info_5_2
         ))
     }
 

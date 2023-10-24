@@ -106,22 +106,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="20dp"
-                    android:text="AI 쓰레기 이미지 인식"
+                    android:text="AI 이미지 재활용 인식 배출 방법 안내"
                     android:theme="@style/bold_style_white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:textSize="20sp"
-                    android:id="@+id/tvClFirstAppInfo1c1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="배출 방법 안내"
-                    android:theme="@style/bold_style_white"
-                    app:layout_constraintStart_toEndOf="@id/tvClFirstAppInfo1"
-                    app:layout_constraintBottom_toBottomOf="@id/tvClFirstAppInfo1" />
 
-                <!-- 모양만 잡으려고 searchView 사용함 나중에 없앨 예정 -->
                 <androidx.appcompat.widget.SearchView
                     android:layout_margin="10dp"
                     android:id="@+id/svCl1"
@@ -130,7 +120,7 @@
                     android:layout_marginVertical="15dp"
                     android:background="@drawable/custom_circle_background"
                     app:layout_constraintBottom_toTopOf="@id/tvClFirstAppInfo2"
-                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1c1" >
+                    app:layout_constraintTop_toBottomOf="@id/tvClFirstAppInfo1" >
 
 
                 </androidx.appcompat.widget.SearchView>
@@ -142,7 +132,7 @@
                     style="@style/bold_style_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="어떻게 버리지?"
+                    android:text="제대로 어떻게 버리지?"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/svCl1" />
@@ -163,7 +153,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="카테고리별 쓰레기"
+                    android:text="카테고리별 안내"
                     android:theme="@style/bold_style_black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

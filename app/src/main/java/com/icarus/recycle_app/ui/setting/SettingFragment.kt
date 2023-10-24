@@ -34,12 +34,16 @@ class SettingFragment : Fragment() {
         dialog.setPositiveButton("확인") { sDialog, _ -> sDialog?.dismiss() }
 
 
+        binding.clLicense.setOnClickListener {
+            requireActivity().startActivity(Intent(requireActivity(), LicenseActivity::class.java))
+        }
+
         binding.clTeamInfo.setOnClickListener {
             requireActivity().startActivity(Intent(requireActivity(), DeveloperInfoActivity::class.java))
         }
 
         binding.clAppInfo.setOnClickListener {
-            dialog.setMessage("인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1")
+            dialog.setMessage("리본 : AI 이미지 인식 재활용 안내\n\n인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1")
             dialog.show()
         }
 

@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
 
-            }, 1000)
+            }, 3000)
         }else{
             Handler(Looper.getMainLooper()).postDelayed({
                 AppManager.startInit()
@@ -34,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
 
                 // 기존 접속자 도움말 OnBoarding 화면으로 넘어가지 않도록 수정해야함
-            }, 1500)
+            }, 3000)
         }
 
     }

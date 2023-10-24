@@ -1,4 +1,4 @@
-# AI 쓰레기 이미지 인식 앱
+# 리본 : AI 이미지 인식 재활용 안내
 
 🏛 경상국립대학교 코딩 동아리 이카루스  
 💻 공개SW 개발자 대회 출품작  
@@ -258,6 +258,7 @@
 
 ## 라이선스
 
+[리본 : Apache License 2.0](https://github.com/ICARUS-Coding-Club/Recycle-App/blob/master/LICENSE)
 [CircleIndicator : Apache License 2.0](https://github.com/ongakuer/CircleIndicator/blob/master/LICENSE)    
 [Retrofit : Apache License 2.0](https://square.github.io/retrofit/#license)    
 [Okhttp : Apache License 2.0](https://square.github.io/okhttp/#license)    

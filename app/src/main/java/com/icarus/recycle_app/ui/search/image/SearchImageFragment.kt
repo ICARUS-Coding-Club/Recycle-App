@@ -3,6 +3,7 @@ package com.icarus.recycle_app.ui.search.image
 import android.Manifest
 import android.animation.ObjectAnimator
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -222,7 +223,7 @@ class SearchImageFragment : Fragment() {
 
             // 서버 요청 실행
             viewModel.imageResultUri.value?.let {
-                serverConnectHelper.uploadImage(it)
+                serverConnectHelper.uploadImage(it,requireContext())
             }
         }
 
@@ -230,6 +231,7 @@ class SearchImageFragment : Fragment() {
             viewModel.toggleIsClickedTextInfo()
         }
     }
+
 
 
 

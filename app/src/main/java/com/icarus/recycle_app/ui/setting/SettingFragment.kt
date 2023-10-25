@@ -46,6 +46,9 @@ class SettingFragment : Fragment() {
             dialog.setMessage("리본 : AI 이미지 인식 재활용 안내\n\n인공지능 쓰레기 재활용 안내 애플리케이션\n\nv0.1")
             dialog.show()
         }
+        binding.clShowFavorite.setOnClickListener {
+            startActivity(Intent(requireContext(),BookmarkListActivity::class.java))
+        }
 
         binding.clEmail.setOnClickListener {
             val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
@@ -70,9 +73,6 @@ class SettingFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.clShowFavorit.setOnClickListener {
-            Toast.makeText(requireContext(), "추후 추가 예정입니다.", Toast.LENGTH_SHORT).show()
-        }
 
         binding.clTrashAlarm.setOnClickListener {
             Toast.makeText(requireContext(), "추후 추가 예정입니다.", Toast.LENGTH_SHORT).show()

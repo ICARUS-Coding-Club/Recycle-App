@@ -25,6 +25,11 @@ object AppManager {
     fun getFavorites(): Map<Int, Boolean> {
         return DataManager.stringToMap(sp?.getString("favorite",""))
     }
+
+    fun get8Favorites(): Map<Int, Boolean> {
+        return DataManager.stringToTrueMap(sp?.getString("favorite",""),8)
+    }
+
     fun setFavorites(key:Int,value:Boolean){
         val map = getFavorites().toMutableMap()
         map[key] = value

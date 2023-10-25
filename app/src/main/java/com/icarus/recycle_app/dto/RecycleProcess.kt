@@ -1,3 +1,5 @@
 package com.icarus.recycle_app.dto
 
-data class RecycleProcess (val type: String, val sources: List<String>)
+import android.graphics.drawable.Drawable
+
+data class RecycleProcess (val type: String, val sources: List<Drawable>)

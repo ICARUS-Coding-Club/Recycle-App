@@ -1,60 +1,75 @@
 package com.icarus.recycle_app.ui.info.content.recycling
 
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.icarus.recycle_app.R
+import com.icarus.recycle_app.adapters.ProcessRecyclerAdapter
+import com.icarus.recycle_app.databinding.FragmentEnvironmentalProtectionBinding
+import com.icarus.recycle_app.dto.RecycleProcess
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RecyclingProcessFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RecyclingProcessFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var _binding : FragmentEnvironmentalProtectionBinding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        fun newInstance() = RecyclingProcessFragment()
     }
+
+    private lateinit var viewModel: EnvironmentalProtectionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recycling_process, container, false)
+        savedInstanceState: Bundle?
+    ): View {
+
+        _binding = FragmentEnvironmentalProtectionBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(EnvironmentalProtectionViewModel::class.java)
+
+        val items = listOf(RecycleProcess("금속 캔", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)),
+            RecycleProcess("종이팩", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)),
+
+
+            RecycleProcess("페트병", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)),
+
+
+            RecycleProcess("플라스틱", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)),
+
+
+            RecycleProcess("유리병", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)),
+
+
+            RecycleProcess("비닐", listOf(ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!,
+                ContextCompat.getDrawable(requireContext(), R.drawable.can)!!)))
+
+
+
+        val adapter = ProcessRecyclerAdapter(items, childFragmentManager, lifecycle)
+        binding.recyclerview.adapter = adapter
+
+
+
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecyclingProcessFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RecyclingProcessFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
+
 }

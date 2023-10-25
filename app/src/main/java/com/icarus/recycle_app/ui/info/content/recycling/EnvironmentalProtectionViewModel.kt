@@ -1,4 +1,4 @@
-package com.icarus.recycle_app.ui.info.content.environmental_protection
+package com.icarus.recycle_app.ui.info.content.recycling
 
 import androidx.lifecycle.ViewModel
 

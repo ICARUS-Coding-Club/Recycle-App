@@ -45,6 +45,9 @@ class InProgressFragment : Fragment() {
 
         viewModel.selectedCard.observe(viewLifecycleOwner) {
             cardStackAdapter.addCardItem(it)
+            if(cardStackAdapter.getPresentCardsSize() == 5)
+                Toast.makeText(requireContext(),"패배하셨습니다",Toast.LENGTH_SHORT).show()
+            Log.d("testx", cardStackAdapter.getPresentCardsSize().toString())
         }
 
         viewModel.score.observe(viewLifecycleOwner) {
@@ -54,12 +57,6 @@ class InProgressFragment : Fragment() {
 
         val serverConnectHelper = ServerConnectHelper()
         val count = 30
-
-        viewModel.selectCards.observe(viewLifecycleOwner){
-            if(it.size==10){
-                Toast.makeText(context,"디짐ㅅㅂ",Toast.LENGTH_SHORT).show()
-            }
-        }
 
         serverConnectHelper.requestTrashesRandom = object: ServerConnectHelper.RequestTrashes {
             override fun onSuccess(trashes: List<Trash>) {
@@ -77,6 +74,7 @@ class InProgressFragment : Fragment() {
                                 cardStackAdapter.click(checkedIndex)
                                 viewModel.selectRandomCard()
                             } else {
+                                viewModel.subScore()
                                 Toast.makeText(requireContext(), "틀렸습니다!", Toast.LENGTH_SHORT).show()
                             }
                         }

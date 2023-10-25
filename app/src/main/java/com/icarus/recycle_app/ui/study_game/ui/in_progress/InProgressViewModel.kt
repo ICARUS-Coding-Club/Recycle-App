@@ -65,6 +65,10 @@ class InProgressViewModel : ViewModel() {
         _score.value = _score.value?.plus(10)
     }
 
+    fun subScore() {
+        _score.value = _score.value?.plus(-10)
+    }
+
 
     fun setCardListRandom(count: Int) {
         val cardCreator = CardCreator(count)
@@ -91,7 +95,7 @@ class InProgressViewModel : ViewModel() {
                 rawTime += 2L
                 _elapsedTime.postValue(TimeFormatConvertor.convertToTimeFormat(rawTime))
 
-                if (rawTime % 10000 == 0L) {
+                if (rawTime % 10000 +  == 0L) {
                     selectRandomCard()
                 }
             }

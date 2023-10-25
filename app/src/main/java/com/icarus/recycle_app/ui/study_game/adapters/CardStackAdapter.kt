@@ -45,6 +45,16 @@ class CardStackAdapter() : RecyclerView.Adapter<CardStackAdapter.ViewHolder>() {
         notifyItemChanged(index)
     }
 
+    fun getPresentCardsSize(): Int{
+        var count = 0
+        for(card in showCards){
+            if(!card.flag){
+                count++
+            }
+        }
+        return count
+    }
+
     fun addCardItem(item: CarutaCard) {
         showCards.add(item)
         notifyItemChanged(showCards.size - 1)

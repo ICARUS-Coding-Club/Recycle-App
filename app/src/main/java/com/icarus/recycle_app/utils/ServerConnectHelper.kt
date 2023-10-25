@@ -49,6 +49,8 @@ class ServerConnectHelper {
 
     var requestEnvironmentTip: RequestEnvironment? = null
 
+    var requestTrashesRandom: RequestTrashes? = null
+
 
 
     init {
@@ -288,6 +290,34 @@ class ServerConnectHelper {
     }
 
 
+    fun getRandomTrashes(count: Int) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try{
+                val call = apiService.getRandomTrashes(count)
+                val response = call.execute()
+
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        requestTrashesRandom?.onSuccess(response.body()!!)
+                    }
+                }else {
+                    withContext(Dispatchers.Main) {
+                        requestTrashesRandom?.onFailure()
+                    }
+                }
+            }catch (e: Exception){
+                withContext(Dispatchers.Main) {
+                    requestTrashesRandom?.onFailure()
+                }
+            }
+
+        }
+
+
+    }
+
+
     /**
      * retrofit api 인터페이스
      */
@@ -321,6 +351,10 @@ class ServerConnectHelper {
 
         @GET("news_send")
         fun getEnvironmentTip(): Call<List<EnvironmentTip>>
+
+
+        @GET("random_trash_send")
+        fun getRandomTrashes(@Query("random_id")count: Int): Call<List<Trash>>
     }
 
     /**

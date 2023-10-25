@@ -63,6 +63,8 @@
             android:exported="false" /> <!-- 검색 화면 액티비티 -->
         <activity
             android:name=".ui.onboarding.OnBoardingActivity"
+            android:exported="true"/>
+        <activity android:name=".ui.setting.BookmarkListActivity"
             android:exported="true" />
         <activity
             android:name=".ui.splash.SplashActivity"

@@ -38,7 +38,7 @@ class DeveloperInfoActivity : AppCompatActivity() {
 
     }
 
-    private lateinit var binding: ActivityDeveloperInfoBinding
+        private lateinit var binding: ActivityDeveloperInfoBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDeveloperInfoBinding.inflate(layoutInflater)

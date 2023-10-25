@@ -255,7 +255,7 @@ class HomeFragment : Fragment() {
 
     private fun updateBookmarkList(){
         // 북마크 목록 데이터를 업데이트합니다.
-        val filteredKeys = AppManager.getFavorites().filter { it.value == true }.keys.joinToString(" ")
+        val filteredKeys = AppManager.get8Favorites().filter { it.value }.keys.joinToString(" ")
 
 
         try {

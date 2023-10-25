@@ -46,6 +46,7 @@ class HomeAdapter(
 
         holder.imageView.outlineProvider = ViewOutlineProvider.BACKGROUND
         holder.imageView.clipToOutline = true
+
     }
 
     override fun getItemCount(): Int {

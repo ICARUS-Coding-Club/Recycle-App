@@ -12,11 +12,15 @@ import android.view.ViewGroup
 import android.widget.GridView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.icarus.recycle_app.AppManager
@@ -28,6 +32,7 @@ import com.icarus.recycle_app.dto.Address
 import com.icarus.recycle_app.dto.Trash
 import com.icarus.recycle_app.ui.category.CategoryResultActivity
 import com.icarus.recycle_app.ui.search.base.SearchListActivity
+import com.icarus.recycle_app.ui.study_game.StudyGameActivity
 import com.icarus.recycle_app.utils.DataManager
 import com.icarus.recycle_app.utils.ServerConnectHelper
 import java.lang.Exception
@@ -99,19 +104,18 @@ class HomeFragment : Fragment() {
         }
 
         binding.svCl1.setOnClickListener {
-
             startActivity(Intent(activity,SearchListActivity::class.java))
 
+        }
+
+        binding.ivGame.setOnClickListener {
+            requireActivity().startActivity(Intent(requireContext(), StudyGameActivity::class.java))
         }
 
 
         // 주소 검색
         binding.ibAddressSearch.setOnClickListener {
-
             dialogFragment.show(parentFragmentManager, "dialog_tag")
-
-
-
         }
 
         val searchView = binding.svCl1

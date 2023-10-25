@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Recycle_App"
         tools:targetApi="31">
         <activity
+            android:name=".ui.study_game.StudyGameActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.setting.LicenseActivity"
             android:exported="false" />
         <activity
@@ -62,7 +65,7 @@
             android:name=".ui.onboarding.OnBoardingActivity"
             android:exported="true"/>
         <activity android:name=".ui.setting.BookmarkListActivity"
-            android:exported="false"/>
+            android:exported="true" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
@@ -78,7 +81,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

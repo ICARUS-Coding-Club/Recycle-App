@@ -27,8 +27,8 @@ object PlaceholderContent {
         ))
         addItem(PlaceholderItem(
             "2",
-            "환경 관련 팁 안내",
-            "환경 관련 팁을 볼 수 있습니다.",
+            "환경 관련 뉴스 안내",
+            "환경 관련 인터넷 뉴스를 모아서 볼 수 있습니다.",
             EnvironmentTipFragment(),
             R.drawable.info_3
         ))

@@ -523,7 +523,7 @@ object LicenseObject {
                 "receive copies from any such party to do so, with the only requirement being\n" +
                 "that this copyright notice remain intact.")
 
-        addItem("Splash and ETC Images", "Freepik, macrovector, vector4stock, stroyset, rawpixel, redgreystock, rawpixel.com")
+        addItem("Splash and ETC Images", "Freepik, macrovector, vector4stock, stroyset, rawpixel, redgreystock, rawpixel.com, vector_corp")
     }
 
     private fun addItem(title: String, item: String) {

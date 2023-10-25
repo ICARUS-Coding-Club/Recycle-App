@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.info.content.environmental_protection.EnvironmentalProtectionFragment">
 
     <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:id="@+id/tvTitle"
+        android:paddingVertical="15dp"
+        android:layout_marginVertical="15dp"
+        android:layout_marginHorizontal="30dp"
+        android:background="@drawable/custom_circle_background_gray"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:text="재활용품 재생 과정 알아보기" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:layout_marginVertical="10dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/cv_process_item"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

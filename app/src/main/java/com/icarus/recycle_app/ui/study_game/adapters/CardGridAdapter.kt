@@ -52,18 +52,25 @@ class CardGridAdapter(private val selectCards: MutableList<CarutaCard>) : Recycl
 
     inner class ViewHolder(private val viewBinding: CarutaCardItemBinding) : RecyclerView.ViewHolder(viewBinding.root){
         fun binding(item: CarutaCard) {
-            if (item.source.startsWith("#") && item.source.length in 7..9) {
-                val colorDrawable = ColorDrawable(Color.parseColor(item.source))
+            if (item.color.startsWith("#") && item.color.length in 7..9) {
+                val colorDrawable = ColorDrawable(Color.parseColor(item.color))
                 Glide.with(viewBinding.root)
                     .load(colorDrawable)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
                     .into(viewBinding.imageView)
             } else {
                 Glide.with(viewBinding.root)
-                    .load(item.source)
+                    .load(item.color)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
                     .into(viewBinding.imageView)
             }
+
+            Glide.with(viewBinding.root)
+                .load(item.source)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(16)))
+                .into(viewBinding.ivTrash)
+
+
         }
     }
 }

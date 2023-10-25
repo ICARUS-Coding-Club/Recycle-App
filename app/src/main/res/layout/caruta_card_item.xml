@@ -25,7 +25,14 @@
             android:layout_width="70dp"
             android:layout_height="90dp" />
 
-
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/ivTrash"
+            android:layout_margin="10dp"
+            android:src="@color/white_grey"
+            android:scaleType="centerCrop"
+            android:layout_width="60dp"
+            android:layout_height="80dp" />
 
 
     </androidx.cardview.widget.CardView>

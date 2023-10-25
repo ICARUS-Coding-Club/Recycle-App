@@ -55,6 +55,12 @@ class InProgressFragment : Fragment() {
         val serverConnectHelper = ServerConnectHelper()
         val count = 30
 
+        viewModel.selectCards.observe(viewLifecycleOwner){
+            if(it.size==10){
+                Toast.makeText(context,"디짐ㅅㅂ",Toast.LENGTH_SHORT).show()
+            }
+        }
+
         serverConnectHelper.requestTrashesRandom = object: ServerConnectHelper.RequestTrashes {
             override fun onSuccess(trashes: List<Trash>) {
                 Log.d("testx", "통신 성공")

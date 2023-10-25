@@ -51,6 +51,8 @@ class ProcessRecyclerAdapter(private val items: List<RecycleProcess>, private va
             binding.vpTitleImage.adapter = viewPagerAdapter
             binding.indicator.setViewPager(binding.vpTitleImage)
 
+            binding.tvState.text = item.type
+
 
         }
     }

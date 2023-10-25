@@ -299,22 +299,23 @@ class ServerConnectHelper {
 
                 if (response.isSuccessful) {
                     withContext(Dispatchers.Main) {
-                        requestTrashesRandom?.onSuccess(response.body()!!)
+                        val items = response.body()!!
+                        Log.d("testx", items.size.toString())
+                        requestTrashesRandom?.onSuccess(items)
                     }
                 }else {
                     withContext(Dispatchers.Main) {
                         requestTrashesRandom?.onFailure()
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception){
                 withContext(Dispatchers.Main) {
-                    requestTrashesRandom?.onFailure()
+                    Log.d("testx", e.toString())
+
                 }
             }
 
         }
-
-
     }
 
 

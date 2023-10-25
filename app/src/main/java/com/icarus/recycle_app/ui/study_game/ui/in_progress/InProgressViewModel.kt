@@ -32,45 +32,46 @@ class InProgressViewModel : ViewModel() {
     private val _selectCards = MutableLiveData<MutableList<CarutaCard>>()
     val selectCards: LiveData<MutableList<CarutaCard>> get() = _selectCards
 
+
+
+
     init {
 
-        val serverConnectHelper = ServerConnectHelper()
+    }
 
-        val count = 30
 
-        serverConnectHelper.requestTrashesRandom = object: ServerConnectHelper.RequestTrashes {
-            override fun onSuccess(trashes: List<Trash>) {
-                val showCards = mutableListOf<CarutaCard>()
-                val selectCards = mutableListOf<CarutaCard>()
-                Log.d("testx", "성공")
+    fun setCardList(trashes: List<Trash>) {
 
-                for (trash in trashes) {
-                    Log.d("testx", trash.toString())
+        val showCards = mutableListOf<CarutaCard>()
+        val selectCards = mutableListOf<CarutaCard>()
 
-                    val upCard = CarutaCard(source = trash.image)
-                    showCards.add(upCard
-                    )
+        Log.d("testx", "쓰레기 받아서 리스트 생성 완료")
 
-                    val downCard = CarutaCard(description = trash.type)
-                    selectCards.add(downCard)
-                }
+        for (trash in trashes) {
+            Log.d("testx", trash.toString())
 
-                val cardCreator = CardCreator(trashes.size, showCards, selectCards)
-                _showCards.value = cardCreator.getConversionShowCards()
-                _selectCards.value = cardCreator.getConversionSelectCards()
-                selectRandomCard()
-            }
+            trash.type = trash.type.replace("분류: ", "")
+            val upCard = CarutaCard(description = trash.type)
+            showCards.add(upCard)
 
-            override fun onFailure() {
-                Log.d("testx", "실패")
-                val cardCreator = CardCreator(count)
-                _showCards.value = cardCreator.getConversionShowCards()
-                _selectCards.value = cardCreator.getConversionSelectCards()
-                selectRandomCard()
-            }
+            val downCard = CarutaCard(source = trash.image)
+            selectCards.add(downCard)
         }
 
-        serverConnectHelper.getRandomTrashes(count)
+
+
+        val cardCreator = CardCreator(trashes.size, showCards, selectCards)
+        _showCards.value = cardCreator.getConversionShowCards()
+        _selectCards.value = cardCreator.getConversionSelectCards()
+        selectRandomCard()
+    }
+
+
+    fun setCardListRandom(count: Int) {
+        val cardCreator = CardCreator(count)
+        _showCards.value = cardCreator.getConversionShowCards()
+        _selectCards.value = cardCreator.getConversionSelectCards()
+        selectRandomCard()
     }
 
     fun selectRandomCard() {
@@ -88,10 +89,10 @@ class InProgressViewModel : ViewModel() {
         uiScope.launch {
             while (true) {
                 delay(1)
-                rawTime += 1L
+                rawTime += 2L
                 _elapsedTime.postValue(TimeFormatConvertor.convertToTimeFormat(rawTime))
 
-                if (rawTime % 500 == 0L) {
+                if (rawTime % 10000 == 0L) {
                     selectRandomCard()
                 }
             }

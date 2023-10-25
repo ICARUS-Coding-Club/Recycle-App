@@ -1,5 +1,6 @@
 package com.icarus.recycle_app.ui.study_game.utils
 
+import android.util.Log
 import com.icarus.recycle_app.ui.study_game.classes.CarutaCard
 import kotlin.random.Random
 
@@ -17,11 +18,12 @@ class CardCreator(
     }
 
     private fun conversionCardList() {
+        Log.d("testx", testMode.toString())
         if (testMode) {
             showCards = mutableListOf()
             selectCards = mutableListOf()
 
-            for (i: Int in 0..count) {
+            for (i: Int in 0 until count) {
                 val randomColor = getRandomColor()
                 val showCard = CarutaCard(i.toString(), i.toString(), i.toString(), randomColor)
                 val selectCard = CarutaCard(i.toString(), i.toString(), i.toString(), randomColor)
@@ -30,7 +32,7 @@ class CardCreator(
                 selectCards?.add(selectCard)
             }
         } else {
-            for (i: Int in 0..count) {
+            for (i: Int in 0 until count) {
                 val randomColor = getRandomColor()
 
                 showCards?.let {

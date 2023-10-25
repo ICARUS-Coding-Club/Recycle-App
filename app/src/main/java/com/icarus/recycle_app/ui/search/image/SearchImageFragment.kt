@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -35,6 +36,7 @@ import com.icarus.recycle_app.ui.search.SearchViewModel
 import com.icarus.recycle_app.ui.search.image.trash_request.ImageResultActivity
 import com.icarus.recycle_app.utils.CameraHelper
 import com.icarus.recycle_app.utils.LoadingUtil
+import com.icarus.recycle_app.utils.PathUtil
 import com.icarus.recycle_app.utils.ServerConnectHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -130,6 +132,7 @@ class SearchImageFragment : Fragment() {
 
         val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
         val slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+
         viewModel.isClickedTextInfo.observe(requireActivity()) {
             if (viewModel.isClickedTextInfo.value == true) {
                 binding.tvInfoChild.startAnimation(slideDown)
@@ -223,7 +226,8 @@ class SearchImageFragment : Fragment() {
 
             // 서버 요청 실행
             viewModel.imageResultUri.value?.let {
-                serverConnectHelper.uploadImage(it,requireContext())
+                val byteArray = PathUtil.uriToByteArray(requireContext(), it)
+                serverConnectHelper.uploadImage(byteArray!!)
             }
         }
 

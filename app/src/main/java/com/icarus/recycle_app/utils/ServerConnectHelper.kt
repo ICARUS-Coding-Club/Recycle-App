@@ -104,53 +104,35 @@ class ServerConnectHelper {
         }
     }
 
-        fun uploadImage(imageUri: Uri, context: Context) {
-            val cursor = context.contentResolver.query(imageUri, null, null, null, null)
-            cursor?.use {
-                if (it.moveToFirst()) {
-                    val dataIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                    val path = it.getString(dataIndex)
+    fun uploadImage(byteArray: ByteArray) {
+        val uid = AppManager.getUid()
 
-                    if (path != null && !path.isEmpty()) {
-                        val file = File(path)
-                        val uid = AppManager.getUid()
-                        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                        val imagePart = MultipartBody.Part.createFormData("image", file.name, requestFile)
-                        val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
+        // ByteArray to RequestBody
+        val requestFile = byteArray.toRequestBody("image/jpeg".toMediaTypeOrNull())
 
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                val call = apiService.uploadImageWithUid(imagePart, uidRequestBody)
-                                val response = call.execute()
+        // Using RequestBody to create MultipartBody.Part
+        val imagePart = MultipartBody.Part.createFormData("image", "myImage.jpeg", requestFile)
+        val uidRequestBody = uid?.toRequestBody("text/plain".toMediaTypeOrNull())
 
-                                if (response.isSuccessful) {
-                                    withContext(Dispatchers.Main) {
-                                        // 성공적으로 데이터를 가져왔을 때의 처리
-                                        requestImageUpload?.onSuccess(response.body()!!)
-                                    }
-                                } else {
-                                    withContext(Dispatchers.Main) {
-                                        // 실패 시 처리
-                                        requestImageUpload?.onFailure()
-                                    }
-                                }
-                            } catch (e: Exception) {
-                                // 그 외 예외 발생 시 처리
-                                withContext(Dispatchers.Main) {
-                                    requestImageUpload?.onFailure()
-                                    Log.e("NetworkError", "예외 발생: ${e.message}")
-                                    e.printStackTrace()
-                                }
-                            }
-                        }
-                    } else {
-                        // 에러 처리: 파일 경로가 null 또는 빈 문자열입니다.
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val call = apiService.uploadImageWithUid(imagePart, uidRequestBody)
+                val response = call.execute()
+
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        requestImageUpload?.onSuccess(response.body()!!)
                     }
                 } else {
-                    // 에러 처리: Cursor가 비어 있습니다.
+                    withContext(Dispatchers.Main) {
+                        requestImageUpload?.onFailure()
+                    }
                 }
+            } catch (e: Exception) {
+                Log.d("testx", e.toString())
             }
         }
+    }
 
 
 

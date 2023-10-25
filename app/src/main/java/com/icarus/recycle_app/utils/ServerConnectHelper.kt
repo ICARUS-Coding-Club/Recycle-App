@@ -263,6 +263,30 @@ class ServerConnectHelper {
     }
 
 
+    fun getGovermentBlog(){
+        CoroutineScope(Dispatchers.IO).launch {
+            try{
+                val call = apiService.getGovermentBlog()
+                val response = call.execute()
+
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        requestEnvironmentTip?.onSuccess(response.body()!!)
+                    }
+                }else {
+                    withContext(Dispatchers.Main) {
+                        requestEnvironmentTip?.onFailure()
+                    }
+                }
+            }catch (e: Exception){
+                withContext(Dispatchers.Main) {
+                    requestEnvironmentTip?.onFailure()
+                }
+            }
+
+        }
+    }
+
 
 
     fun getEnvironmentTip(){
@@ -353,6 +377,8 @@ class ServerConnectHelper {
         @GET("news_send")
         fun getEnvironmentTip(): Call<List<EnvironmentTip>>
 
+        @GET("blog_send")
+        fun getGovermentBlog(): Call<List<EnvironmentTip>>
 
         @GET("random_trash_send")
         fun getRandomTrashes(@Query("random_id")count: Int): Call<List<Trash>>

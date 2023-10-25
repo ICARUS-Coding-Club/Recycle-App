@@ -12,6 +12,7 @@
         android:minHeight="250dp" />
 
     <me.relex.circleindicator.CircleIndicator3
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@id/vpTitleImage"
         android:id="@+id/indicator"
         android:layout_height="48dp"

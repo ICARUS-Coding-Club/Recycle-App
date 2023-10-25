@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.icarus.recycle_app.AppManager
+import com.icarus.recycle_app.AppManager.dpToPx
 import com.icarus.recycle_app.R
 import com.icarus.recycle_app.adapters.AddressRecyclerViewAdapter
 import com.icarus.recycle_app.adapters.HomeAdapter
@@ -59,6 +60,10 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        Glide.with(requireContext())
+            .load(ContextCompat.getDrawable(requireContext(), R.drawable.bg_game))
+            .apply(RequestOptions().transform(RoundedCorners(requireContext().dpToPx(30))))
+            .into(binding.ivGame)
 
         homeAdapter = HomeAdapter(requireContext())
 

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.icarus.recycle_app.AppManager.dpToPx
 import com.icarus.recycle_app.R
 
 class ProcessImageFragment(private val drawable: Drawable) : Fragment() {
@@ -20,7 +23,10 @@ class ProcessImageFragment(private val drawable: Drawable) : Fragment() {
 
         val view = inflater.inflate(R.layout.cv_image_view, container, false)
         val imageView = view.findViewById<ImageView>(R.id.ivContent)
-        Glide.with(requireContext()).load(drawable).into(imageView)
+        Glide.with(requireContext())
+            .load(drawable)
+            .apply(RequestOptions().transform(RoundedCorners(requireContext().dpToPx(30))))
+            .into(imageView)
 
         return view
     }

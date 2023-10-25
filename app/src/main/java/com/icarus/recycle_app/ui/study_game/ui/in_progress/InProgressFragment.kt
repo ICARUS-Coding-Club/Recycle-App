@@ -47,6 +47,10 @@ class InProgressFragment : Fragment() {
             cardStackAdapter.addCardItem(it)
         }
 
+        viewModel.score.observe(viewLifecycleOwner) {
+            viewBinding.inProgressState.tvCurrentScore.text = it.toString()
+        }
+
 
         val serverConnectHelper = ServerConnectHelper()
         val count = 30
@@ -63,7 +67,7 @@ class InProgressFragment : Fragment() {
                             val checkedIndex = cardStackAdapter.checkingCard(id)
                             if (checkedIndex != -1) {
                                 cardGridAdapter?.changeItemVisible(position)
-
+                                viewModel.addScore()
                                 cardStackAdapter.click(checkedIndex)
                                 viewModel.selectRandomCard()
                             } else {

@@ -33,11 +33,8 @@ class InProgressViewModel : ViewModel() {
     val selectCards: LiveData<MutableList<CarutaCard>> get() = _selectCards
 
 
-
-
-    init {
-
-    }
+    private val _score = MutableLiveData(0)
+    val score: LiveData<Int> get() = _score
 
 
     fun setCardList(trashes: List<Trash>) {
@@ -58,12 +55,14 @@ class InProgressViewModel : ViewModel() {
             selectCards.add(downCard)
         }
 
-
-
         val cardCreator = CardCreator(trashes.size, showCards, selectCards)
         _showCards.value = cardCreator.getConversionShowCards()
         _selectCards.value = cardCreator.getConversionSelectCards()
         selectRandomCard()
+    }
+
+    fun addScore() {
+        _score.value = _score.value?.plus(10)
     }
 
 

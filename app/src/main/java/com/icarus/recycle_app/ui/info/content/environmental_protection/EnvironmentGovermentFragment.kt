@@ -56,6 +56,8 @@ class EnvironmentGovermentFragment : Fragment() {
             if (viewModel.environmentTipList.value?.isNotEmpty() == true) {
                 val adapter = EnvironmentRecyclerViewAdapter(viewModel.environmentTipList.value)
 
+                Log.d("test", viewModel.environmentTipList.value.toString())
+
                 adapter.listener = object : EnvironmentRecyclerViewAdapter.OnItemClickListener {
                     override fun onItemClicked(pos: Int) {
 
@@ -63,7 +65,7 @@ class EnvironmentGovermentFragment : Fragment() {
 
                         val transaction = parentFragmentManager.beginTransaction()
                         transaction.setCustomAnimations(R.anim.slide_in_right, 0, 0, 0)
-                        transaction.replace(R.id.flFragment, EnvironmentTipContentFragment())
+                        transaction.replace(R.id.flFragment, EnvironmentGovermentContentFragment())
                         transaction.addToBackStack(null)
                         transaction.commit()
                     }

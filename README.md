@@ -283,7 +283,7 @@
 ## 인공지능 Git Hub  
 
 ```bash
-https://github.com/ICARUS-Coding-Club/Recycle-Server
+https://github.com/ICARUS-Coding-Club/Recycle-AI
 ```
 
 </br>
